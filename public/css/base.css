@@ -1,0 +1,98 @@
+:root {
+  --teal          : #1ABC9C;
+  --teal-darker   : #16A085;
+  --green         : #2ECC71;
+  --green-darker  : #27AE60;
+  --blue          : #3498DB;
+  --blue-darker   : #2980B9;
+  --purple        : #9B59B6;
+  --purple-darker : #8E44AD;
+  --yellow        : #F1C40F;
+  --yellow-darker : #F39C12;
+  --orange        : #E67E22;
+  --orange-darker : #D35400;
+  --red           : #E74C3C;
+  --red-darker    : #C0392B;
+  --gray          : #95A5A6;
+  --gray-darker   : #7F8C8D;
+
+  --white         : #ECF0F1;
+  --white-darker  : #BDC3C7;
+
+  --dark          : #34495E;
+  --dark-darker   : #2C3E50;
+
+  /* Template Variable Colors */
+  --bg            : var(--teal-darker);
+  --text-light    : var(--white);
+  --text-dark     : var(--dark-darker);
+
+  --border-radius : 1.2em;
+  
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg);
+  color: var(--text-light);
+}
+
+body * {
+  font-family: 'Quicksand', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 0.3em;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 2.5em;
+}
+
+h2 {
+  font-size: 2.1em;
+}
+
+h3 {
+  font-size: 1.7em;
+}
+
+h4 {
+  font-size: 1.4em;
+}
+
+h5 {
+  font-size: 1.1em;
+}
+
+h6 {
+  font-size: 0.8em;
+}
+
+p {
+  font-size: 1.25em;
+  margin-bottom: 0.3em;
+}
+
+span, i, div, input, button, table, th, td {
+  font-size: 1.25em;
+}
+
+.display-grid {
+  display: grid;
+}
+
+.display-flex {
+  display: flex;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.align-items-center {
+  align-items: center;
+}

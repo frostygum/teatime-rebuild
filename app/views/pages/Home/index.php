@@ -1,5 +1,5 @@
 <h1>Halaman Home</h1>
 
-<p>
-    <?= $title ?>
+<p class="text">
+  <?= $title ?>
 </p>

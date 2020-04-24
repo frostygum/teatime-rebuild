@@ -22,7 +22,7 @@
   --dark          : #34495E;
   --dark-darker   : #2C3E50;
 
-  /* Template Variable Colors */
+  /* !Template Variable Colors */
   --bg            : var(--teal-darker);
   --text-light    : var(--white);
   --text-dark     : var(--dark-darker);
@@ -81,6 +81,8 @@ span, i, div, input, button, table, th, td {
   font-size: 1.25em;
 }
 
+/* !DISPLAY CLASSES */
+
 .display-grid {
   display: grid;
 }
@@ -89,10 +91,74 @@ span, i, div, input, button, table, th, td {
   display: flex;
 }
 
+/* !JUSTIFY CLASSES */
+
+.justify-content-start {
+  justify-content: start;
+}
+
 .justify-content-center {
   justify-content: center;
 }
 
+.justify-content-end {
+  justify-content: end;
+}
+
+.justify-content-space-between {
+  justify-content: space-between;
+}
+
+.justify-content-space-around {
+  justify-content: space-around;
+}
+
+.justify-content-space-evenly {
+  justify-content: space-evenly;
+}
+
+/* !ALIGN CLASSES */
+
+.align-items-start {
+  align-items: start;
+}
+
 .align-items-center {
   align-items: center;
+}
+
+.align-items-end {
+  align-items: end;
+}
+
+/* !PADDING CLASSES */
+
+.p-0 {
+  padding: 0;
+}
+
+.px-0 {
+  padding-left: 0;
+  padding-right: 0;
+} 
+
+.py-0 {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* !MARGIN CLASSES */
+
+.m-0 {
+  margin: 0;
+}
+
+.mx-0 {
+  margin-left: 0;
+  margin-right: 0;
+} 
+
+.my-0 {
+  margin-top: 0;
+  margin-bottom: 0;
 }

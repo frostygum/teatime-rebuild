@@ -857,8 +857,18 @@ td {
     background-color: var(--dark) !important;
 }
 
+/* !TEXT COLOR */
+
+.text-light {
+    color: var(--light) !important;
+}
+
+.text-dark {
+    color: var(--dark) !important;
+}
+
 /* !SHADOWS */
 
 .shadow {
-    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
 }

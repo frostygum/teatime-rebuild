@@ -867,6 +867,30 @@ td {
     color: var(--dark) !important;
 }
 
+.text-red {
+    color: var(--red) !important;
+}
+
+.text-yellow {
+    color: var(--yellow) !important;
+}
+
+.text-orange {
+    color: var(--orange) !important;
+}
+
+.text-green {
+    color: var(--green) !important;
+}
+
+.text-teal {
+    color: var(--teal) !important;
+}
+
+.text-blue {
+    color: var(--blue) !important;
+}
+
 /* !SHADOWS */
 
 .shadow {

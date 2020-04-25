@@ -73,24 +73,28 @@ h2 {
 }
 
 h3 {
-    font-size: 3em;
+    font-size: 3rem;
 }
 
 h4 {
-    font-size: 2.5em;
+    font-size: 2.5rem;
 }
 
 h5 {
-    font-size: 2em;
+    font-size: 2rem;
 }
 
 h6 {
-    font-size: 1.5em;
+    font-size: 1.5rem;
 }
 
 p {
     font-size: 1.2rem;
     margin-bottom: 0.2rem;
+}
+
+small {
+    font-size: 0.7rem;
 }
 
 span,
@@ -210,28 +214,39 @@ td {
 
 .btn {
     padding: 0.4rem 1.2rem;
-    background-color: var(--light-darker);
-    color: var(--dark-darker);
+    background-color: var(--secondary);
+    color: var(--light);
     font-size: 1rem;
     text-align: center;
     border: none;
     border-radius: var(--border-radius);
     cursor: pointer;
     font-weight: 500;
-    min-width: 50px;
+    min-width: 3rem;
     transition: All 0.1s linear;
 }
 
 .btn-lg {
-    font-size: 1.4rem;
+    padding: 0.5rem 1.3rem;
+    font-size: 1.3rem;
 }
 
 .btn.block {
     width: 100%;
 }
 
+.btn.disabled, .btn:disabled {
+    background-color: var(--light-darker) !important;
+    color: var(--light) !important;
+    cursor: not-allowed !important;
+}
+
+.btn.disabled:hover, .btn:disabled:hover {
+    background-color: var(--light-darker) !important;
+}
+
 .btn:hover {
-    background-color: var(--gray)
+    background-color: var(--gray-darker)
 }
 
 .btn.btn-primary {
@@ -241,15 +256,6 @@ td {
 
 .btn.btn-primary:hover {
     background-color: var(--primary-hover);
-}
-
-.btn.btn-secondary {
-    background-color: var(--secondary);
-    color: var(--light);
-}
-
-.btn.btn-secondary:hover {
-    background-color: var(--secondary-hover);
 }
 
 .btn.btn-success {
@@ -297,6 +303,39 @@ td {
     background-color: var(--dark-darker);
 }
 
+/* !INPUTS */
+
+.input[type=text] {
+    border: 2px solid var(--light-darker);
+    background-color: var(--light);
+    padding: 0.5rem 0.8rem;
+    border-radius: var(--border-radius);
+    min-width: 3rem;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: All 0.1s linear;
+}
+
+.input[type=text]:hover, .input[type=text]:focus {
+    border-color: var(--primary);
+}
+
+.input[type=text].error {
+    border-color: var(--danger) !important;
+    color: var(--danger) !important;
+}
+
+.input[type=text].success {
+    border-color: var(--success) !important;
+    color: var(--success) !important;
+}
+
+.input[type=text].disabled, .input[type=text]:disabled  {
+    background-color: var(--light-darker) !important;
+    border-color: var(--light-darker) !important;
+    color: var(--gray-darker) !important;
+    cursor: not-allowed;
+}
 
 /* !DISPLAY CLASSES */
 
@@ -732,6 +771,90 @@ td {
 
 .text-right {
     text-align: right !important;
+}
+
+/* !TEXT DECORATION */
+
+.text-italic {
+    font-style: italic !important;
+}
+
+.text-bold {
+    font-style: bold !important;
+}
+
+.text-underline {
+    text-decoration: underline !important;
+}
+
+.text-uppercase {
+    text-decoration: uppercase !important;
+}
+
+.text-capitalize {
+    text-decoration: capitalize !important;
+}
+
+/* !BACKGROUND COLOR */
+
+.bg-light {
+    background-color: var(--light) !important;
+}
+
+.bg-primary {
+    background-color: var(--primary-hover) !important;
+}
+
+.bg-success {
+    background-color: var(--success-hover) !important;
+}
+
+.bg-warning {
+    background-color: var(--warning-hover) !important;
+}
+
+.bg-danger {
+    background-color: var(--danger-hover) !important;
+}
+
+.bg-info {
+    background-color: var(--info-hover) !important;
+}
+
+.bg-teal {
+    background-color: var(--teal) !important;
+}
+
+.bg-green {
+    background-color: var(--green) !important;
+}
+
+.bg-blue {
+    background-color: var(--blue) !important;
+}
+
+.bg-purple {
+    background-color: var(--purple) !important;
+}
+
+.bg-yellow {
+    background-color: var(--yellow) !important;
+}
+
+.bg-orange {
+    background-color: var(--orange) !important;
+}
+
+.bg-red {
+    background-color: var(--red) !important;
+}
+
+.bg-gray {
+    background-color: var(--gray) !important;
+}
+
+.bg-dark {
+    background-color: var(--dark) !important;
 }
 
 /* !SHADOWS */

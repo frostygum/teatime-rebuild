@@ -1,11 +1,10 @@
 <?php
 
-class Home extends Controller {
-    
-  public function index() {
-    $this->view('home/index', [
-      "title" => 'Home'
-    ]);
-  }
-
+class Home extends Controller
+{
+    public function index()
+    {
+        $page = $this::create_page('home', 'index');
+        $page->render();
+    }
 }

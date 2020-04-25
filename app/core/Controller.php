@@ -2,12 +2,12 @@
 
 require_once HELPER_PATH . 'view.php';
 
-abstract class Controller {
-
-  protected function view( $view, $data = [] ) {
-    View::view_template('header');
-    View::view_page($view, $data);
-    View::view_template('footer');
-  }
-  
+class Controller
+{
+    public static function create_page($folder = '', $page = 'index')
+    {
+        $page = new View($folder, $page);
+        $page->title = $folder;
+        return $page;
+    }
 }

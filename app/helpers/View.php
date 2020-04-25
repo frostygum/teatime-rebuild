@@ -35,6 +35,11 @@ class view
         return $content;
     }
 
+    public static function add_image($name, $extension)
+    {
+        return IMG_PATH . "$name.$extension";
+    }
+
     public function render()
     {
         foreach ($this->data as $key => $value) {

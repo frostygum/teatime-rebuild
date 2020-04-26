@@ -1,44 +1,46 @@
 <?php
 
+require_once HELPER_PATH . 'Router.php';
 class App
 {
-    protected $controller = 'Home';
-    protected $method = 'index';
-    protected $params = [];
-
     public function __construct()
     {
-        $url = $this->parseURL();
+        Router::get('/', function () {
+            $this::call('home')->index();
+        });
 
-        if (isset($url) && file_exists(CONTROLLER_PATH . ucfirst($url[0]) . '.php')) {
-            $this->controller = ucfirst($url[0]);
-            unset($url[0]);
-        }
+        Router::get('/kasir', function () {
+            $this::call('kasir')->index();
+        });
 
-        require_once CONTROLLER_PATH . $this->controller . '.php';
-        $this->controller = new $this->controller;
+        Router::get('/admin', function () {
+            $this::call('admin')->index();
+        });
 
-        if (isset($url[1])) {
-            if (method_exists($this->controller, $url[1])) {
-                $this->method = $url[1];
-                unset($url[1]);
-            }
-        }
+        Router::get('/manager', function () {
+            $this::call('manager')->index();
+        });
 
-        if (!empty($url)) {
-            $this->params = array_values($url);
-        }
+        Router::get('/sample', function () {
+            $this::call('sample')->index();
+        });
 
-        call_user_func_array([$this->controller, $this->method], $this->params);
+
+
+        Router::get('/error', function () {
+            echo 'error';
+        });
+
+        Router::set_err_page(function () {
+            header('location: ./error');
+        });
+
+        Router::run();
     }
 
-    public function parseURL()
+    public static function call(string $controller_name)
     {
-        if (isset($_GET['url'])) {
-            $url = rtrim($_GET['url'], '/');
-            $url = filter_var($url, FILTER_SANITIZE_URL);
-            $url = explode('/', $url);
-            return $url;
-        }
+        require_once CONTROLLER_PATH . $controller_name . '.php';
+        return new $controller_name;
     }
 }

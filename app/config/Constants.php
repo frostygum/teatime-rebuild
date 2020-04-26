@@ -1,9 +1,19 @@
 <?php 
 
+$link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://" . $_SERVER['HTTP_HOST'];
+
+if(isset($_SERVER['REQUEST_URI'])) {
+    $url = ltrim($_SERVER['REQUEST_URI'], '/');
+    $url = rtrim($url, '/');
+    $url = filter_var($url, FILTER_SANITIZE_URL);
+    $url = explode('/', $url);
+    $url = $url[0];
+}
+
 define("DS", DIRECTORY_SEPARATOR);
 define("ROOT", getcwd() . DS);
 define("APP_PATH", ROOT . 'app' . DS);
-define("PUBLIC_PATH", "public" . DS);
+define("PUBLIC_PATH", $link . '/'. $url . '/' . 'public/');
 
 define("HELPER_PATH", APP_PATH . "helpers" . DS);
 define("CONFIG_PATH", APP_PATH . "config" . DS);

@@ -1,6 +1,6 @@
 <?php
 
-require_once 'config/Constants.php';
+require_once 'config/constants.php';
 
 session_start();
 require_once CORE_PATH . 'App.php';

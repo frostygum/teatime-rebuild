@@ -2,7 +2,7 @@
 
 require_once CONFIG_PATH . 'dbConfig.php';
 
-class Db extends DBConfig
+class DB extends DBConfig
 {
     protected $connection;
     protected $show_errors = TRUE;

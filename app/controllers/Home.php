@@ -4,7 +4,7 @@ class Home extends Controller
 {
     public function index()
     {
-        $db = new db;
+        $db = new DB;
         $page = $this::create_page('home', 'index');
 
         $page->data = $db->executeSelectQuery('

@@ -6,4 +6,6 @@
     </p>
 
     <img src="<?= $this::add_image('logo', 'svg') ?>" />
+
+    <?php var_dump($data) ?>
 </div>

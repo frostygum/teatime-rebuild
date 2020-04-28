@@ -29,7 +29,7 @@ class view
     public static function add_template($template)
     {
         ob_start();
-        include VIEW_PATH . "templates/$template.php";
+        require_once VIEW_PATH . "templates/$template.php";
         $content = ob_get_contents();
         ob_end_clean();
         return $content;
@@ -47,12 +47,12 @@ class view
         }
 
         ob_start();
-        include VIEW_PATH . "pages/$this->folder/$this->page.php";
+        require_once VIEW_PATH . "pages/$this->folder/$this->page.php";
         $content = ob_get_contents();
         ob_end_clean();
 
         ob_start();
-        include VIEW_PATH . 'layout.php';
+        require_once VIEW_PATH . 'layout.php';
         $include = ob_get_contents();
         ob_end_clean();
         echo $include;

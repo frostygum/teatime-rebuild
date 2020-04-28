@@ -9,6 +9,10 @@ class App
             $this::call('home')->index();
         });
 
+        Router::get('/login', function () {
+            $this::call('login')->index();
+        });
+
         Router::get('/kasir', function () {
             $this::call('kasir')->index();
         });

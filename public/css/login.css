@@ -1,0 +1,17 @@
+.login-title {
+    margin-bottom: 4rem;
+}
+
+.login-title > .login-logo {
+    width: 18.1rem;
+    height: auto;
+}
+
+.login-title > .login-logo > img {
+    height: 4.3rem;
+    width: auto;
+}
+
+.login-card {
+    width: 500px;
+}

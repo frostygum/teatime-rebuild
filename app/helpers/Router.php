@@ -9,12 +9,12 @@ class Router
 
     public static function get($uri, $function)
     {
-        self::$routes[$uri] = ['method' => 'GET', 'function' => $function];
+        self::$routes[$uri . 'GET'] = ['method' => 'GET', 'function' => $function];
     }
 
     public static function post($uri, $function)
     {
-        self::$routes[$uri] = ['method' => 'POST', 'function' => $function];
+        self::$routes[$uri . 'POST'] = ['method' => 'POST', 'function' => $function];
     }
 
     public static function set_err_page($function)
@@ -29,11 +29,11 @@ class Router
 
     public static function run()
     {
-        self::$request = self::parseURL();
+        self::$request = self::parseURL() . $_SERVER["REQUEST_METHOD"];
 
         if (self::hasRoute(self::$request)) {
             if ($_SERVER["REQUEST_METHOD"] == self::$routes[self::$request]['method']) {
-                call_user_func(self::$routes[self::$request]['function']);
+                echo call_user_func(self::$routes[self::$request]['function']);
             } else {
                 if (self::$methodNotAllowed != null) {
                     call_user_func(self::$methodNotAllowed);

@@ -10,6 +10,7 @@
         <!-- ASSETS -->
         <link type="text/css" href="<?= CSS_PATH ?>style.css" rel="stylesheet">
         <link type="font/ttf" href="<?= FONT_PATH ?>Quicksand.ttf">
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
     </head>
 
     <body>

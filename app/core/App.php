@@ -5,12 +5,13 @@ class App
 {
     public function __construct()
     {
+        // GET ENDPOINTS
         Router::get('/', function () {
             $this::call('home')->index();
         });
 
         Router::get('/login', function () {
-            $this::call('login')->index();
+            $this::call('auth')->loginPage();
         });
 
         Router::get('/kasir', function () {
@@ -31,13 +32,20 @@ class App
 
 
 
-        Router::get('/error', function () {
-            echo 'error';
+        // API ENDPOINTS
+        Router::post('/api/auth', function () {
+            return $this::call('auth')->authenticate();
         });
 
-        Router::set_err_page(function () {
-            header('location: ./error');
-        });
+
+
+        // Router::get('/error', function () {
+        //     echo 'error';
+        // });
+
+        // Router::set_err_page(function () {
+        //     header('location: ./error');
+        // });
 
         Router::run();
     }

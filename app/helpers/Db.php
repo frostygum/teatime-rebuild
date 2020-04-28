@@ -39,12 +39,15 @@ class DB extends DBConfig
         $this->open_connection();
         $query_result = $this->connection->query($query);
         $result = [];
-        if ($query_result->num_rows > 0) {
-            while ($row = $query_result->fetch_assoc()) {
-                $result[] = $row;
+        if($query_result != false) {
+            if ($query_result->num_rows > 0) {
+                while ($row = $query_result->fetch_assoc()) {
+                    $result[] = $row;
+                }
             }
-        } else {
-            $this->print_error('Unable to prepare MySQL statement (check your syntax)' . $this->connection->error);
+        }
+        else {
+            $result[] = array("error" => $this->connection->error);
         }
         $this->close_connection();
         return $result;
@@ -56,7 +59,7 @@ class DB extends DBConfig
         $query_result = $this->connection->query($sql);
         $this->close_connection();
         if ($query_result == false) {
-            $this->print_error('Unable to prepare MySQL statement (check your syntax)' . $this->connection->error);
+            $result[] = array("error" => $this->connection->error);
         }
         return $query_result;
     }

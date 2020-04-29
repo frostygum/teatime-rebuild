@@ -18,12 +18,13 @@ class Auth extends Controller
         $result = [];
 
         if (isset($username) && isset($password)) {
-            $user = new User($username, $password);
+            $user = new User;
+            $res = $user->read_user($username, $password);
 
-            if($user->get_error() == null) {
+            if($res) {
                 $result['id'] = $user->get_id();
                 $result['username'] = $user->get_username();
-                $result['tipe'] = $user->get_id();
+                $result['tipe'] = $user->get_tipe();
             }
             else {
                 $result['code'] = 200;

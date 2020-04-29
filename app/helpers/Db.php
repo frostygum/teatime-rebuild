@@ -5,14 +5,14 @@ require_once CONFIG_PATH . 'dbConfig.php';
 class DB extends DBConfig
 {
     protected $connection;
-    protected $show_errors = TRUE;
+    protected $error = null;
 
-    public function open_connection()
+    private function open_connection()
     {
         $this->connection = new mysqli($this->host, $this->username, $this->password, $this->dbname);
 
         if ($this->connection->connect_error) {
-            $this->print_error('Could not connect to ' . $this->host . ' server');
+            $this->error = 'Could not connect to ' . $this->host . ' server';
         }
     }
 
@@ -25,13 +25,6 @@ class DB extends DBConfig
     {
         $this->open_connection();
         return $this->connection->escape_string($str);
-    }
-
-    public function print_error($error)
-    {
-        if ($this->show_errors) {
-            exit($error);
-        }
     }
 
     public function executeSelectQuery($query)
@@ -47,7 +40,8 @@ class DB extends DBConfig
             }
         }
         else {
-            $result[] = array("error" => $this->connection->error);
+            $this->error =  $this->connection->error;
+            return false;
         }
         $this->close_connection();
         return $result;
@@ -59,8 +53,13 @@ class DB extends DBConfig
         $query_result = $this->connection->query($sql);
         $this->close_connection();
         if ($query_result == false) {
-            $result[] = array("error" => $this->connection->error);
+            $this->error =  $this->connection->error;
+            return false;
         }
         return $query_result;
+    }
+
+    public function get_error() {
+        return $this->error;
     }
 }

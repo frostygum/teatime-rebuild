@@ -1,44 +1,35 @@
 <?php
 
-class Auth extends Controller {
-    public function loginPage() {
+require_once MODEL_PATH . 'User.php';
+
+class Auth extends Controller
+{
+    public function loginPage()
+    {
         $page = $this::create_page('login', 'index');
-        $page->render(); 
+        $page->render();
     }
 
-    public function authenticate() {
+    public function authenticate()
+    {
         $post = json_decode(file_get_contents('php://input'), true);
         $username = $post['username'];
         $password = $post['password'];
         $result = [];
 
-        if($username && $password) {
-            $db = new DB;
-            $query_result = $db->executeSelectQuery("
-                SELECT
-                    id, username, tipe, password
-                FROM 
-                    pengguna
-                WHERE   
-                    username = '$username'
-            ");
-            if(isset($query_result[0]['error'])) {
-                $result['code'] = '200';
-                $result['text'] = $query_result[0]['error'];
+        if (isset($username) && isset($password)) {
+            $user = new User($username, $password);
+
+            if($user->get_error() == null) {
+                $result['id'] = $user->get_id();
+                $result['username'] = $user->get_username();
+                $result['tipe'] = $user->get_id();
             }
             else {
-                if(password_verify($password, $query_result[0]['password'])) {
-                    $result['id'] = $query_result[0]['id'];
-                    $result['username'] = $query_result[0]['username'];
-                    $result['tipe'] = $query_result[0]['tipe'];
-    
-                    return json_encode($result);
-                }
-                else {
-                    $result['code'] = '200';
-                    $result['text'] = 'unauthorize';
-                }
+                $result['code'] = 200;
+                $result['text'] = $user->get_error();
             }
+
             return json_encode($result);
         }
     }

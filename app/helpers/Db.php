@@ -1,7 +1,6 @@
 <?php
 
 require_once CONFIG_PATH . 'dbConfig.php';
-
 class DB extends DBConfig
 {
     protected $connection;
@@ -10,8 +9,8 @@ class DB extends DBConfig
     private function open_connection()
     {
         $this->connection = new mysqli($this->host, $this->username, $this->password, $this->dbname);
-
-        if ($this->connection->connect_error) {
+        
+        if ($this->connection->connect_errno) {
             $this->error = 'Could not connect to ' . $this->host . ' server';
         }
     }
@@ -51,11 +50,11 @@ class DB extends DBConfig
     {
         $this->open_connection();
         $query_result = $this->connection->query($sql);
-        $this->close_connection();
-        if ($query_result == false) {
-            $this->error =  $this->connection->error;
+        if (!$query_result) {
+            $this-> error = $this->connection->error;
             return false;
         }
+        $this->close_connection();
         return $query_result;
     }
 

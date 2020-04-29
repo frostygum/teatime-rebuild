@@ -17,6 +17,21 @@ class Router
         self::$routes[$uri . 'POST'] = ['method' => 'POST', 'function' => $function];
     }
 
+    public static function put($uri, $function)
+    {
+        self::$routes[$uri . 'PUT'] = ['method' => 'PUT', 'function' => $function];
+    }
+
+    public static function delete($uri, $function)
+    {
+        self::$routes[$uri . 'DELETE'] = ['method' => 'DELETE', 'function' => $function];
+    }
+
+    public static function patch($uri, $function)
+    {
+        self::$routes[$uri . 'PATCH'] = ['method' => 'PATCH', 'function' => $function];
+    }
+
     public static function set_err_page($function)
     {
         self::$pageNotFound = $function;
@@ -50,12 +65,12 @@ class Router
         }
     }
 
-    private function hasRoute($uri)
+    private static function hasRoute($uri)
     {
         return array_key_exists($uri, self::$routes);
     }
 
-    private function parseURL()
+    private static function parseURL()
     {
         if (isset($_SERVER['REQUEST_URI'])) {
             $url = rtrim($_SERVER['REQUEST_URI'], '/');

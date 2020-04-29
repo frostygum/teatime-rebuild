@@ -3,9 +3,10 @@ CREATE TABLE Pengguna
 	id int NOT NULL AUTO_INCREMENT,
 	nama_pengguna varchar(255) NOT NULL,
 	tipe varchar(50) NOT NULL,
-	username varchar(255),
-	password varchar(255),
-	PRIMARY KEY (id)
+	username varchar(255) NOT NULL,
+	password varchar(255) NOT NULL,
+	PRIMARY KEY (id),
+	UNIQUE (username)
 )
 
 CREATE TABLE TransaksiPemesanan

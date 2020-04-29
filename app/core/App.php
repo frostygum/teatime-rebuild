@@ -37,7 +37,17 @@ class App
             return $this::call('auth')->authenticate();
         });
 
+        Router::put('/api/user', function () {
+            return $this::call('admin')->insert_user();
+        });
 
+        Router::delete('/api/user', function () {
+            return $this::call('admin')->delete_user();
+        });
+
+        Router::patch('/api/user', function () {
+            return $this::call('admin')->update_user();
+        });
 
         // Router::get('/error', function () {
         //     echo 'error';

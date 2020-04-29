@@ -1,7 +1,6 @@
 <?php
 
 require_once HELPER_PATH . 'View.php';
-require_once HELPER_PATH . 'Db.php';
 
 class Controller
 {

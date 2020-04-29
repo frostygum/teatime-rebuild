@@ -11,7 +11,7 @@
     <div class="display-grid justify-content-center grid-col-1">
         <div class="card bg-teal shadow text-light login-card py-4 px-2">
             <h5 class="text-center">Welcome Back!</h5>
-            
+
             <form id="login-form" method="post" class="px-4 pt-3">
                 <div class="py-1">
                     <p class="text-bold mt-0">username</p>
@@ -33,23 +33,22 @@
 
 <script type="text/javascript" defer>
     class LoginForm {
-        constructor(formId, input = []) {
+        constructor(formId, inputSettings = []) {
             this.form = document.getElementById(formId);
             this.validateSubmit = this.validateSubmit.bind(this);
-            this.input = input;
-            
-            if(this.input.length == 0) {
+            this.input = inputSettings;
+
+            if (this.input.length == 0) {
                 this.form.addEventListener("submit", (event) => {
                     event.preventDefault();
                 });
-            }
-            else {
+            } else {
                 this.form.addEventListener("submit", (event) => {
                     event.preventDefault();
                     this.validateSubmit(event, this.input);
                 });
             }
-            
+
         }
 
         validateSubmit(event, inputs = []) {
@@ -57,61 +56,85 @@
             let btn = formElements.button;
             let data = '';
             let isValidated = true;
-            
-            if(inputs.length != 0) {
+
+            if (inputs.length != 0) {
                 inputs.map((input, i) => {
                     isValidated = this.checkInputLength(formElements[input.name], input.minLength) && isValidated;
                     data += `"${input.name}": "${formElements[input.name].value}"`;
-                    if(i != inputs.length - 1) {
+                    if (i != inputs.length - 1) {
                         data += `, `;
                     }
                 });
                 data = `{${data}}`;
             }
 
-            if(isValidated) {
+            if (isValidated) {
                 this.toggleSpinner(btn);
-                this.post(JSON.parse(data));
+                this.post(JSON.parse(data))
+                    .then(function(res) {
+                        console.log(res);
+                    })
+                    .then(this.toggleSpinner(btn));
             }
-        } 
+        }
 
         post(data) {
-            fetch('api/auth', {
-                method: 'post',
-                headers: {
-                    'content-type': 'application/x-www-form-urlencoded'
-                },
-                body: JSON.stringify(data)
+            return new Promise((resolve, reject) => {
+                fetch('api/auth', {
+                    method: 'post',
+                    headers: {
+                        'content-type': 'application/x-www-form-urlencoded'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(function(res) {
+                    return res.text();
+                })
+                .then(function(res) {
+                    let result = JSON.parse(res);
+                    resolve(result);
+                })
+                .catch(function(err) {
+                    reject(err);
+                });
             })
-            .then(function (res) {
-                return res.text();
-            })
-            .then(function(res) {
-                let result = JSON.parse(res);
-                console.log(result);
-            });
         }
 
         toggleSpinner(obj) {
-            let spinner = document.createElement("span");
-            spinner.className = 'text-dark fas fa-circle-notch fa-lg fast-spin';
+            if (obj.childNodes[0].localName != 'span') {
+                let spinner = document.createElement("span");
+                spinner.className = 'text-dark fas fa-circle-notch fa-lg fast-spin';
 
-            obj.disabled = true;
-            obj.textContent = null;
-            obj.appendChild(spinner);
+                obj.disabled = true;
+                obj.textContent = null;
+                obj.appendChild(spinner);
+            } else {
+                setTimeout(function() {
+                    let text = document.createTextNode('LOGIN');
+
+                    obj.removeChild(obj.childNodes[0]);
+                    obj.appendChild(text);
+                    obj.disabled = false;
+                }, 500);
+            }
         }
 
         checkInputLength(obj, minLength) {
-            if(obj.value.length < minLength) {
+            if (obj.value.length < minLength) {
                 obj.classList.add('error');
                 return false;
-            }
-            else {
+            } else {
                 obj.classList.remove('error');
                 return true;
             }
         }
     }
 
-    new LoginForm('login-form', [{name: 'username', minLength: 5}, {name: 'password', minLength: 8}]);
+    new LoginForm('login-form', [{
+        name: 'username',
+        minLength: 5
+    }, {
+        name: 'password',
+        minLength: 8
+    }]);
 </script>

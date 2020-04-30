@@ -1,3 +1,9 @@
+-- SEED PENGGUNA untuk coba login
+-- username: frostygum, password: frostygum
+
+INSERT INTO `pengguna` (`id`, `nama_pengguna`, `tipe`, `username`, `password`) VALUES
+(26, 'juan', 'kasir', 'frostygum', '$2y$10$A/oDzRiF9qlI9ViNrNWyX.X4hOkq4QSD56xI0vkYgkYqZkpYjAKX6');
+
 CREATE TABLE Pengguna
 (
 	id int NOT NULL AUTO_INCREMENT,

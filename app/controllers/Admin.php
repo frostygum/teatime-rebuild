@@ -1,6 +1,7 @@
 <?php
 
 require MODEL_PATH . 'User.php';
+
 class Admin extends Controller
 {
     public function index()

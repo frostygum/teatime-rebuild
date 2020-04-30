@@ -7,7 +7,8 @@ class Admin extends Controller
 {
     protected $db;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->db = new DB();
     }
 
@@ -18,7 +19,8 @@ class Admin extends Controller
         $page->render();
     }
 
-    public function update_user() {
+    public function update_user()
+    {
         $post = json_decode(file_get_contents('php://input'), true);
         $result = [];
 
@@ -28,29 +30,27 @@ class Admin extends Controller
             $username = null;
             $password = null;
 
-            if(isset($post['name'])) {
+            if (isset($post['name'])) {
                 $name = $post['name'];
             }
-            if(isset($post['username'])) {
+            if (isset($post['username'])) {
                 $username = $post['username'];
             }
-            if(isset($post['password'])) {
+            if (isset($post['password'])) {
                 $password = $post['password'];
             }
-            
+
             $user = new User();
             $user->update_user($id, $username, $name, $password);
 
-            if($user->get_error() == null) {
+            if ($user->get_error() == null) {
                 $result['code'] = 200;
                 $result['text'] = 'Success';
-            }
-            else {
+            } else {
                 $result['code'] = 200;
                 $result['text'] = $user->get_error();
             }
-        }
-        else {
+        } else {
             $result['code'] = 200;
             $result['text'] = 'invalid or missing params';
         }
@@ -58,7 +58,8 @@ class Admin extends Controller
         return json_encode($result);
     }
 
-    public function insert_user() {
+    public function insert_user()
+    {
         $post = json_decode(file_get_contents('php://input'), true);
         $result = [];
 
@@ -67,21 +68,19 @@ class Admin extends Controller
             $username = $post['username'];
             $tipe = $post['tipe'];
             $password = $post['password'];
-            
+
 
             $user = new User();
             $user->create_user($name, $username, $tipe, $password);
 
-            if($user->get_error() == null) {
+            if ($user->get_error() == null) {
                 $result['code'] = 200;
                 $result['text'] = 'Success';
-            }
-            else {
+            } else {
                 $result['code'] = 200;
                 $result['text'] = $user->get_error();
             }
-        }
-        else {
+        } else {
             $result['code'] = 200;
             $result['text'] = 'invalid or missing params';
         }
@@ -89,7 +88,8 @@ class Admin extends Controller
         return json_encode($result);
     }
 
-    public function delete_user() {
+    public function delete_user()
+    {
         $post = json_decode(file_get_contents('php://input'), true);
         $result = [];
 
@@ -100,16 +100,14 @@ class Admin extends Controller
             $user = new User();
             $user->delete_user($id, $username);
 
-            if($user->get_error() == null) {
+            if ($user->get_error() == null) {
                 $result['code'] = 200;
                 $result['text'] = 'Success';
-            }
-            else {
+            } else {
                 $result['code'] = 200;
                 $result['text'] = $user->get_error();
             }
-        }
-        else {
+        } else {
             $result['code'] = 200;
             $result['text'] = 'invalid or missing params';
         }
@@ -117,7 +115,8 @@ class Admin extends Controller
         return json_encode($result);
     }
 
-    public function get_all_user() {
+    public function get_all_user()
+    {
         $query = '
             SELECT
                 Pengguna.nama_pengguna,
@@ -128,7 +127,7 @@ class Admin extends Controller
 
         $queryResult = $this->db->executeSelectQuery($query);
         $result = [];
-        foreach($queryResult as $key => $value) {
+        foreach ($queryResult as $key => $value) {
             $result[] = new User($value['id'], $value['nama_pengguna'], $value['tipe'], $value['username'], $value['password']);
         }
     }

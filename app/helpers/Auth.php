@@ -3,30 +3,34 @@
 class Auth
 {
     protected $error = null;
-    
+
     public function logout()
     {
         $this->remove_auth();
     }
 
-    public function get_error() {
+    public function get_error()
+    {
         return $this->error;
     }
 
-    public function get_auth() {
-        if(isset($_SESSION['login_session'])) {
+    public function get_auth()
+    {
+        if (isset($_SESSION['login_session'])) {
             return $_SESSION['login_session'];
         }
-        
+
         return false;
     }
 
-    private function remove_auth() {
+    private function remove_auth()
+    {
         unset($_SESSION['login_session']);
         session_destroy();
     }
 
-    public function setAuth($username, $id, $tipe) {
+    public function setAuth($username, $id, $tipe)
+    {
         $_SESSION['login_session'] = [
             'username' => $username,
             'id' => $id,
@@ -42,7 +46,7 @@ class Auth
             $user = new User;
             $res = $user->read_user($username, $password);
 
-            if($res) {
+            if ($res) {
                 $result['id'] = $user->get_id();
                 $result['username'] = $user->get_username();
                 $result['tipe'] = $user->get_tipe();
@@ -50,8 +54,7 @@ class Auth
                 $this->setAuth($result['username'], $result['id'], $result['tipe']);
 
                 return $result;
-            }
-            else {
+            } else {
                 $this->error = $user->get_error();
                 return false;
             }

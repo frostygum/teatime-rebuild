@@ -9,8 +9,8 @@ class User extends Model
     protected $username = null;
     protected $password = null;
     protected $error = null;
-  
-public function __construct($id = null, $nama = null, $tipe = null, $username = null, $password = null)
+
+    public function __construct($id = null, $nama = null, $tipe = null, $username = null, $password = null)
     {
         $this->db = new DB();
         $this->id = $id;
@@ -19,7 +19,7 @@ public function __construct($id = null, $nama = null, $tipe = null, $username = 
         $this->password = $password;
     }
 
-public function update_user($id, $username = null, $name = null, $password = null)
+    public function update_user($id, $username = null, $name = null, $password = null)
     {
         $id = $this->db->escapeString($id);
         $name = $this->db->escapeString($name);
@@ -30,13 +30,13 @@ public function update_user($id, $username = null, $name = null, $password = nul
             UPDATE pengguna
             SET
         ";
-        if($username != null) {
+        if ($username != null) {
             $query .= " username = '$username',";
         }
-        if($name != null) {
+        if ($name != null) {
             $query .= " nama_pengguna = '$name',";
         }
-        if($password != null) {
+        if ($password != null) {
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
             $query .= " password = '$hashed_password',";
         }

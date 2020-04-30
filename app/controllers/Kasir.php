@@ -7,18 +7,16 @@ class Kasir extends Controller
     public function index()
     {
         $auth = $this::Auth()->get_auth();
-        if($auth) {
-            if(strtolower($auth['tipe']) == 'kasir') {
+        if ($auth) {
+            if (strtolower($auth['tipe']) == 'kasir') {
                 $page = $this::create_page('kasir', 'index');
                 $page->user_information = $this::Auth()->get_auth();
                 $page->render();
-            }
-            else {
+            } else {
                 echo 'wrong auth';
                 $this::Auth()->logout();
             }
-        }
-        else {
+        } else {
             $this::set_redirect_url();
             header('location: ./login');
         }

@@ -1,7 +1,7 @@
 <?php
 
-require HELPER_PATH . 'Db.php'
-require MODEL_PATH . 'User.php';
+require_once HELPER_PATH . 'Db.php';
+require_once MODEL_PATH . 'User.php';
 
 class Admin extends Controller
 {
@@ -129,7 +129,7 @@ class Admin extends Controller
         $queryResult = $this->db->executeSelectQuery($query);
         $result = [];
         foreach($queryResult as $key => $value) {
-            result[] = new User($value['id'], $value['nama_pengguna'], $value['tipe'], $value['username'], $value['password']);
+            $result[] = new User($value['id'], $value['nama_pengguna'], $value['tipe'], $value['username'], $value['password']);
         }
     }
 }

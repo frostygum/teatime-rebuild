@@ -4,13 +4,19 @@ class User extends Model
 {
     protected $db;
     protected $id = null;
+    protected $nama = null;
     protected $tipe = null;
     protected $username = null;
+    protected $password = null;
     protected $error = null;
 
-    public function __construct()
+    public function __construct($id = null, $nama = null, $tipe = null, $username = null, $password = null)
     {
-        $this->db = new DB;
+        $this->db = new DB();
+        $this->id = $id;
+        $this->tipe = $tipe;
+        $this->username = $username;
+        $this->password = $password;
     }
 
     public function update_user($id, $username = null, $name = null, $password = null)
@@ -24,13 +30,13 @@ class User extends Model
             UPDATE pengguna
             SET
         ";
-        if($username != null) {
+        if ($username != null) {
             $query .= " username = '$username',";
         }
-        if($name != null) {
+        if ($name != null) {
             $query .= " nama_pengguna = '$name',";
         }
-        if($password != null) {
+        if ($password != null) {
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
             $query .= " password = '$hashed_password',";
         }

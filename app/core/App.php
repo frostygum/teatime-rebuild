@@ -6,12 +6,22 @@ class App
     public function __construct()
     {
         // GET ENDPOINTS
+        // HOME PAGE
         Router::get('/', function () {
             $this::call('home')->index();
         });
 
+        // LOGIN PAGE
         Router::get('/login', function () {
-            $this::call('auth')->loginPage();
+            $this::call('login')->page_login();
+        });
+
+        Router::post('/login', function () {
+            $this::call('login')->page_login();
+        });
+
+        Router::get('/logout', function () {
+            // $this::call('auth')->logout();
         });
 
         Router::get('/kasir', function () {
@@ -34,7 +44,7 @@ class App
 
         // API ENDPOINTS
         Router::post('/api/auth', function () {
-            return $this::call('auth')->authenticate();
+            // return $this::call('auth')->authenticate();
         });
 
         Router::put('/api/user', function () {

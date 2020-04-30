@@ -1,8 +1,16 @@
 <?php
 
-require MODEL_PATH . 'User.php';
+require_once HELPER_PATH . 'Db.php';
+require_once MODEL_PATH . 'User.php';
+
 class Admin extends Controller
 {
+    protected $db;
+
+    public function __construct() {
+        $this->db = new DB();
+    }
+
     public function index()
     {
         $page = $this::create_page('admin', 'test');
@@ -107,5 +115,21 @@ class Admin extends Controller
         }
 
         return json_encode($result);
+    }
+
+    public function get_all_user() {
+        $query = '
+            SELECT
+                Pengguna.nama_pengguna,
+                Pengguna.tipe,
+            FROM
+                Pengguna
+        ';
+
+        $queryResult = $this->db->executeSelectQuery($query);
+        $result = [];
+        foreach($queryResult as $key => $value) {
+            $result[] = new User($value['id'], $value['nama_pengguna'], $value['tipe'], $value['username'], $value['password']);
+        }
     }
 }

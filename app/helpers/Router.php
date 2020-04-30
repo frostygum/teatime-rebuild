@@ -9,27 +9,42 @@ class Router
 
     public static function get($uri, $function)
     {
-        self::$routes[$uri . 'GET'] = ['method' => 'GET', 'function' => $function];
+        self::$routes[$uri . 'GET'] = [
+            'method' => 'GET', 
+            'function' => $function
+        ];
     }
 
     public static function post($uri, $function)
     {
-        self::$routes[$uri . 'POST'] = ['method' => 'POST', 'function' => $function];
+        self::$routes[$uri . 'POST'] = [
+            'method' => 'POST', 
+            'function' => $function
+        ];
     }
 
     public static function put($uri, $function)
     {
-        self::$routes[$uri . 'PUT'] = ['method' => 'PUT', 'function' => $function];
+        self::$routes[$uri . 'PUT'] = [
+            'method' => 'PUT', 
+            'function' => $function
+        ];
     }
 
     public static function delete($uri, $function)
     {
-        self::$routes[$uri . 'DELETE'] = ['method' => 'DELETE', 'function' => $function];
+        self::$routes[$uri . 'DELETE'] = [
+            'method' => 'DELETE', 
+            'function' => $function
+        ];
     }
 
     public static function patch($uri, $function)
     {
-        self::$routes[$uri . 'PATCH'] = ['method' => 'PATCH', 'function' => $function];
+        self::$routes[$uri . 'PATCH'] = [
+            'method' => 'PATCH', 
+            'function' => $function
+        ];
     }
 
     public static function set_err_page($function)
@@ -48,7 +63,7 @@ class Router
 
         if (self::hasRoute(self::$request)) {
             if ($_SERVER["REQUEST_METHOD"] == self::$routes[self::$request]['method']) {
-                echo call_user_func(self::$routes[self::$request]['function']);
+                call_user_func(self::$routes[self::$request]['function']);
             } else {
                 if (self::$methodNotAllowed != null) {
                     call_user_func(self::$methodNotAllowed);

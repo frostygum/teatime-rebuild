@@ -12,7 +12,7 @@
         <div class="card bg-teal shadow text-light login-card py-4 px-2">
             <h5 class="text-center">Welcome Back!</h5>
 
-            <form id="login-form" method="post" class="px-4 pt-3">
+            <form id="login-form" method="post" action="./login" class="px-4 pt-3">
                 <div class="py-1">
                     <p class="text-bold mt-0">username</p>
                     <input class="input block border-color-light" type="text" name="username" placeholder="username">
@@ -70,35 +70,38 @@
 
             if (isValidated) {
                 this.toggleSpinner(btn);
-                this.post(JSON.parse(data))
-                    .then(function(res) {
-                        console.log(res);
-                    })
-                    .then(this.toggleSpinner(btn));
+                this.form.submit();
+                // this.post(JSON.parse(data))
+                //     .then(this.toggleSpinner(btn))
+                //     .then(function(res) {
+                //         if(res.username && res.id) {
+                //             window.location.reload();
+                //         }
+                //     });
             }
         }
 
-        post(data) {
-            return new Promise((resolve, reject) => {
-                fetch('api/auth', {
-                    method: 'post',
-                    headers: {
-                        'content-type': 'application/x-www-form-urlencoded'
-                    },
-                    body: JSON.stringify(data)
-                })
-                .then(function(res) {
-                    return res.text();
-                })
-                .then(function(res) {
-                    let result = JSON.parse(res);
-                    resolve(result);
-                })
-                .catch(function(err) {
-                    reject(err);
-                });
-            })
-        }
+        // post(data) {
+        //     return new Promise((resolve, reject) => {
+        //         fetch('api/auth', {
+        //             method: 'post',
+        //             headers: {
+        //                 'content-type': 'application/x-www-form-urlencoded'
+        //             },
+        //             body: JSON.stringify(data)
+        //         })
+        //         .then(function(res) {
+        //             return res.text();
+        //         })
+        //         .then(function(res) {
+        //             let result = JSON.parse(res);
+        //             resolve(result);
+        //         })
+        //         .catch(function(err) {
+        //             reject(err);
+        //         });
+        //     })
+        // }
 
         toggleSpinner(obj) {
             if (obj.childNodes[0].localName != 'span') {

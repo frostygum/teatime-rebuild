@@ -9,8 +9,8 @@ class User extends Model
     protected $username = null;
     protected $password = null;
     protected $error = null;
-
-    public function __construct($id = null, $nama = null, $tipe = null, $username = null, $password = null)
+  
+public function __construct($id = null, $nama = null, $tipe = null, $username = null, $password = null)
     {
         $this->db = new DB();
         $this->id = $id;
@@ -19,7 +19,7 @@ class User extends Model
         $this->password = $password;
     }
 
-    public function update_user($id, $username = null, $name = null, $password = null)
+public function update_user($id, $username = null, $name = null, $password = null)
     {
         $id = $this->db->escapeString($id);
         $name = $this->db->escapeString($name);

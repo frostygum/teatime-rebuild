@@ -1,7 +1,7 @@
 <?php
 
 require_once HELPER_PATH . 'View.php';
-require_once HELPER_PATH . 'Auth.php';
+require_once HELPER_PATH . 'AuthHelper.php';
 
 class Controller
 {
@@ -12,8 +12,8 @@ class Controller
         return $page;
     }
 
-    public static function auth() {
-        return new Auth;
+    public static function auth_helper() {
+        return new AuthHelper;
     }
 
     public static function set_redirect_url() {

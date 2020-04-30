@@ -11,31 +11,35 @@ class App
             $this::call('home')->index();
         });
 
-        // LOGIN PAGE
+        // LOGIN & LOGOUT PAGE
         Router::get('/login', function () {
-            $this::call('login')->page_login();
+            $this::call('auth')->page_login();
         });
 
         Router::post('/login', function () {
-            $this::call('login')->page_login();
+            $this::call('auth')->page_login();
         });
 
         Router::get('/logout', function () {
-            // $this::call('auth')->logout();
+            $this::call('auth')->page_logout();
         });
 
+        // KASIR PAGE
         Router::get('/kasir', function () {
             $this::call('kasir')->index();
         });
 
+        // ADMIN PAGE
         Router::get('/admin', function () {
             $this::call('admin')->index();
         });
 
+        // MANAGER PAGE
         Router::get('/manager', function () {
             $this::call('manager')->index();
         });
 
+        // EXTRA PAGE
         Router::get('/sample', function () {
             $this::call('sample')->index();
         });

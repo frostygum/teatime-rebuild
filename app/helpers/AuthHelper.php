@@ -1,6 +1,6 @@
 <?php
 
-class Auth
+class AuthHelper
 {
     protected $error = null;
 

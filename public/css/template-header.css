@@ -1,0 +1,9 @@
+.navbar {
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+.navbar .logo {
+    display: grid;
+    grid-template-columns: auto auto;
+}

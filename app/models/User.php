@@ -4,13 +4,19 @@ class User extends Model
 {
     protected $db;
     protected $id = null;
+    protected $nama = null;
     protected $tipe = null;
     protected $username = null;
+    protected $password = null;
     protected $error = null;
 
-    public function __construct()
+    public function __construct($id, $nama, $tipe, $username, $password)
     {
-        $this->db = new DB;
+        $this->db = new DB();
+        $this->id = $id;
+        $this->tipe = $tipe;
+        $this->username = $username;
+        $this->password = $password;
     }
 
     public function update_user($id, $username = null, $name = null, $password = null)

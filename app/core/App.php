@@ -47,9 +47,9 @@ class App
 
 
         // API ENDPOINTS
-        Router::post('/api/auth', function () {
+        // Router::post('/api/auth', function () {
             // return $this::call('auth')->authenticate();
-        });
+        // });
 
         Router::put('/api/user', function () {
             return $this::call('admin')->insert_user();

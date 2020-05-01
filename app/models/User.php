@@ -7,16 +7,35 @@ class User extends Model
     protected $nama = null;
     protected $tipe = null;
     protected $username = null;
-    protected $password = null;
     protected $error = null;
 
-    public function __construct($id = null, $nama = null, $tipe = null, $username = null, $password = null)
+    public function __construct($id = null, $nama = null, $tipe = null, $username = null)
     {
         $this->db = new DB();
         $this->id = $id;
+        $this->nama = $nama;
         $this->tipe = $tipe;
         $this->username = $username;
-        $this->password = $password;
+    }
+
+    public function get_all_user() {
+        $query = '
+            SELECT
+                id,
+                nama_pengguna,
+                tipe,
+                username
+            FROM
+                Pengguna
+        ';
+
+        $queryResult = $this->db->executeSelectQuery($query);
+        $result = [];
+        foreach ($queryResult as $key => $value) {
+            $result[] = new User($value['id'], $value['nama_pengguna'], $value['tipe'], $value['username']);
+        }
+
+        return $result;
     }
 
     public function update_user($id, $username = null, $name = null, $password = null)
@@ -142,14 +161,17 @@ class User extends Model
         return $this->id;
     }
 
+    public function get_nama() {
+        return $this->nama;
+    }
+
+    public function get_tipe() {
+        return $this->tipe;
+    }
+
     public function get_username()
     {
         return $this->username;
-    }
-
-    public function get_tipe()
-    {
-        return $this->tipe;
     }
 
     public function get_error()

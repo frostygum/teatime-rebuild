@@ -8,6 +8,9 @@
             <span>a place where tea flies your time</span>
         </div>
     </div>
+    <div>
+        <?= isset($error) ? $error : 'tidak ada error' ?>
+    </div>
     <div class="display-grid justify-content-center grid-col-1">
         <div class="card bg-teal shadow text-light login-card py-4 px-2">
             <h5 class="text-center">Welcome Back!</h5>

@@ -59,6 +59,7 @@ class AuthHelper
                 return false;
             }
 
+            $this->error = 'user or password missing arguments';
             return false;
         }
     }

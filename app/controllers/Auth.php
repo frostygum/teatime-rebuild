@@ -9,14 +9,15 @@ class Auth extends controller
         $page = $this::create_page('login', 'index');
 
         if (isset($_POST['username']) && isset($_POST['password'])) {
-            $isAuthenticated = $this::auth_helper()->authenticate($_POST['username'], $_POST['password']);
+            $auth = $this::auth_helper();
+            $isAuthenticated = $auth->authenticate($_POST['username'], $_POST['password']);
             if ($isAuthenticated) {
                 $this->redirect();
             } else {
-                $page->error = $this::auth_helper()->get_error();
+                $page->error = $auth->get_error();
             }
         }
-
+        
         $page->render();
     }
 

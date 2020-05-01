@@ -17,7 +17,6 @@ class Auth extends controller
                 $page->error = $auth->get_error();
             }
         }
-        
         $page->render();
     }
 

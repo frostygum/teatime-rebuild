@@ -10,12 +10,14 @@ class Admin extends Controller
     public function __construct()
     {
         $this->db = new DB();
+        $this->user = new User;
     }
 
     public function index()
     {
         $page = $this::create_page('admin', 'test');
         $page->test = 6;
+        $page->all_user = $this->get_all_user();
         $page->render();
     }
 
@@ -55,7 +57,7 @@ class Admin extends Controller
             $result['text'] = 'invalid or missing params';
         }
 
-        return json_encode($result);
+        echo json_encode($result);
     }
 
     public function insert_user()
@@ -85,7 +87,7 @@ class Admin extends Controller
             $result['text'] = 'invalid or missing params';
         }
 
-        return json_encode($result);
+        echo json_encode($result);
     }
 
     public function delete_user()
@@ -112,15 +114,17 @@ class Admin extends Controller
             $result['text'] = 'invalid or missing params';
         }
 
-        return json_encode($result);
+        echo json_encode($result);
     }
 
     public function get_all_user()
     {
         $query = '
             SELECT
-                Pengguna.nama_pengguna,
-                Pengguna.tipe,
+                id,
+                nama_pengguna,
+                tipe,
+                username
             FROM
                 Pengguna
         ';
@@ -128,7 +132,9 @@ class Admin extends Controller
         $queryResult = $this->db->executeSelectQuery($query);
         $result = [];
         foreach ($queryResult as $key => $value) {
-            $result[] = new User($value['id'], $value['nama_pengguna'], $value['tipe'], $value['username'], $value['password']);
+            $result[] = new User($value['id'], $value['nama_pengguna'], $value['tipe'], $value['username']);
         }
+
+        return $result;
     }
 }

@@ -9,7 +9,6 @@
         </div>
     </div>
     <div>
-        <?= isset($error) ? $error : 'tidak ada error' ?>
     </div>
     <div class="display-grid justify-content-center grid-col-1">
         <div class="card bg-teal shadow text-light login-card py-4 px-2">
@@ -34,7 +33,61 @@
     </div>
 </div>
 
+<div id="popup-wrapper" class="popup-wrapper">
+</div>
+
 <script type="text/javascript" defer>
+
+    class Popup {
+        constructor(popupId) {
+            this.Wrapper = document.getElementById(popupId);
+            console.log(this.Wrapper)
+
+            
+            this.remove(this.Wrapper, 0, 3500);
+        }
+
+        remove(obj, i, time = 2000) {
+            return new Promise((resolve, reject) => {
+                setTimeout(function(m) {
+                    obj.removeChild(obj.children[i]);
+                    resolve(true);
+                }, time);
+            });
+        }
+
+        add(popupText = '', bgColor) {
+            let Wrapper = document.createElement('div');
+            let IconWrapper = document.createElement('div');
+            let Icon = document.createElement('span');
+            let TextWrapper = document.createElement('div');
+            let Text = document.createTextNode(popupText);
+
+            if(bgColor) {
+                Wrapper.className = `popup shadow bg-${bgColor}`;
+            }
+            else {
+                Wrapper.className = 'popup shadow';
+            }
+            IconWrapper.className = 'popup-icon';
+            Icon.className = 'fa fa-exclamation-triangle';
+            TextWrapper.className = 'popup-text';
+
+            TextWrapper.appendChild(Text);
+            IconWrapper.appendChild(Icon);
+            Wrapper.appendChild(IconWrapper);
+            Wrapper.appendChild(TextWrapper);
+
+            this.Wrapper.appendChild(Wrapper);
+        }
+    }
+
+    <?php 
+        if(isset($error)) {
+            echo 'let popup = new Popup("popup-wrapper").add("'. $error .'", "warning")';
+        }
+    ?>
+
     class LoginForm {
         constructor(formId, inputSettings = []) {
             this.form = document.getElementById(formId);

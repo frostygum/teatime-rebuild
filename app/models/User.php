@@ -146,11 +146,11 @@ class User extends Model
                     $this->tipe = $query_result[0]['tipe'];
                     return true;
                 } else {
-                    $this->error = 'unauthorize';
+                    $this->error = 'user or password incorrect';
                     return false;
                 }
             } else {
-                $this->error = 'user not found';
+                $this->error = 'user or password incorrect';
                 return false;
             }
         }

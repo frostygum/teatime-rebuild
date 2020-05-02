@@ -1055,3 +1055,38 @@ td {
     -webkit-animation: fa-spin 0.5s infinite linear;
     animation: fa-spin 0.5s infinite linear;
 }
+
+/* !POPUP */
+
+.popup-wrapper {
+    width: 380px;
+    top: 0;
+    right: 0;
+    position: absolute;
+    padding: 0 1rem;
+}
+
+.popup {
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+    justify-content : start;
+    width: 380px;
+    background-color: var(--primary);
+    border-radius: var(--border-radius);
+    margin: 1rem 0;
+}
+
+.popup > .popup-icon {
+    width: 25px;
+    padding: 0.8rem 1.2rem;
+    text-align: center;
+    border-radius: var(--border-radius);
+}
+
+.popup > .popup-text {
+    width: auto;
+    height: auto;
+    padding: 0.8rem 0.8rem 0.8rem 0; 
+    font-weight: bold;
+}

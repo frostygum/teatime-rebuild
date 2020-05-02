@@ -19,6 +19,29 @@ class Admin extends Controller
         $page->test = 6;
         $page->all_user = $this->get_all_user();
         $page->render();
+
+        /* MASIH NYOBA-NYOBA
+        $auth = $this::auth_helper();
+        $user = $auth->get_auth();
+
+        if ($user != false) {
+            if (strtolower($user['tipe']) == 'admin') {
+                $page = $this::create_page('admin', 'test');
+                $page->user_information = $user;
+                $page->all_user = $this->get_all_user();
+                $page->render();
+            } else {
+                echo 'wrong auth';
+                $auth->logout();
+            }
+        } else {
+            $username = $_POST['username'];
+            $user = $this->get_a_user($username);
+            $auth->setAuth();
+            $this::set_redirect_url();
+            header('location: ./login');
+        }
+        */
     }
 
     public function update_user()
@@ -117,6 +140,11 @@ class Admin extends Controller
         echo json_encode($result);
     }
 
+    public function get_a_user($username) {
+        $query = '
+        '
+    }
+
     public function get_all_user()
     {
         $query = '
@@ -133,6 +161,27 @@ class Admin extends Controller
         $result = [];
         foreach ($queryResult as $key => $value) {
             $result[] = new User($value['id'], $value['nama_pengguna'], $value['tipe'], $value['username']);
+        }
+
+        return $result;
+    }
+
+    public function get_all_menu()
+    {
+        $query = '
+            SELECT
+                id,
+                nama_minuman,
+                harga_regular,
+                harga_large
+            FROM
+                Menu
+        ';
+
+        $queryResult = $this->db->executeSelectQuery($query);
+        $result = [];
+        foreach ($queryResult as $key => $value) {
+            $result[] = new Menu($value['id'], $value['nama_minuman'], $value['harga_regular'], $value['harga_large']);
         }
 
         return $result;

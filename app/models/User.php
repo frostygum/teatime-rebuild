@@ -161,11 +161,13 @@ class User extends Model
         return $this->id;
     }
 
-    public function get_nama() {
+    public function get_nama() 
+    {
         return $this->nama;
     }
 
-    public function get_tipe() {
+    public function get_tipe() 
+    {
         return $this->tipe;
     }
 

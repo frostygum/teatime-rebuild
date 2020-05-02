@@ -28,11 +28,11 @@ class view
 
     public static function add_template($template)
     {
-        ob_start();
+        // ob_start();
         require_once VIEW_PATH . "templates/$template.php";
-        $content = ob_get_contents();
-        ob_end_clean();
-        return $content;
+        // $content = ob_get_contents();
+        // ob_end_clean();
+        // return $content;
     }
 
     public static function add_image($name, $extension)

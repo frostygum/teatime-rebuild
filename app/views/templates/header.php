@@ -8,9 +8,14 @@
     <div class="navbar-content">
         <h5>59:00</h5>
     </div>
-    <div class="navbar-right">
-        <div class="logout">
-            logout
+    <div class="navbar-right display-grid align-content-center justify-content-end">
+        <div class="dropdown">
+            <button onclick="toggleDropdown('dropdown')" class="dropdown-btn">
+                <?= isset($user_information) ? $user_information['username'] : 'dropdown' ?>
+            </button>
+            <div id="dropdown" class="dropdown-content">
+                <a href="./logout">logout</a>
+            </div>
         </div>
     </div> 
 </div>

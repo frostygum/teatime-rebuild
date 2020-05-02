@@ -21,7 +21,7 @@ CREATE TABLE TransaksiPemesanan
 	banyak_gula varchar(50) NOT NULL,
 	banyak_es varchar(50) NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (idKasir) REFERENCES kasir(id)
+    FOREIGN KEY (idKasir) REFERENCES Pengguna(id)
 )
 
 CREATE TABLE Menu

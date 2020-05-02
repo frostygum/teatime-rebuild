@@ -12,6 +12,7 @@ class Kasir extends Controller
         if ($user) {
             if (strtolower($user['tipe']) == 'kasir') {
                 $page = $this::create_page('kasir', 'index');
+                // $page->header = $page::add_template('header');
                 $page->user_information = $user;
                 $page->render();
             } else {

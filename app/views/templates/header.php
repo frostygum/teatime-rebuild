@@ -12,6 +12,7 @@
         <div class="dropdown">
             <button onclick="toggleDropdown('dropdown')" class="dropdown-btn">
                 <?= isset($user_information) ? $user_information['username'] : 'dropdown' ?>
+                <span class="fa fa-caret-down ml-1"></span>
             </button>
             <div id="dropdown" class="dropdown-content">
                 <a href="./logout">logout</a>

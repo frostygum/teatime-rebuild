@@ -4,7 +4,7 @@ function toggleDropdown(targetId) {
 }
 
 window.onclick = function(event) {
-    if (!event.target.matches('.dropdown-btn')) {
+    if (!event.target.matches('button')) {
         let dropdown = document.getElementsByClassName("dropdown-content");
         let i;
         for (i = 0; i < dropdown.length; i++) {
@@ -32,3 +32,20 @@ window.addEventListener('show-alert', function(event) {
     }
 });
 
+// !MODAL
+function toggleModal(targetId) {
+    document.getElementById(targetId).classList.toggle('show-modal');
+}
+
+window.onclick = function(event) {
+    if (!event.target.matches('button') && event.target.matches('.modal-wrapper')) {
+        let modal = document.getElementsByClassName("modal");
+        let i;
+        for (i = 0; i < modal.length; i++) {
+            let openModal = modal[i];
+            if (openModal.classList.contains('show-modal')) {
+                openModal.classList.remove('show-modal');
+            }
+        }
+    }
+}

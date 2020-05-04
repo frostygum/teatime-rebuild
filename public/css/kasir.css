@@ -1,0 +1,33 @@
+.menu {
+    cursor: pointer;
+    background-color: var(--dark);
+    color: var(--light);
+    transition: All 0.1s linear;
+}
+
+.menu:hover {
+    background-color: var(--dark-darker);
+    box-shadow: var(--shadow);
+}
+
+.menu-title {
+    font-weight: bold;
+}
+
+.menu-content {
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu-content > div > span {
+    font-size: 1rem;
+}
+
+
+.menu.selected {
+    background-color: var(--light);
+    color: var(--dark);
+    box-shadow: var(--shadow);
+}

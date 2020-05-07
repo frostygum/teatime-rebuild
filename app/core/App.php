@@ -26,6 +26,14 @@ class App
 
         // KASIR PAGE
         Router::get('/kasir', function () {
+            $this::call('kasir')->page_kasir();
+        });
+
+        Router::post('/kasir', function () {
+            $this::call('kasir')->page_kasir();
+        });
+
+        Router::post('/kasir', function () {
             $this::call('kasir')->index();
         });
 

@@ -35,7 +35,7 @@ class Kasir extends Controller
                 else {
                     echo 'wrong auth';
                     $auth->logout();
-                } 
+                }
             }
             else {
                 echo 'require correct authentication';
@@ -179,7 +179,6 @@ class Kasir extends Controller
         $page->selected_menu = json_encode($this->get_selected_menu());
         $page->user_information = $this->get_user();
         $page->customer_name = $this->get_customer();
-
         $page->render();
     }
 }

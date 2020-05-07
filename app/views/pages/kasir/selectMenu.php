@@ -64,7 +64,6 @@
                         }
                     }
                 ?>
-
             </div>
         </div>
     </div>
@@ -111,7 +110,6 @@
     <form id="trigger_next_page" action="./kasir" method="POST">
         <input type="hidden" name="set_page" value="2">
     </form>
-
 </div>
 
 <script type="text/javascript" defer>

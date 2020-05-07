@@ -33,6 +33,10 @@ class App
             $this::call('kasir')->page_kasir();
         });
 
+        Router::post('/kasir', function () {
+            $this::call('kasir')->index();
+        });
+
         // ADMIN PAGE
         Router::get('/admin', function () {
             $this::call('admin')->index();

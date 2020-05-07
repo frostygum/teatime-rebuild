@@ -15,3 +15,8 @@
     width: 2rem;
 }
 
+.navbar .navbar-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

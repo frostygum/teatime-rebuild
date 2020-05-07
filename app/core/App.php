@@ -26,11 +26,11 @@ class App
 
         // KASIR PAGE
         Router::get('/kasir', function () {
-            $this::call('kasir')->page_kasir();
+            $this::call('kasir')->index();
         });
 
         Router::post('/kasir', function () {
-            $this::call('kasir')->page_kasir();
+            $this::call('kasir')->index();
         });
 
         Router::post('/kasir', function () {

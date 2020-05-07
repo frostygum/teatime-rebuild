@@ -2,13 +2,12 @@
 
 class Menu extends Model 
 {
-    // protected $db;
     protected $id;
     protected $name;
     protected $priceR;
     protected $priceL;
 
-    public function __construct($id = null, $name = null, $priceR = null, $priceL = null) {
+    public function __construct($id, $name, $priceR, $priceL) {
         $this->id = $id;
         $this->name = $name;
         $this->priceR = $priceR;
@@ -20,9 +19,9 @@ class Menu extends Model
         return $this->id;
     }
 
-    public function get_nama() 
+    public function get_name() 
     {
-        return $this->nama;
+        return $this->name;
     }
 
     public function get_priceR() 
@@ -34,10 +33,4 @@ class Menu extends Model
     {
         return $this->priceL;
     }
-
-    public function get_error()
-    {
-        return $this->error;
-    }
-
 }

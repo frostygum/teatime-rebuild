@@ -5,9 +5,19 @@
             <h5 class="logo-title">Teatime</h5>
         </div>
     </div>
+    
     <div class="navbar-content">
-        <h5>59:00</h5>
+        <?php
+            if(isset($customer_name)) {
+                echo '
+                    <h6 class="text-center card m-0 bg-green text-light px-2 py-1 shadow">
+                        <span class="fa fa-user-circle"></span > : '. $customer_name .'
+                    </h6>
+                ';
+            }   
+        ?>
     </div>
+
     <div class="navbar-right display-grid align-content-center justify-content-end">
         <div class="dropdown">
             <button onclick="toggleDropdown('dropdown')" class="dropdown-btn">

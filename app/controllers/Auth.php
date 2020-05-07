@@ -2,22 +2,28 @@
 
 require_once MODEL_PATH . 'User.php';
 
-class Login extends controller
+class Auth extends controller
 {
     public function page_login()
     {
         $page = $this::create_page('login', 'index');
 
         if (isset($_POST['username']) && isset($_POST['password'])) {
-            $isAuthenticated = $this::Auth()->authenticate($_POST['username'], $_POST['password']);
+            $auth = $this::auth_helper();
+            $isAuthenticated = $auth->authenticate($_POST['username'], $_POST['password']);
             if ($isAuthenticated) {
                 $this->redirect();
             } else {
-                $page->error = $this::Auth()->get_error();
+                $page->error = $auth->get_error();
             }
         }
-
         $page->render();
+    }
+
+    public function page_logout()
+    {
+        $this::auth_helper()->logout();
+        $this->redirect();
     }
 
     private function redirect()

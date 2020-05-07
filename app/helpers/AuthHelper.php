@@ -1,6 +1,6 @@
 <?php
 
-class Auth
+class AuthHelper
 {
     protected $error = null;
 
@@ -59,6 +59,7 @@ class Auth
                 return false;
             }
 
+            $this->error = 'user or password missing arguments';
             return false;
         }
     }

@@ -1,0 +1,22 @@
+.navbar {
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    height: 4rem;
+}
+
+.navbar .navbar-left {
+    width: 11rem;
+}
+
+.navbar .logo .logo-title {
+    margin-left: 1rem;
+}
+
+.navbar .logo img {
+    width: 2rem;
+}
+
+.navbar .navbar-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,8 +1,4 @@
--- SEED PENGGUNA untuk coba login
--- username: frostygum, password: frostygum
 
-INSERT INTO `pengguna` (`id`, `nama_pengguna`, `tipe`, `username`, `password`) VALUES
-(26, 'juan', 'kasir', 'frostygum', '$2y$10$A/oDzRiF9qlI9ViNrNWyX.X4hOkq4QSD56xI0vkYgkYqZkpYjAKX6');
 
 CREATE TABLE Pengguna
 (
@@ -25,7 +21,7 @@ CREATE TABLE TransaksiPemesanan
 	banyak_gula varchar(50) NOT NULL,
 	banyak_es varchar(50) NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (idKasir) REFERENCES kasir(id)
+    FOREIGN KEY (idKasir) REFERENCES Pengguna(id)
 )
 
 CREATE TABLE Menu
@@ -64,3 +60,20 @@ CREATE TABLE MemilikiToping
 )
 
 
+-- SEED PENGGUNA untuk coba login
+-- username: frostygum, password: frostygum
+
+INSERT INTO `pengguna` (`id`, `nama_pengguna`, `tipe`, `username`, `password`) VALUES
+(26, 'juan', 'kasir', 'frostygum', '$2y$10$A/oDzRiF9qlI9ViNrNWyX.X4hOkq4QSD56xI0vkYgkYqZkpYjAKX6');
+
+--SEED TOPPING
+INSERT INTO `toping` (`id`, `nama_toping`, `harga_toping`) VALUES
+(1, 'Pearl', 5000),
+(2, 'Pudding', 3000),
+(3, 'Mousse', 3000),
+(4, 'Grass Jelly', 4000),
+(5, 'Aloe Vera Jelly', 4000),
+(6, 'Coconut Jelly', 4000),
+(7, 'Coffee Jelly', 4000),
+(8, 'Rainbow Jelly', 4000),
+(9, 'Read Beans', 4000);

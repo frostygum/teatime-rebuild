@@ -4,21 +4,182 @@ require_once MODEL_PATH . 'User.php';
 
 class Kasir extends Controller
 {
-    public function index()
-    {
-        $auth = $this::Auth()->get_auth();
-        if ($auth) {
-            if (strtolower($auth['tipe']) == 'kasir') {
-                $page = $this::create_page('kasir', 'index');
-                $page->user_information = $this::Auth()->get_auth();
-                $page->render();
-            } else {
-                echo 'wrong auth';
-                $this::Auth()->logout();
-            }
-        } else {
-            $this::set_redirect_url();
-            header('location: ./login');
+    public function __construct() {
+        if(!isset($_SESSION['kasir']['page_state'])) {
+            $_SESSION['kasir']['page_state'] = 0;
         }
+
+        if(isset($_POST['back'])) {
+            $this->go_back();
+        }
+
+        if(isset($_POST['set_page'])) {
+            $this->set_page($_POST['set_page']);
+        }
+
+        if(isset($_POST['customer_name'])) {
+            $this->set_customer($_POST['customer_name']);
+        }
+    }
+
+    public function index() {
+        $data = json_decode(file_get_contents('php://input'), true);
+        $auth = $this::auth_helper();
+        $user = $auth->get_auth();
+
+        if(isset($data)) {
+            if($user) {
+                if (strtolower($user['tipe']) == 'kasir') {
+                    return $this->receive_json($data);
+                }           
+                else {
+                    echo 'wrong auth';
+                    $auth->logout();
+                } 
+            }
+            else {
+                echo 'require correct authentication';
+            }
+        }
+        else {
+            if($user) {
+                if (strtolower($user['tipe']) == 'kasir') {
+                    $this->set_user($user);
+                    return $this->page_kasir();
+                }           
+                else {
+                    echo 'wrong auth';
+                    $auth->logout();
+                }         
+            }
+            else {
+                $this::set_redirect_url();
+                header('location: ./login');
+            }
+        }
+    }
+    
+    public function set_page($pageNumber) {
+        $_SESSION['kasir']['page_state'] = $pageNumber;
+    }
+
+    public function set_user($user) {
+        $_SESSION['kasir']['user'] = $user;
+    }
+
+    public function get_user() {
+        return $_SESSION['kasir']['user'];
+    }
+
+    public function set_customer($name) {
+        $_SESSION['kasir']['customer_name'] = $name;
+    }
+
+    public function get_customer() {
+        return $_SESSION['kasir']['customer_name'];;
+    }
+
+    public function set_selected_menu($menu) {
+        $_SESSION['kasir']['selected_menu'] = $menu;
+    }
+
+    public function get_selected_menu() {
+        if(isset($_SESSION['kasir']['selected_menu'])) {
+            return $_SESSION['kasir']['selected_menu'];
+        }
+        else {
+            return false;
+        }
+    }
+
+    public function go_back() {
+        if($_SESSION['kasir']['page_state'] > 0) {
+            $_SESSION['kasir']['page_state'] -= 1;
+        }
+        else {
+            $_SESSION['kasir']['page_state'] = 0;
+        }
+    }
+
+    private function receive_json($data) {
+        $result = [];
+
+        if(isset($data['menu']) && count($data['menu']) > 0){
+            $this->set_selected_menu($data['menu']);
+            $result['code'] = 200;
+            $result['text'] = 'success';
+            // $result['menu'] = $this->get_selected_menu();
+        }
+        
+        echo json_encode($result);
+    }
+    
+    private function page_kasir()
+    {
+        switch($_SESSION['kasir']['page_state']) {
+            case 0:
+                $this->enterCustomerName();
+            break;
+            case 1:
+                $this->SelectMenu();
+            break;
+            case 2:
+                $this->selectSizeToppingIce();
+            break;
+            case 3:
+                $this->checkout();
+            break;
+            default:
+                $this->enterCustomerName();
+            break;
+        }
+    }
+
+    private function enterCustomerName()
+    {
+        $page = $this::create_page('kasir', 'enterCustomerName');
+        
+        $page->user_information = $this->get_user();
+
+        $page->render();
+    }
+
+    private function selectMenu()
+    {
+        $page = $this::create_page('kasir', 'selectMenu');
+        require_once MODEL_PATH . 'QueryMenu.php';
+        $menu = new QueryMenu();
+
+        $page->user_information = $this->get_user();
+        $page->menu = $menu->get_all_menu();
+        if($this->get_selected_menu()) {
+            $page->selected_menu = json_encode($this->get_selected_menu());
+        }
+        $page->customer_name = $_SESSION['kasir']['customer_name'];
+
+        $page->render();
+    }
+
+    private function selectSizeToppingIce() {
+        $page = $this::create_page('kasir', 'selectSizeToppingIce');
+        require_once MODEL_PATH . 'QueryToping.php';
+        $topping = new QueryToping();
+
+        $page->topping = $topping->get_all_topping();
+        $page->selected_menu = json_encode($this->get_selected_menu());
+        $page->user_information = $this->get_user();
+        $page->customer_name = $this->get_customer();
+
+        $page->render();
+    }
+
+    private function checkout() {
+        $page = $this::create_page('kasir', 'checkout');
+
+        $page->selected_menu = json_encode($this->get_selected_menu());
+        $page->user_information = $this->get_user();
+        $page->customer_name = $this->get_customer();
+
+        $page->render();
     }
 }

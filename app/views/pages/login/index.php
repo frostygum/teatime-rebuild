@@ -8,6 +8,8 @@
             <span>a place where tea flies your time</span>
         </div>
     </div>
+    <div>
+    </div>
     <div class="display-grid justify-content-center grid-col-1">
         <div class="card bg-teal shadow text-light login-card py-4 px-2">
             <h5 class="text-center">Welcome Back!</h5>
@@ -30,6 +32,31 @@
         </div>
     </div>
 </div>
+
+<?php 
+    if(isset($error)) {
+        echo "
+        <div class='alert'>
+            <div id='alert' class='alert-content'>
+                <div class='alert-icon'>  
+                    <span class='fa fa-exclamation-triangle'></span>
+                </div>
+                <div class='alert-text'>
+                    $error
+                </div>
+                <button class='alert-close' onclick='toggleAlert(`alert`)'>
+                    <span class='fa fa-times-circle'></span>
+                </button>
+            </div>
+        </div>
+        <script type='text/javascript' defer>
+            window.addEventListener('load', function () {
+                toggleAlert('alert');
+            });
+        </script>
+        ";
+    }
+?>
 
 <script type="text/javascript" defer>
     class LoginForm {

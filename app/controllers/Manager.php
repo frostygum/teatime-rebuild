@@ -16,7 +16,7 @@ class Manager extends Controller
         //$page->test = 'hai';
         
         
-        $page = $this::create_page('manager', 'index');
+        $page = $this::create_page('manager', 'dashboard');
         $page->render();
         
     }
@@ -43,7 +43,32 @@ class Manager extends Controller
         }
     }*/
 
-    
+    public function get_total_transaksiHarian(){
 
+        $query = '
+            SELECT
+                sum() 
+            FROM
+                transaksipemesanan
+        ';
+
+        $queryResult = $this->db->executeSelectQuery($query);
+        
     
+    }
+
+    public function get_total_cupHarian(){
+        $query = '
+            SELECT
+                sum()
+            FROM ';
+    }
+
+    public function get_total_pemasukanHarian(){
+
+    }
+
+    public function get_urutkebawah_toping(){
+        
+    }
 }

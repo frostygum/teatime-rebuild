@@ -17,6 +17,15 @@
             <a href="" class="side-navbar-tab">Data</a>
             <a href="" class="side-navbar-tab">Ranking</a>
             </div>
+            <div class="card ">
+            banyak transaksi harian 
+            </div>
+            <div class="card ">
+            banyak pemasukan harian
+            </div>
+            <div class="card ">
+            banyak cup terjual 
+            </div>
         </div>
     </div>
 

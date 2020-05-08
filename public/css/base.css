@@ -139,6 +139,10 @@ td {
         padding-left: 1rem;
         padding-right: 1rem;
     }
+
+    html {
+        font-size: 8px;
+    }
 }
 
 @media only screen and (min-width: 600px) {
@@ -149,6 +153,10 @@ td {
     .container-fluid {
         padding-left: 1rem;
         padding-right: 1rem;
+    }
+
+    html {
+        font-size: 10px;
     }
 }
 
@@ -161,6 +169,10 @@ td {
         padding-left: 1.5rem;
         padding-right: 1rem;
     }
+
+    html {
+        font-size: 12px;
+    }
 }
 
 @media only screen and (min-width: 992px) {
@@ -172,6 +184,10 @@ td {
         padding-left: 1.5rem;
         padding-right: 1.5rem;
     }
+
+    html {
+        font-size: 14px;
+    }
 }
 
 @media only screen and (min-width: 1200px) {
@@ -182,6 +198,10 @@ td {
     .container-fluid {
         padding-left: 2rem;
         padding-right: 2rem;
+    }
+
+    html {
+        font-size: 16px;
     }
 }
 
@@ -1037,6 +1057,15 @@ td {
     border-color: var(--blue) !important;
 }
 
+/* !BORDER RADIUS */
+
+.circle {
+    border-radius: 100% !important;
+}
+
+.rounded {
+    border-radius: var(--border-radius) !important;
+}
 
 /* !spinner */
 

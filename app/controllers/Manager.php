@@ -13,12 +13,31 @@ class Manager extends Controller
 
     public function index()
     {
-        //$page->test = 'hai';
+        $auth = $this::auth_helper();
+        $user = $auth->get_auth();
+
+        if($user) {
+            if (true) {
+                $this::set_user($user);
+                return $this->page_index();
+            }           
+            else {
+                echo 'wrong auth';
+                $auth->logout();
+            }         
+        }
+        else {
+            $this::set_redirect_url();
+            header('location: ./login');
+        }
         
-        
+    }
+
+    public function page_index() {
         $page = $this::create_page('manager', 'index');
+
+        $page->user_information = $this::get_user();
         $page->render();
-        
     }
     
     /*public function index()

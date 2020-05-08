@@ -140,10 +140,10 @@ class Admin extends Controller
         echo json_encode($result);
     }
 
-    public function get_a_user($username) {
-        $query = '
-        '
-    }
+    // public function get_a_user($username) {
+    //     $query = '
+    //     '
+    // }
 
     public function get_all_user()
     {

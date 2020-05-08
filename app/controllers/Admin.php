@@ -15,8 +15,7 @@ class Admin extends Controller
 
     public function index()
     {
-        $page = $this::create_page('admin', 'test');
-        $page->test = 6;
+        $page = $this::create_page('admin', 'user_page');
         $page->all_user = $this->get_all_user();
         $page->render();
 

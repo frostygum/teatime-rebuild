@@ -15,6 +15,44 @@ class Admin extends Controller
 
     public function index()
     {
+        $auth = $this::auth_helper();
+        $user = $auth->get_auth();
+
+        if($user) {
+            if (true) {
+                $this::set_user($user);
+                return $this->page_manager();
+            }           
+            else {
+                echo 'wrong auth';
+                $auth->logout();
+            }         
+        }
+        else {
+            $this::set_redirect_url();
+            header('location: ./login');
+        }
+        
+    }
+
+    public function page_manager() {
+        if(isset($_GET['page'])) {
+            switch($_GET['page']) {
+                case 'user':
+                    $this->page_user();
+                break;
+                default:
+                    $this->page_user();
+                break;
+            }
+        }
+        else {
+            header('location: ./admin?page=user');
+        }
+    }
+
+    public function page_user()
+    {
         $page = $this::create_page('admin', 'user_page');
         $page->all_user = $this->get_all_user();
         $page->render();

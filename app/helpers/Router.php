@@ -89,6 +89,7 @@ class Router
     {
         if (isset($_SERVER['REQUEST_URI'])) {
             $url = rtrim($_SERVER['REQUEST_URI'], '/');
+            $url = strstr($url, '?', true);
             $base_url = explode('/', ltrim($url, '/'));
             $base_url = $base_url[0];
             $url = str_replace('/' . $base_url, '', $url);

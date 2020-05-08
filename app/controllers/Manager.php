@@ -19,7 +19,7 @@ class Manager extends Controller
         if($user) {
             if (true) {
                 $this::set_user($user);
-                return $this->page_index();
+                return $this->page_dashboard();
             }           
             else {
                 echo 'wrong auth';
@@ -33,8 +33,8 @@ class Manager extends Controller
         
     }
 
-    public function page_index() {
-        $page = $this::create_page('manager', 'index');
+    public function page_dashboard() {
+        $page = $this::create_page('manager', 'dashboard');
 
         $page->user_information = $this::get_user();
         $page->render();

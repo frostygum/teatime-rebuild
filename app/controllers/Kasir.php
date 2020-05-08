@@ -44,7 +44,7 @@ class Kasir extends Controller
         else {
             if($user) {
                 if (strtolower($user['tipe']) == 'kasir') {
-                    $this->set_user($user);
+                    $this::set_user($user);
                     return $this->page_kasir();
                 }           
                 else {
@@ -61,14 +61,6 @@ class Kasir extends Controller
     
     public function set_page($pageNumber) {
         $_SESSION['kasir']['page_state'] = $pageNumber;
-    }
-
-    public function set_user($user) {
-        $_SESSION['kasir']['user'] = $user;
-    }
-
-    public function get_user() {
-        return $_SESSION['kasir']['user'];
     }
 
     public function set_customer($name) {
@@ -150,7 +142,7 @@ class Kasir extends Controller
         require_once MODEL_PATH . 'QueryMenu.php';
         $menu = new QueryMenu();
 
-        $page->user_information = $this->get_user();
+        $page->user_information = $this::get_user();
         $page->menu = $menu->get_all_menu();
         if($this->get_selected_menu()) {
             $page->selected_menu = json_encode($this->get_selected_menu());
@@ -167,7 +159,7 @@ class Kasir extends Controller
 
         $page->topping = $topping->get_all_topping();
         $page->selected_menu = json_encode($this->get_selected_menu());
-        $page->user_information = $this->get_user();
+        $page->user_information = $this::get_user();
         $page->customer_name = $this->get_customer();
 
         $page->render();
@@ -177,7 +169,7 @@ class Kasir extends Controller
         $page = $this::create_page('kasir', 'checkout');
 
         $page->selected_menu = json_encode($this->get_selected_menu());
-        $page->user_information = $this->get_user();
+        $page->user_information = $this::get_user();
         $page->customer_name = $this->get_customer();
         $page->render();
     }

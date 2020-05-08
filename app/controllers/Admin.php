@@ -185,4 +185,24 @@ class Admin extends Controller
 
         return $result;
     }
+
+    public function get_all_toping()
+    {
+        $query = '
+            SELECT
+                id,
+                nama_toping,
+                harga_toping,
+            FROM
+                Toping
+        ';
+
+        $queryResult = $this->db->executeSelectQuery($query);
+        $result = [];
+        foreach ($queryResult as $key => $value) {
+            $result[] = new Menu($value['id'], $value['nama_toping'], $value['harga_toping']);
+        }
+
+        return $result;
+    }
 }

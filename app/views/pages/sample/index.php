@@ -1,4 +1,6 @@
-<?= $this::add_template('header') ?>
+<?php 
+    require_once VIEW_PATH . "templates/header.php"; 
+?>
 
 <h6 class="text-center">Here are sample to all components</h6>
 

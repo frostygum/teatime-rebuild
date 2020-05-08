@@ -1037,6 +1037,15 @@ td {
     border-color: var(--blue) !important;
 }
 
+/* !BORDER RADIUS */
+
+.circle {
+    border-radius: 100% !important;
+}
+
+.rounded {
+    border-radius: var(--border-radius) !important;
+}
 
 /* !spinner */
 

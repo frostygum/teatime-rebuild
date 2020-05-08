@@ -49,10 +49,10 @@
                     <div class="px-4 pb-3">
                         <ol>
                             <li><h6 class="m-0 p-0 text-warning">Brown Milk Tea</h6></li>
-                            <li>Brown Milk Tea</li>
-                            <li>Brown Milk Tea</li>
-                            <li>Brown Milk Tea</li>
-                            <li>Brown Milk Tea</li>
+                            <li>Roasted Milk Tea</li>
+                            <li>mango Green Tea</li>
+                            <li>Black Tea Mousse</li>
+                            <li>Hawaii Fruit Tea</li>
                         </ol>
                     </div>
                 </div>
@@ -65,11 +65,11 @@
                     <h4 class="text-center mb-2">Our Top 5 Selected Topping</h4>
                     <div class="px-4 pb-3">
                         <ol>
-                            <li><h6 class="m-0 p-0 text-warning">Brown Milk Tea</h6></li>
-                            <li>Brown Milk Tea</li>
-                            <li>Brown Milk Tea</li>
-                            <li>Brown Milk Tea</li>
-                            <li>Brown Milk Tea</li>
+                            <li><h6 class="m-0 p-0 text-warning">Pearl</h6></li>
+                            <li>Coffee Jelly</li>
+                            <li>Coconut Jelly</li>
+                            <li>Red Beans</li>
+                            <li>Pudding</li>
                         </ol>
                     </div>
                 </div>

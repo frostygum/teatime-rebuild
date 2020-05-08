@@ -34,26 +34,29 @@ class Manager extends Controller
     }
 
     public function page_manager() {
-        switch($_GET['page']) {
-            case 'dashboard':
-                $this->page_dashboard();
-            break;
-            case 'data':
-                $this->page_data();
-            break;
-            case 'ranking':
-                $this->page_ranking();
-            break;
-            default:
-                $this->page_dashboard();
-            break;
+        if(isset($_GET['page'])) {
+            switch($_GET['page']) {
+                case 'dashboard':
+                    $this->page_dashboard();
+                break;
+                case 'data':
+                    $this->page_data();
+                break;
+                case 'ranking':
+                    $this->page_ranking();
+                break;
+                default:
+                    $this->page_dashboard();
+                break;
+            }
+        }
+        else {
+            header('location: ./manager?page=dashboard');
         }
     }
 
     public function page_dashboard() {
         $page = $this::create_page('manager', 'dashboard');
-
-        var_dump($_GET['page']);
 
         $page->user_information = $this::get_user();
         $page->render();

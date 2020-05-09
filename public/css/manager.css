@@ -1,0 +1,16 @@
+.side-navbar-tab{
+    padding: 0.4rem 1.2rem;
+    background-color: var(--dark);
+    color: var(--light);
+    font-size: 1rem;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    min-width: 3rem;
+    transition: All 0.1s linear;
+}
+
+.side-navbar-tab:hover{
+    background-color: var(--blue-darker)
+}

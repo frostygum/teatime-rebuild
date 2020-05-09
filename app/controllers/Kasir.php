@@ -77,7 +77,7 @@ class Kasir extends Controller
     }
 
     public function clear_customer_data() {
-        unset($_SESSION['kasir']['customer_name']);
+        unset($_SESSION['kasir']);
     }
 
     public function set_selected_menu($menu) {

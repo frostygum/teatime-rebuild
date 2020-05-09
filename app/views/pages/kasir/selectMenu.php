@@ -25,12 +25,12 @@
                             Filter <span class="fa fa-caret-down ml-1"></span>
                         </button>
                         <div id="select_filter" class="dropdown-content">
-                            <a href="">smoothies</a>
-                            <a href="">milk tea</a>
-                            <a href="">coffee</a>
+                            <a onclick="searchFilter('smoothies')">smoothies</a>
+                            <a onclick="searchFilter('milk tea')">milk tea</a>
+                            <a onclick="searchFilter('coffee')">coffee</a>
                         </div>
                     </div>
-                    <input type="text" class="input text-bold border-0 ml-2" placeholder="search drinks" />
+                    <input type="text" class="input text-bold border-0 ml-2" placeholder="search drinks" onkeyup="searchDrinks(event)" />
                     <!-- BUTTON NEXT -->
                     <button id="btn_submit_menu" class="btn btn-warning py-2 shadow ml-2">
                         <span class="fa fa-arrow-right"></span>
@@ -39,31 +39,8 @@
             </div>
 
             <!-- MENU LIST -->
-            <div class="display-grid grid-g-2 align-content-start mt-3" style="height: 70vh; overflow-y: auto; grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));">
+            <div id="menu-wrapper" class="display-grid grid-g-2 align-content-start mt-3" style="height: 70vh; overflow-y: auto; grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));">
                 
-                <?php 
-                    if(isset($menu)) {
-                        foreach($menu as $key => $value) {
-                            echo '
-                                <div id="menu-'. $value->get_id() .'" class="card menu py-1 px-2 m-0" onclick="toggleModalMenu(`'. $value->get_name() .'`, '. $value->get_id() .')">
-                                    <div class="menu-title">
-                                        <p>'. $value->get_name() .'</p>
-                                    </div>
-                                    <div class="menu-content">
-                                        <div class="py-2">
-                                            <span class="badge bg-warning text-bold text-light">R</span>
-                                            <span id="menu-price-r-'. $value->get_id() .'" class="text-bold">'. $value->get_priceR() .'</span>
-                                        </div>
-                                        <div class="py-2">
-                                            <span class="badge bg-danger text-bold text-light">L</span>
-                                            <span id="menu-price-l-'. $value->get_id() .'" class="text-bold" >'. $value->get_priceL().'</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            ';
-                        }
-                    }
-                ?>
             </div>
         </div>
     </div>
@@ -114,6 +91,116 @@
 
 <script type="text/javascript" defer>
 
+    let formatter = new Intl.NumberFormat('en-IN', {
+        style: 'currency',
+        currency: 'IDR',
+        maximumSignificantDigits: 3
+    });
+
+    let allMenu = [];
+
+    <?php 
+        if(isset($menu)) {
+            foreach($menu as $key => $value) {
+                echo '
+                    allMenu.push({
+                        id: '. $value->get_id() .',
+                        name: "'. $value->get_name() .'",
+                        price_r: '. $value->get_priceR() .',
+                        price_l: '. $value->get_priceL() .',
+                    });
+                ';
+            }
+        }
+    ?>
+
+    function toggleModalMenu(menu, id, reg, lar) {
+        let found = false;
+        let pos = 0;
+        for(var i = 0; i < selectedMenu.length; i++) {
+            if (selectedMenu[i].name == menu) {
+                found = true;
+                pos = i;
+                break;
+            }
+        }
+
+        if(!found) {
+            selectedMenu.push({
+                id: id,
+                name: menu,
+                price_r: reg,
+                price_l: lar
+            });
+        }
+        else {
+            selectedMenu.splice(pos, 1);
+        }
+
+        document.getElementById(`menu-${id}`).classList.toggle('selected');
+
+        console.log(selectedMenu);
+    }
+
+    let menuWrapper = document.getElementById('menu-wrapper');
+
+    function appendMenuItem(menuData) {
+        let wrapper = document.createElement('div');
+        wrapper.id = `menu-${menuData.id}`;
+        wrapper.className = 'card menu py-1 px-2 m-0';
+        wrapper.onclick = () => toggleModalMenu(menuData.name, menuData.id, menuData.price_r, menuData.price_l);
+
+        let title = document.createElement('div');
+        title.className = "menu-title";
+        let p = document.createElement('p');
+        p.textContent = menuData.name;
+        title.appendChild(p);
+
+            let menu = document.createElement('div');
+            menu.className = "menu-content";
+
+                let item = document.createElement('div');
+                item.className = "py-2";
+                
+                let size = document.createElement('span');
+                size.className = "badge bg-warning text-bold text-light";
+
+                let price = document.createElement('span');
+                price.className = "text-bold ml-1";
+
+                size.textContent = 'R';
+                price.textContent = formatter.format(menuData.price_r);
+
+                item.appendChild(size);
+                item.appendChild(price);
+                menu.appendChild(item);
+
+                item = document.createElement('div');
+                item.className = "py-2";
+                
+                size = document.createElement('span');
+                size.className = "badge bg-danger text-bold text-light";
+
+                price = document.createElement('span');
+                price.className = "text-bold ml-1";
+
+                size.textContent = 'L';
+                price.textContent = formatter.format(menuData.price_l);
+
+                item.appendChild(size);
+                item.appendChild(price);
+                menu.appendChild(item);
+
+        wrapper.appendChild(title);
+        wrapper.appendChild(menu);
+
+        menuWrapper.appendChild(wrapper);
+    }
+
+    for(let i = 0; i < allMenu.length; i++) {
+        appendMenuItem(allMenu[i]);
+    }
+
     let selectedMenu = [];
 
     <?php 
@@ -129,35 +216,6 @@
             let currMenu = selectedMenu[i];
             document.getElementById(`menu-${currMenu.id}`).classList.toggle('selected');
         }
-    }
-
-    function toggleModalMenu(menu, id) {
-        // toggleModal(`modal-quantity`);
-        let found = false;
-        let pos = 0;
-        for(var i = 0; i < selectedMenu.length; i++) {
-            if (selectedMenu[i].name == menu) {
-                found = true;
-                pos = i;
-                break;
-            }
-        }
-
-        if(!found) {
-            selectedMenu.push({
-                id: id,
-                name: menu,
-                price_r: document.getElementById(`menu-price-r-${id}`).innerHTML,
-                price_l: document.getElementById(`menu-price-l-${id}`).innerHTML
-            });
-        }
-        else {
-            selectedMenu.splice(pos, 1);
-        }
-
-        document.getElementById(`menu-${id}`).classList.toggle('selected');
-
-        console.log(selectedMenu);
     }
     
     function validateInput() {
@@ -210,6 +268,34 @@
         }
     });
 
-    
+    function searchDrinks(e) {
+        let searchVal = e.target.value;
+        for(let i = 0; i < allMenu.length; i++) {
+            let curr = allMenu[i];
+            let currItem = document.getElementById(`menu-${curr.id}`);
+            
+            if(curr.name.toLowerCase().indexOf(searchVal) > -1) {
+                currItem.style.display = ''; 
+            }
+            else {
+                currItem.style.display = 'none';
+            }
+        }
+    }
+
+    function searchFilter(value) {
+        let searchVal = value;
+        for(let i = 0; i < allMenu.length; i++) {
+            let curr = allMenu[i];
+            let currItem = document.getElementById(`menu-${curr.id}`);
+            
+            if(curr.name.toLowerCase().indexOf(searchVal) > -1) {
+                currItem.style.display = ''; 
+            }
+            else {
+                currItem.style.display = 'none';
+            }
+        }
+    }
 
 </script>

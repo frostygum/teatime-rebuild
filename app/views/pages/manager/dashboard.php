@@ -24,7 +24,6 @@
             <!-- KANAN -->
             <div class="p-2" style="width: 100%;">
                 <div class="display-grid grid-col-3 grid-g-2">
-
                     <div class="card bg-red shadow p-2 text-center text-light">
                         <h4>100</h4>
                         <p>Total Cups</p>

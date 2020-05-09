@@ -7,5 +7,5 @@ class Transaction extends Model {
         $this->db = new DB();
     }
 
-
+    
 }

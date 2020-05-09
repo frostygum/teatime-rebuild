@@ -26,6 +26,27 @@ class DB extends DBConfig
         return $this->connection->escape_string($str);
     }
 
+    public function executeMultiQuery($query)
+    {
+        $this->open_connection();
+        $result = [];
+
+        if (!$this->connection->multi_query($query)) {
+            $this->error =  "Multi query failed: (" . $this->connection->errno . ") " . $this->connection->error;
+            return false;
+        }
+        
+        do {
+            if ($res = $this->connection->store_result()) {
+                $result[] = $res->fetch_all(MYSQLI_ASSOC);
+                $res->free();
+            }
+        } while ($this->connection->more_results() && $this->connection->next_result());
+
+        $this->close_connection();
+        return $result;
+    }
+
     public function executeSelectQuery($query)
     {
         $this->open_connection();
@@ -46,10 +67,10 @@ class DB extends DBConfig
         return $result;
     }
 
-    public function executeNonSelectQuery($sql)
+    public function executeNonSelectQuery($query)
     {
         $this->open_connection();
-        $query_result = $this->connection->query($sql);
+        $query_result = $this->connection->query($query);
         if (!$query_result) {
             $this-> error = $this->connection->error;
             return false;

@@ -14,3 +14,24 @@
 .side-navbar-tab:hover{
     background-color: var(--blue-darker)
 }
+
+.side-navbar-tab-active{
+    padding: 0.4rem 1.2rem;
+    background-color: var(--light);
+    color: var(--dark);
+    font-size: 1rem;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    min-width: 3rem;
+    transition: All 0.1s linear;
+}
+
+.ket-panel{
+    background-color: var(--teal);
+    color: var(--dark-darker);
+    width: 12rem;
+    border-radius: var(--border-radius);
+    margin: auto;
+}

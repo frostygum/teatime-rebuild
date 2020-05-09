@@ -7,13 +7,13 @@
         <div class="card shadow display-flex" style="height: 70vh; overflow: hidden;">
             <!-- LEFT AREA / SIDE NAVIGATION BAR -->
             <div class="sidebar">
-                <div class="sidebar-active p-2">
+                <div class="p-2">
                     <h6>User</h6>
                 </div>
                 <div class="p-2">
                     <h6>Menu</h6>
                 </div>
-                <div class="p-2">
+                <div class="sidebar-active p-2">
                     <h6>Toping</h6>
                 </div>
             </div>
@@ -27,16 +27,16 @@
                         <Table class="main-table ml-4">
                             <tr class="main-table-header-row">
                                 <th>No</th>
-                                <th style="min-width: 19rem">Nama</th>
-                                <th>Tipe</th>
+                                <th style="min-width: 19rem">Toping</th>
+                                <th>Harga</th>
                             </tr>
                             <?php
                                 $i = 1;
-                                foreach ($all_user as $key => $row) {
+                                foreach ($all_topping as $key => $row) {
                                     echo "<tr class='main-table-data-row'>";
-                                    echo "<td>".$i."</td>";
+                                    echo "<td class='justify-content-center align-items-center'>".$i."</td>";
                                     echo "<td>".$row->get_nama()."</td>";
-                                    echo "<td>".$row->get_tipe()."</td>";
+                                    echo "<td>".$row->get_harga()."</td>";
                                     echo "</tr>";
 
                                     $i++;
@@ -61,19 +61,10 @@
                 <div class="ml-4 mt-4">
                     <!-- SEARCH USER -->
                     <input type="text" onclick="toggleDropdown('select_filter')" class="input bg-teal text-light border-0" style="min-width: 15rem;" placeholder="Search name" />
-                    <!-- DROPDOWN TIPE -->
-                    <div class="fltr-dropdown pt-1">
-                        <button class="fltr-dropdown-btn py-1" style="font-size: 1rem">
-                            Tipe <span class="fa fa-caret-down ml-1"></span>
-                        </button>
-                        <div id="select_filter" class="fltr-dropdown-content">
-                            <a href="">Admin</a>
-                            <a href="">Manajer</a>
-                            <a href="">Kasir</a>
-                        </div>
-                    </div>
+                    <input type="text" class="input mt-1 bg-teal text-light border-0" style="min-width: 15rem;" placeholder="From price" />
+                    <input type="text" class="input mt-1 bg-teal text-light border-0" style="min-width: 15rem;" placeholder="To price" />
                     <br>
-                    <button class="search-btn">Search</button>
+                    <button class="search-btn mt-2">Search</button>
                 </div>
                 
             </div>

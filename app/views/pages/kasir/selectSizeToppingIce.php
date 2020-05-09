@@ -361,14 +361,14 @@
         return isValidated;
     }
 
-    function post(selectedMenu) {
+    function post(data) {
         return new Promise((resolve, reject) => {
             fetch('kasir', {
                 method: 'post',
                 headers: {
                     'content-type': 'application/x-www-form-urlencoded'
                 },
-                body: JSON.stringify(selectedMenu)
+                body: JSON.stringify(data)
             })
             .then(function(res) {
                 return res.text();
@@ -382,7 +382,7 @@
             .catch(function(err) {
                 reject(err);
             });
-        })
+        });
     }
 
     function toggleErrorAlert(alertId, alertMsg) {

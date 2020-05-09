@@ -2,6 +2,8 @@
 
 require_once HELPER_PATH . 'Db.php';
 require_once MODEL_PATH . 'User.php';
+require_once MODEL_PATH . 'Menu.php';
+require_once MODEL_PATH . 'Toping.php';
 
 class Admin extends Controller
 {
@@ -33,7 +35,7 @@ class Admin extends Controller
         //     header('location: ./login');
         // }
         
-        return $this->page_admin();
+        return $this->page_user();
     }
 
     public function page_admin() {
@@ -42,6 +44,10 @@ class Admin extends Controller
                 case 'user':
                     $this->page_user();
                 break;
+                case 'menu':
+                    $this->page_menu();
+                case 'toping' :
+                    $this->page_topping();
                 default:
                     $this->page_user();
                 break;
@@ -54,32 +60,23 @@ class Admin extends Controller
 
     public function page_user()
     {
-        $page = $this::create_page('admin', 'userPage_editUser');
+        $page = $this::create_page('admin', 'userPage');
         $page->all_user = $this->get_all_user();
         $page->render();
+    }
 
-        /* MASIH NYOBA-NYOBA
-        $auth = $this::auth_helper();
-        $user = $auth->get_auth();
+    public function page_menu()
+    {
+        $page = $this::create_page('admin', 'menuPage');
+        $page->all_menu = $this->get_all_menu();
+        $page->render();
+    }
 
-        if ($user != false) {
-            if (strtolower($user['tipe']) == 'admin') {
-                $page = $this::create_page('admin', 'test');
-                $page->user_information = $user;
-                $page->all_user = $this->get_all_user();
-                $page->render();
-            } else {
-                echo 'wrong auth';
-                $auth->logout();
-            }
-        } else {
-            $username = $_POST['username'];
-            $user = $this->get_a_user($username);
-            $auth->setAuth();
-            $this::set_redirect_url();
-            header('location: ./login');
-        }
-        */
+    public function page_topping()
+    {
+        $page = $this::create_page('admin', 'toppingPage');
+        $page->all_topping = $this->get_all_topping();
+        $page->render();
     }
 
     public function update_user()
@@ -225,13 +222,13 @@ class Admin extends Controller
         return $result;
     }
 
-    public function get_all_toping()
+    public function get_all_topping()
     {
         $query = '
             SELECT
                 id,
                 nama_toping,
-                harga_toping,
+                harga_toping
             FROM
                 Toping
         ';
@@ -239,7 +236,7 @@ class Admin extends Controller
         $queryResult = $this->db->executeSelectQuery($query);
         $result = [];
         foreach ($queryResult as $key => $value) {
-            $result[] = new Menu($value['id'], $value['nama_toping'], $value['harga_toping']);
+            $result[] = new Toping($value['id'], $value['nama_toping'], $value['harga_toping']);
         }
 
         return $result;

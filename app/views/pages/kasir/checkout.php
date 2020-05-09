@@ -73,22 +73,27 @@
                 
                 <h5 class="text-center">Confirm Payment ? </h5>
                 <div class="display-grid grid-col-2 grid-g-2 mt-4">
-                    <button class="btn btn-danger"onclick="toggleModal('modal-confirm')">Yes</button>
-                    <button class="btn btn-primary"onclick="toggleModal('modal-confirm')">Cancel</button>
+                    <button class="btn btn-danger"onclick="submitCheckout()">
+                        <h6>Yes</h6>
+                    </button>
+                    <button class="btn btn-primary"onclick="toggleModal('modal-confirm')">
+                        <h6>Cancel</h6>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- FORM NEXT PAGE -->
-    <form id="trigger_next_page" action="./kasir" method="POST">
-        <input type="hidden" name="set_page" value="2">
+    <!-- FORM CHECKOUT DONE -->
+    <form id="trigger_checkout_done" action="./kasir" method="POST">
+        <input type="hidden" name="checkout_done" value="true">
     </form>
 
 </div>
 
 <script type="text/javascript" defer>
     let selectedMenu = [];
+    let totalPrice = 0;
 
     let formatter = new Intl.NumberFormat('en-IN', {
         style: 'currency',
@@ -108,7 +113,6 @@
     let totalWrapper = document.getElementById('total');
 
     if(selectedMenu.length != 0) {
-        let totalPrice = 0;
         for(let i = selectedMenu.length - 1; i >= 0; i--) {
             let currMenu = selectedMenu[i];
 
@@ -175,6 +179,45 @@
 
     }
 
+    function post(data) {
+        return new Promise((resolve, reject) => {
+            fetch('kasir', {
+                method: 'post',
+                headers: {
+                    'content-type': 'application/x-www-form-urlencoded'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(function(res) {
+                return res.text();
+            })
+            .then(function(res) {
+                let result = JSON.parse(res);
+                console.log(result);
+                if(result && result.text === "success") {
+                    resolve(true);
+                }
+            })
+            .catch(function(err) {
+                reject(err);
+            });
+        });
+    }
+
+    function submitCheckout() {
+        post({checkout: {
+            total: totalPrice,
+            order: selectedMenu
+        }})
+        .then(function(res) {
+            toggleModal('modal-confirm');
+            document.getElementById('trigger_checkout_done').submit();
+        })
+        .catch(function(err) {
+            console.log(err);
+        });
+    }
+
     document.getElementById('btn-cash').addEventListener('click', function() {
         toggleModal('modal-confirm');
     });
@@ -182,6 +225,5 @@
     document.getElementById('btn-card').addEventListener('click', function() {
         toggleModal('modal-confirm');
     });
-
 
 </script>

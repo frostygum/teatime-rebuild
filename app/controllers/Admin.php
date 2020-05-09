@@ -18,24 +18,25 @@ class Admin extends Controller
         $auth = $this::auth_helper();
         $user = $auth->get_auth();
 
-        if($user) {
-            if (true) {
-                $this::set_user($user);
-                return $this->page_manager();
-            }           
-            else {
-                echo 'wrong auth';
-                $auth->logout();
-            }         
-        }
-        else {
-            $this::set_redirect_url();
-            header('location: ./login');
-        }
+        // if($user) {
+        //     if (true) {
+        //         $this::set_user($user);
+        //         return $this->page_admin();
+        //     }           
+        //     else {
+        //         echo 'wrong auth';
+        //         $auth->logout();
+        //     }         
+        // }
+        // else {
+        //     $this::set_redirect_url();
+        //     header('location: ./login');
+        // }
         
+        return $this->page_admin();
     }
 
-    public function page_manager() {
+    public function page_admin() {
         if(isset($_GET['page'])) {
             switch($_GET['page']) {
                 case 'user':
@@ -53,7 +54,7 @@ class Admin extends Controller
 
     public function page_user()
     {
-        $page = $this::create_page('admin', 'user_page');
+        $page = $this::create_page('admin', 'userPage_editUser');
         $page->all_user = $this->get_all_user();
         $page->render();
 

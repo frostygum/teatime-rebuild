@@ -8,6 +8,7 @@ CREATE TABLE Pengguna
 	nama_pengguna varchar(255) NOT NULL,
 	tipe varchar(50) NOT NULL,
 	username varchar(255) NOT NULL,
+	last_login DATE DEFAULT NULL,
 	password varchar(255) NOT NULL,
 	PRIMARY KEY (id),
 	UNIQUE (username)

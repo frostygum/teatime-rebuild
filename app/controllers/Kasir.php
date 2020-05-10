@@ -49,11 +49,11 @@ class Kasir extends Controller
         else {
             if($user) {
                 if (strtolower($user['tipe']) == 'kasir') {
-                    $this::set_user($user);
                     return $this->page_kasir();
                 }           
                 else {
                     echo 'wrong auth';
+                    echo var_dump($user);
                     $auth->logout();
                 }         
             }

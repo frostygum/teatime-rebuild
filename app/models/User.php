@@ -7,6 +7,7 @@ class User extends Model
     protected $nama = null;
     protected $tipe = null;
     protected $username = null;
+    protected $last_login = null;
     protected $error = null;
 
     public function __construct($id = null, $nama = null, $tipe = null, $username = null)
@@ -16,6 +17,7 @@ class User extends Model
         $this->nama = $nama;
         $this->tipe = $tipe;
         $this->username = $username;
+        $this->last_login = null;
     }
 
     public function get_all_user() {
@@ -38,7 +40,7 @@ class User extends Model
         return $result;
     }
 
-    public function update_user($id, $username = null, $name = null, $password = null)
+    public function update_user($id, $username = null, $name = null, $password = null, $last_login = null)
     {
         $id = $this->db->escapeString($id);
         $name = $this->db->escapeString($name);
@@ -58,6 +60,9 @@ class User extends Model
         if ($password != null) {
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
             $query .= " password = '$hashed_password',";
+        }
+        if ($last_login != null) {
+            $query .= " last_login = '$last_login',";
         }
         $query = substr($query, 0, -1);
         $query .= " WHERE id = '$id'";
@@ -126,7 +131,7 @@ class User extends Model
 
         $query = "
             SELECT
-                id, username, tipe, password
+                id, username, tipe, password, last_login
             FROM 
                 pengguna
             WHERE   
@@ -144,6 +149,7 @@ class User extends Model
                     $this->id = $query_result[0]['id'];
                     $this->username = $query_result[0]['username'];
                     $this->tipe = $query_result[0]['tipe'];
+                    $this->last_login = $query_result[0]['last_login'];
                     return true;
                 } else {
                     $this->error = 'user or password incorrect';
@@ -179,5 +185,9 @@ class User extends Model
     public function get_error()
     {
         return $this->error;
+    }
+
+    public function get_last_login() {
+        return $this->last_login;
     }
 }

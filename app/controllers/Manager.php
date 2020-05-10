@@ -18,7 +18,7 @@ class Manager extends Controller
 
         if($user) {
             if (true) {
-                $this::set_user($user);
+                // $this::set_user($user);
                 return $this->page_manager();
             }           
             else {

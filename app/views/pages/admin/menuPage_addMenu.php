@@ -7,10 +7,10 @@
         <div class="card shadow display-flex" style="height: 70vh; overflow: hidden;">
             <!-- LEFT AREA / SIDE NAVIGATION BAR -->
             <div class="sidebar">
-                <div class="sidebar-active p-2">
+                <div class="p-2">
                     <h6>User</h6>
                 </div>
-                <div class="p-2">
+                <div class="sidebar-active p-2">
                     <h6>Menu</h6>
                 </div>
                 <div class="p-2">
@@ -20,11 +20,23 @@
             <!-- RIGHT AREA -->
             <div class="display-flex p-2" style="width:90%">
                 <!-- MAIN -->
-                <div class="display-flex" style="width:60%; height:100%; flex-direction: column;">
+                <div class="display-flex" style="width:80%; height:100%; flex-direction: column;">
                     <!-- FORM CARD -->
-                    <div class="card edit-card bg-teal display-flex" style="min-height: 20rem;">
+                    <div class="card edit-card bg-teal display-flex p-2" style="min-height: 18rem;">
                         <!-- PICTURE -->
-                        <div class="user-image"></div>
+                        <div class="edit-image"></div>
+                        <!-- INPUT -->
+                        <div class="text-light">
+                            <div>
+                                <span class="ml-1">Nama</span><span class="edit-input">:</span><input type="text" class="input edit-input"></input>
+                            </div>
+                            <div class="mt-1">
+                                <span class="ml-1">Harga Regular</span><span class="edit-input">:</span><input type="number" class="input edit-input"></input>
+                            </div>
+                            <div class="mt-1">
+                                <span class="ml-1">Harga Large</span><span class="edit-input">:</span><input type="number" class="input edit-input"></input>
+                            </div>
+                        </div>
                     </div>
                     <!-- Edit Button -->
                     <div class="edit-btn-area display-flex">

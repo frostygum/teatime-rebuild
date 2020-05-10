@@ -26,8 +26,8 @@
 
 .main-table-header-row th{
     background-color: var(--primary);
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
 .main-table td {
@@ -169,7 +169,7 @@
   
 .fltr-dropdown-content a {
     color: var(--dark);
-    padding: .6rem 1rem;
+    padding: 0.6rem 1rem;
     font-size: 1rem;
     text-decoration: none;
     display: block;
@@ -263,12 +263,44 @@
     background-color: var(--dark-darker);
 }
 
-/* !USER CARD */
+/* !EDIT CARD */
 
 .edit-card {
-    width: 25rem;
+    width: 40rem;
     margin-left: auto;
     margin-right: 0;
+}
+
+/* !EDIT IMAGE */
+
+.edit-image {
+    background-color: grey;
+    width: 12rem;
+    height: 16rem;
+}
+
+/* !EDIT INPUT */
+
+.edit-input {
+    margin-left: 1rem;
+    margin-right: 0;
+}
+
+.edit-input[type=text], .edit-input[type=password], .edit-input[type=number] {
+    border: 2px solid var(--light-darker);
+    background-color: var(--light);
+    padding: 0.3rem 0.8rem;
+    border-radius: var(--border-radius);
+    min-width: 3rem;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: All 0.1s linear;
+}
+
+.edit-input[type=text]:hover, .edit-input[type=text]:focus, 
+.edit-input[type=password]:hover, .edit-input[type=password]:focus, 
+.edit-input[type=number]:hover, .edit-input[type=number]:focus {
+    border-color: var(--primary);
 }
 
 /* !SUBMIT BUTTON */

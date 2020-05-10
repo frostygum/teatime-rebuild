@@ -1,7 +1,5 @@
 <?php
 
-require_once MODEL_PATH . 'User.php';
-
 class Kasir extends Controller
 {
     public function __construct() {

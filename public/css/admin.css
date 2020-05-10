@@ -33,6 +33,7 @@
 .main-table td {
     font-weight: 300;
     padding-left: 0.5rem;
+    padding-right: 0.5rem;
     border-left: 1px solid lightgrey;
     border-right: 1px solid lightgrey;
 }
@@ -142,13 +143,15 @@
 }
 
 .fltr-dropdown-btn {
+    display: flex;
+    justify-content: space-between;
     background-color: var(--primary);
     color: var(--light);
     font-size: 1.2rem;
     border-radius: var(--border-radius);
     border: none;
     cursor: pointer;
-    min-width: 15rem;
+    text-align: left;
 }
   
 .fltr-dropdown-btn:hover, .fltr-dropdown-btn:focus {
@@ -156,15 +159,7 @@
 }
   
 .fltr-dropdown-content {
-    display: none;
-    margin-top: 0.3rem;
-    position: absolute;
-    background-color: var(--light);
-    overflow: auto;
-    box-shadow: var(--shadow);
-    z-index: 1;
-    border-radius: 0 var(--border-radius) var(--border-radius) var(--border-radius);
-    min-width: 9.4rem;
+    background-color: var(--primary);
 }
   
 .fltr-dropdown-content a {

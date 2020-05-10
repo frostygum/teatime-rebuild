@@ -15,8 +15,104 @@ class Transaction extends Model
         return $this->get_error();
     }
 
-    public function insertTransaction($id_cashier, $customer_name, $total)
-    {
+    public function get_all_transaksi(){
+        $query = '
+        SELECT 
+            id, waktu_transaksi, nama_pemesan,nama_minuman, nama_toping, ukuran_gelas, banyak_es,banyak_gula,total
+        FROM 
+            transaksipemesanan
+        ';
+        $queryResult = $this->db->executeSelectQuery($query);
+        $result = [];
+        foreach ($queryResult as $key => $value) {
+            $result[] = [
+                "id" => $value['id'], 
+                "waktu_transaksi" => $value['waktu_transaksi'], 
+                "nama_pemesan" => $value['nama_pemesan'], 
+                "nama_minuman" => $value['nama_minuman'], 
+                "nama_toping" => $value['nama_toping'],
+                "ukuran_gelas" => $value['ukuran_gelas'],  
+                "banyak_es" => $value['banyak_es'], 
+                "banyak_gula" => $value['banyak_gula'], 
+                "total" => $value['total']
+            ];
+        }
+        return $result;
+    }
+
+    public function get_all_transaksi_by_date($date){
+        $query = '
+        SELECT 
+            id, waktu_transaksi, nama_pemesan,nama_minuman, nama_toping, ukuran_gelas, banyak_es,banyak_gula,total
+        FROM 
+            transaksipemesanan
+        WHERE
+            transsaksipemesanan = '. $date .'
+        ';
+        $queryResult = $this->db->executeSelectQuery($query);
+        $result = [];
+        foreach ($queryResult as $key => $value) {
+            $result[] = [
+                "id" => $value['id'], 
+                "waktu_transaksi" => $value['waktu_transaksi'], 
+                "nama_pemesan" => $value['nama_pemesan'], 
+                "nama_minuman" => $value['nama_minuman'], 
+                "nama_toping" => $value['nama_toping'],
+                "ukuran_gelas" => $value['ukuran_gelas'],  
+                "banyak_es" => $value['banyak_es'], 
+                "banyak_gula" => $value['banyak_gula'], 
+                "total" => $value['total']
+            ];
+        }
+        return $result;
+    }
+
+    public function get_transaksi_by_id($id){
+        $id = $this->db->escapeString($id);
+
+        $query = '
+            SELECT 
+                id, waktu_transaksi, nama_pemesan,nama_minuman, nama_toping, ukuran_gelas, banyak_es,banyak_gula,total
+            FROM 
+                transaksipemesanan
+            WHERE 
+                id = '. $id .'
+        ';
+
+        $queryResult = $this->db->executeSelectQuery($query);
+        $result[] = [
+            "id" => $queryResult['id'], 
+            "waktu_transaksi" => $queryResult['waktu_transaksi'], 
+            "nama_pemesan" => $queryResult['nama_pemesan'], 
+            "nama_minuman" => $queryResult['nama_minuman'], 
+            "nama_toping" => $queryResult['nama_toping'],
+            "ukuran_gelas" => $queryResult['ukuran_gelas'],  
+            "banyak_es" => $queryResult['banyak_es'], 
+            "banyak_gula" => $queryResult['banyak_gula'], 
+            "total" => $queryResult['total']
+        ];
+        return $result;
+    }
+
+    public function delete_transaction($id) {
+        $id = $this->db->escapeString($id);
+
+        $query = "
+            DELETE FROM Transaction
+            WHERE id = '$id'
+        ";
+
+        $query_result = $this->db->executeNonSelectQuery($query);
+
+        if (!$query_result) {
+            $this->error = $this->db->get_error();
+            return false;
+        }
+
+        return true;
+    }
+
+    public function insertTransaction($id_cashier, $customer_name, $total) {
         date_default_timezone_set("Asia/Jakarta");
 
         $date = date("Y-m-d");
@@ -81,103 +177,5 @@ class Transaction extends Model
         }
 
         return true;
-    }
-
-    public function get_total_cupHarian()
-    {
-        $query = '
-            SELECT 
-                count(id)
-            FROM 
-                transaksi 
-        ';
-        $queryResult = $this->db->executeSelectQuery($query);
-        $result = $queryResult[0];
-        return $result;
-    }
-
-    public function get_total_pemasukanHarian()
-    {
-        $query = '
-        select 
-            sum(total)
-        from 
-            TransaksiPemesanan
-        ';
-        $queryResult = $this->db->executeSelectQuery($query);
-        $result = $queryResult[0];
-        return $result;
-    }
-
-    public function get_total_transaksiHarian()
-    {
-        $query = '
-        select 
-            count(id)
-        from 
-            TransaksiPemesanan
-        ';
-        $queryResult = $this->db->executeSelectQuery($query);
-        $result = $queryResult[0];
-        return $result;
-    }
-
-    public function get_data_Transaksi()
-    {
-        $query = '
-        SELECT 
-            id, waktu_transaksi, nama_pemesan,nama_minuman, 
-            nama_toping, ukuran_gelas, banyak_es,banyak_gula,total
-        FROM 
-            transaksi
-        ';
-        $queryResult = $this->db->executeSelectQuery($query);
-        $result = [];
-        foreach ($queryResult as $key => $value) {
-            $result[] = [
-                "date" => $value['waktu_transaksi'],
-                "customer" => $value['nama_pemesan'],
-                "order" => $value['nama_minuman'],
-                "topping" => $value['nama_toping'],
-                "size" => $value['ukuran_gelas'],
-                "ice" => $value['banyak_es'],
-                "sugar" => $value['banyak_gula'],
-                "total" => $value['total']
-            ];
-        }
-        return $result;
-    }
-
-    public function get_menuPopular_list()
-    {
-        $query = '
-        SELECT 
-            Menu.nama_minuman, COUNT(DetailTransaksi.idMenu) 
-        FROM 
-            DetailTransaksi RIGHT OUTER JOIN Menu
-	            ON Menu.id = DetailTransaksi.idMenu
-        GROUP BY 
-            Menu.nama_minuman
-        ORDER BY 
-            COUNT(DetailTransaksi.idMenu) DESC
-        ';
-        $queryResult = $this->db->executeSelectQuery($query);
-        $result = [];
-        foreach ($queryResult as $key => $value) {
-            $result[] = [
-                "nama" => $value['nama_minuman'],
-                "terjual" => $value['COUNT(DetailTransaksi.idMenu)']
-            ];
-        }
-        return $result;
-        /*
-        $queryResult = $this->db->executeSelectQuery($query);
-        if (!$queryResult) {
-            $this->error = $this->db->get_error();
-            echo $this->db->get_error();
-        } 
-        return false;*/
-        
-
     }
 }

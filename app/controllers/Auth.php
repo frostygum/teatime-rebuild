@@ -1,6 +1,7 @@
 <?php
 
 require_once MODEL_PATH . 'User.php';
+require_once MODEL_PATH . 'QueryUser.php';
 
 class Auth extends controller
 {

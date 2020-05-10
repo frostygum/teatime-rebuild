@@ -44,13 +44,13 @@ class AuthHelper
 
             $date = date("Y-m-d");
 
-            $user = new User;
-            $res = $user->update_user($id, null, null, null, $date);
+            $q_user = new QueryUser;
+            $res = $q_user->update_user($id, null, null, null, $date);
 
             if ($res) {
                return true;
             } else {
-                $this->error = $user->get_error();
+                $this->error = $q_user->get_error();
                 return false;
             }
 
@@ -65,13 +65,13 @@ class AuthHelper
 
             $date = date("Y-m-d");
 
-            $user = new User;
-            $res = $user->update_user($id, null, null, $new_password, $date);
+            $q_user = new QueryUser;
+            $res = $q_user->update_user($id, null, null, $new_password, $date);
 
             if ($res) {
                return true;
             } else {
-                $this->error = $user->get_error();
+                $this->error = $q_user->get_error();
                 return false;
             }
 
@@ -85,20 +85,20 @@ class AuthHelper
         if (isset($username) && isset($password)) {
             $result = [];
 
-            $user = new User;
-            $res = $user->read_user($username, $password);
+            $q_user = new QueryUser;
+            $res = $q_user->read_user($username, $password);
 
             if ($res) {
-                $result['id'] = $user->get_id();
-                $result['username'] = $user->get_username();
-                $result['tipe'] = $user->get_tipe();
-                $result['last_login'] = $user->get_last_login();
+                $result['id'] = $res->get_id();
+                $result['username'] = $res->get_username();
+                $result['tipe'] = $res->get_tipe();
+                $result['last_login'] = $res->get_last_login();
 
                 // $this->setAuth($result['username'], $result['id'], $result['tipe']);
 
                 return $result;
             } else {
-                $this->error = $user->get_error();
+                $this->error = $q_user->get_error();
                 return false;
             }
 

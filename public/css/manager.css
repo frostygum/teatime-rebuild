@@ -1,14 +1,18 @@
-.side-navbar-tab{
-    padding: 0.4rem 1.2rem;
+/*side navbar*/
+.side-navbar{
+    width:20rem !important;
     background-color: var(--dark);
     color: var(--light);
+    border-radius: var(--border-radius) 0 0 var(--border-radius)
+}
+
+.side-navbar-tab{
+    padding: 0.4rem 1.2rem;
     font-size: 1rem;
     text-align: center;
     border: none;
     cursor: pointer;
     font-weight: 500;
-    min-width: 3rem;
-    transition: All 0.1s linear;
 }
 
 .side-navbar-tab:hover{
@@ -16,22 +20,87 @@
 }
 
 .side-navbar-tab-active{
-    padding: 0.4rem 1.2rem;
     background-color: var(--light);
     color: var(--dark);
+    padding: 0.4rem 1.2rem;
     font-size: 1rem;
     text-align: center;
     border: none;
     cursor: pointer;
     font-weight: 500;
-    min-width: 3rem;
-    transition: All 0.1s linear;
 }
-
+/*panel*/
 .ket-panel{
     background-color: var(--teal);
     color: var(--dark-darker);
     width: 12rem;
     border-radius: var(--border-radius);
     margin: auto;
+}
+
+.ket-panel-data{
+    background-color: var(--teal);
+    color: var(--dark-darker);
+    width: 6rem;
+    border-radius: var(--border-radius);
+    margin: auto;
+    font-size: 1rem;
+}
+
+.panel-data{
+    height: 5rem;
+}
+
+/*table data*/
+
+.tableArea{
+    margin: 0 auto;
+}
+
+.tableHeader{
+    color: var(--white);
+}
+.tableHeader th{
+    background-color: var(--teal);
+    color: var(--white);
+    padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+}
+
+.tableData{
+    color: var(--dark-darker) ;
+    background-color: var(--white) ;
+    padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+}
+
+.tableData td{
+    background-color: var(--white) ;
+    padding: 0.2rem 0.5rem 0.2rem 0.5rem ;
+    font-size: 1rem ;
+}
+
+.btn-manager{
+    background-color: var(--teal);
+    color: white;
+    width: 10rem;
+    height: 2rem;
+    font-size: 1.2rem;
+    
+}
+
+.btn-manager:hover, .btn-manager:focus{
+    background-color: var(--teal-darker);
+    color: white;
+}
+
+.content-manager{
+    background-color: var(--teal); 
+}
+
+.content-manager a{
+
+    color: white !important;   
+}
+
+.content-manager a:hover{
+    background-color: var(--teal-darker); 
 }

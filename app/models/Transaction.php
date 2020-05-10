@@ -1,14 +1,17 @@
 <?php
 
-class Transaction extends Model {
+class Transaction extends Model
+{
     protected $db;
     protected $error;
-    
-    public function __construct() {
+
+    public function __construct()
+    {
         $this->db = new DB();
     }
 
-    public function get_error() {
+    public function get_error()
+    {
         return $this->get_error();
     }
 
@@ -134,7 +137,7 @@ class Transaction extends Model {
         ";
 
         $query_result = $this->db->executeMultiQuery($query);
-        
+
         if (!$query_result) {
             return false;
         }
@@ -142,7 +145,8 @@ class Transaction extends Model {
         return $query_result;
     }
 
-    public function insertDetailTransaction($transaction_id, $menu_id, $toping_id, $size, $ice, $sugar) {
+    public function insertDetailTransaction($transaction_id, $menu_id, $toping_id, $size, $ice, $sugar)
+    {
         $query = "
             INSERT INTO 
                 `detailtransaksi` 
@@ -166,7 +170,7 @@ class Transaction extends Model {
         ";
 
         $query_result = $this->db->executeNonSelectQuery($query);
-        
+
         if (!$query_result) {
             $this->error = $this->db->get_error();
             return false;

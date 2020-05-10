@@ -56,6 +56,13 @@ class Manager extends Controller
 
     public function page_dashboard() {
         $page = $this::create_page('manager', 'dashboard');
+        
+        require_once MODEL_PATH . 'Transaction.php';
+        $transaction = new Transaction();
+
+        $page->totalTransaksi = $transaction->get_total_transaksiHarian();
+        $page->totalCup = $transaction->get_total_cupHarian();
+        $page->totalPemasukan = $transaction->get_total_pemasukanHarian();
 
         $page->user_information = $this::get_user();
         $page->render();
@@ -63,6 +70,10 @@ class Manager extends Controller
 
     public function page_data() {
         $page = $this::create_page('manager', 'data');
+        require_once MODEL_PATH . 'Transaction.php';
+        $transaction = new Transaction();
+
+        $page->dataTransaksi = $transaction->get_data_Transaksi();
 
         $page->user_information = $this::get_user();
         $page->render();
@@ -70,6 +81,10 @@ class Manager extends Controller
     
     public function page_ranking() {
         $page = $this::create_page('manager', 'ranking');
+        require_once MODEL_PATH . 'Transaction.php';
+        $transaction = new Transaction();
+
+        $page->listPopularitasMenu = $transaction->get_menuPopular_list();
 
         $page->user_information = $this::get_user();
         $page->render();
@@ -97,75 +112,4 @@ class Manager extends Controller
         }
     }*/
 
-    public function get_total_cupHarian(){
-        $query = '
-            SELECT 
-                count(id)
-            FROM 
-                transaksi 
-        ';
-        $queryResult = $this->db->executeSelectQuery($query);
-        return $queryResult;
-    }
-
-    public function get_total_pemasukanHarian(){
-        $query = '
-        select 
-            sum(total)
-        from 
-            TransaksiPemesanan
-        ';
-        $queryResult = $this->db->executeSelectQuery($query);
-        return $queryResult;
-    }
-
-    public function get_total_transaksiHarian(){
-        $query = '
-        select 
-            count(id)
-        from 
-            TransaksiPemesanan
-        ';
-        $queryResult = $this->db->executeSelectQuery($query);
-        
-        return $queryResult;
-    }
-
-    public function get_data_Transaksi(){
-        $query = '
-        SELECT 
-            id, waktu_transaksi, nama_pemesan,nama_minuman, nama_toping, ukuran_gelas, banyak_es,banyak_gula,total
-        FROM 
-            transaksi
-        ';
-        $queryResult = $this->db->executeSelectQuery($query);
-        $result = [];
-        foreach ($queryResult as $key => $value) {
-            $result[] = new Transaction($value['id'], $value['waktu_transaksi'], $value['nama_pemesan'], 
-                $value['nama_minuman'], $value['nama_toping'], $value['ukuran_gelas'],  
-                $value['banyak_es'], $value['banyak_gula'], $value['total']);
-        }
-        return $result;
-    }
-    /*
-    public function get_best_kasir{
-        
-        $query ='
-            SELECT 
-                Pengguna.nama_pengguna, 
-                COUNT(TransaksiPemesanan.id) as "banyak transaksi"
-            FROM TransaksiPemesanan join Pengguna
-                on TransaksiPemesanan.idKasir = Pengguna.id
-            GROUP BY Pengguna.nama_pengguna
-            order by Pengguna.nama_pengguna
-        ';
-        $queryResult = $this->db->executeSelectQuery($query);
-        $result = [];
-        foreach ($queryResult as $key => $value) {
-            $result[] = new Transaction($value[], $value[]);
-        }
-        return $result;
-        
-    }
-    */
 }

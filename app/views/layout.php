@@ -12,9 +12,10 @@
         <link type="font/ttf" href="<?= FONT_PATH ?>Quicksand.ttf">
         
         <!-- SCRIPTS -->
-        <script type="text/javascript" src="<?= JS_PATH ?>index.js" defer></script>
-        
+        <script type="text/javascript" src="<?= JS_PATH ?>index.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" defer></script>
+
     </head>
 
     <body>

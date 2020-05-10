@@ -23,8 +23,6 @@
                 <div class="display-flex" style="width:80%; height:100%; flex-direction: column;">
                     <!-- FORM CARD -->
                     <div class="card edit-card bg-teal display-flex p-2" style="min-height: 18rem;">
-                        <!-- PICTURE -->
-                        <div class="edit-image"></div>
                         <!-- INPUT -->
                         <div class="text-light ml-2">
                             <div>

@@ -41,7 +41,7 @@ class Admin extends Controller
             header('location: ./login');
         }
         
-        return $this->page_user();
+        // return $this->page_user();
     }
 
     public function page_admin() {

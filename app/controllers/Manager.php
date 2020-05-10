@@ -1,6 +1,5 @@
 <?php
 
-require_once MODEL_PATH . 'User.php';
 require_once MODEL_PATH . 'Toping.php';
 class Manager extends Controller
 {

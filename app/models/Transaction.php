@@ -12,6 +12,103 @@ class Transaction extends Model {
         return $this->get_error();
     }
 
+    public function get_all_transaksi(){
+        $query = '
+        SELECT 
+            id, waktu_transaksi, nama_pemesan,nama_minuman, nama_toping, ukuran_gelas, banyak_es,banyak_gula,total
+        FROM 
+            transaksipemesanan
+        ';
+        $queryResult = $this->db->executeSelectQuery($query);
+        $result = [];
+        foreach ($queryResult as $key => $value) {
+            $result[] = [
+                "id" => $value['id'], 
+                "waktu_transaksi" => $value['waktu_transaksi'], 
+                "nama_pemesan" => $value['nama_pemesan'], 
+                "nama_minuman" => $value['nama_minuman'], 
+                "nama_toping" => $value['nama_toping'],
+                "ukuran_gelas" => $value['ukuran_gelas'],  
+                "banyak_es" => $value['banyak_es'], 
+                "banyak_gula" => $value['banyak_gula'], 
+                "total" => $value['total']
+            ];
+        }
+        return $result;
+    }
+
+    public function get_all_transaksi_by_date($date){
+        $query = '
+        SELECT 
+            id, waktu_transaksi, nama_pemesan,nama_minuman, nama_toping, ukuran_gelas, banyak_es,banyak_gula,total
+        FROM 
+            transaksipemesanan
+        WHERE
+            transsaksipemesanan = '. $date .'
+        ';
+        $queryResult = $this->db->executeSelectQuery($query);
+        $result = [];
+        foreach ($queryResult as $key => $value) {
+            $result[] = [
+                "id" => $value['id'], 
+                "waktu_transaksi" => $value['waktu_transaksi'], 
+                "nama_pemesan" => $value['nama_pemesan'], 
+                "nama_minuman" => $value['nama_minuman'], 
+                "nama_toping" => $value['nama_toping'],
+                "ukuran_gelas" => $value['ukuran_gelas'],  
+                "banyak_es" => $value['banyak_es'], 
+                "banyak_gula" => $value['banyak_gula'], 
+                "total" => $value['total']
+            ];
+        }
+        return $result;
+    }
+
+    public function get_transaksi_by_id($id){
+        $id = $this->db->escapeString($id);
+
+        $query = '
+            SELECT 
+                id, waktu_transaksi, nama_pemesan,nama_minuman, nama_toping, ukuran_gelas, banyak_es,banyak_gula,total
+            FROM 
+                transaksipemesanan
+            WHERE 
+                id = '. $id .'
+        ';
+
+        $queryResult = $this->db->executeSelectQuery($query);
+        $result[] = [
+            "id" => $queryResult['id'], 
+            "waktu_transaksi" => $queryResult['waktu_transaksi'], 
+            "nama_pemesan" => $queryResult['nama_pemesan'], 
+            "nama_minuman" => $queryResult['nama_minuman'], 
+            "nama_toping" => $queryResult['nama_toping'],
+            "ukuran_gelas" => $queryResult['ukuran_gelas'],  
+            "banyak_es" => $queryResult['banyak_es'], 
+            "banyak_gula" => $queryResult['banyak_gula'], 
+            "total" => $queryResult['total']
+        ];
+        return $result;
+    }
+
+    public function delete_transaction($id) {
+        $id = $this->db->escapeString($id);
+
+        $query = "
+            DELETE FROM Transaction
+            WHERE id = '$id'
+        ";
+
+        $query_result = $this->db->executeNonSelectQuery($query);
+
+        if (!$query_result) {
+            $this->error = $this->db->get_error();
+            return false;
+        }
+
+        return true;
+    }
+
     public function insertTransaction($id_cashier, $customer_name, $total) {
         date_default_timezone_set("Asia/Jakarta");
 
@@ -77,5 +174,4 @@ class Transaction extends Model {
 
         return true;
     }
-
 }

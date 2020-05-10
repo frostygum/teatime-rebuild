@@ -22,6 +22,10 @@ class Admin extends Controller
 
         if($user) {
             if (true) {
+<<<<<<< HEAD
+                $this::set_user($user);
+                return $this->page_admin();
+=======
                 if (strtolower($user['tipe']) == 'admin') {
                     return $this->page_admin();
                 }           
@@ -30,6 +34,7 @@ class Admin extends Controller
                     echo var_dump($user);
                     $auth->logout();
                 }   
+>>>>>>> b703427cd9acc651e0b5d9b2c7abd5c679e6231c
             }           
             else {
                 echo 'wrong auth';

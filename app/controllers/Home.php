@@ -7,4 +7,10 @@ class Home extends Controller
         $page = $this::create_page('home', 'index');
         $page->render();
     }
+
+    public function about()
+    {
+        $page = $this::create_page('home', 'about');
+        $page->render();
+    }
 }

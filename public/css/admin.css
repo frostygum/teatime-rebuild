@@ -1,0 +1,503 @@
+/* !SIDEBAR */
+
+.sidebar {
+    width: 15%;
+    background-color: var(--dark);
+    color: var(--light);
+}
+
+.sidebar-active {
+    background-color: var(--light);
+    color: var(--dark);
+}
+
+.sidebar div:hover:not(.sidebar-active) {
+    background-color: var(--dark-darker);
+}
+
+/* !MAIN TABLE */
+.main-table {
+    border-spacing: 0px;
+}
+
+.main-table-header-row {
+    color: white;
+}
+
+.main-table-header-row th{
+    background-color: var(--primary);
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.main-table td {
+    font-weight: 300;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    border-left: 1px solid lightgrey;
+    border-right: 1px solid lightgrey;
+}
+
+.main-table-data-row {
+    background-color: white; 
+    color: var(--dark);
+}
+
+.main-table-data-row:hover {
+    background-color: lightgray; 
+}
+
+/* !MANAGE BUTTON */
+
+.manage-btn {
+    padding: 0.5rem 1.6rem;
+    background-color: var(--primary);
+    color: var(--light);
+    font-size: 1rem;
+    text-align: center;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 500;
+    min-width: 9rem;
+    transition: All 0.1s linear;
+}
+
+.manage-btn.disabled, .manage-btn:disabled {
+    background-color: var(--light-darker) !important;
+    color: var(--light) !important;
+    cursor: not-allowed !important;
+}
+
+.manage-btn.disabled:hover, .manage-btn:disabled:hover {
+    background-color: var(--light-darker) !important;
+}
+
+.manage-btn:hover {
+    background-color: var(--primary-hover)
+}
+
+.manage-btn.manage-btn-primary {
+    background-color: var(--primary);
+    color: var(--light);
+}
+
+.manage-btn.manage-btn-primary:hover {
+    background-color: var(--primary-hover);
+}
+
+.manage-btn.manage-btn-success {
+    background-color: var(--success);
+    color: var(--light);
+}
+
+.manage-btn.manage-btn-success:hover {
+    background-color: var(--success-hover);
+}
+
+.manage-btn.manage-btn-warning {
+    background-color: var(--warning);
+    color: var(--light);
+}
+
+.manage-btn.manage-btn-warning:hover {
+    background-color: var(--warning-hover);
+}
+
+.manage-btn.manage-btn-danger {
+    background-color: var(--danger);
+    color: var(--light);
+}
+
+.manage-btn.manage-btn-danger:hover {
+    background-color: var(--danger-hover);
+}
+
+.manage-btn.manage-btn-info {
+    background-color: var(--info);
+    color: var(--light);
+}
+
+.manage-btn.manage-btn-info:hover {
+    background-color: var(--info-hover);
+}
+
+.manage-btn.manage-btn-dark {
+    background-color: var(--dark);
+    color: var(--light);
+}
+
+.manage-btn.manage-btn-dark:hover {
+    background-color: var(--dark-darker);
+}
+
+/* !fltr-dropdown */
+
+/* .fltr-dropdown {
+    position: relative;
+    display: inline-block;
+} */
+
+.fltr-dropdown a:hover {
+    background-color: var(--light-darker);
+}
+
+.fltr-dropdown-btn {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--primary);
+    color: var(--light);
+    font-size: 1.2rem;
+    border-radius: var(--border-radius);
+    border: none;
+    cursor: pointer;
+    text-align: left;
+}
+  
+.fltr-dropdown-btn:hover, .fltr-dropdown-btn:focus {
+    background-color:var(--primary-hover);
+}
+  
+.fltr-dropdown-content {
+    background-color: var(--primary);
+}
+  
+.fltr-dropdown-content a {
+    color: var(--dark);
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+    text-decoration: none;
+    display: block;
+}
+
+.show-fltr-dropdown {
+    display: block;
+}
+
+/* !SEARCH BUTTON */
+
+.search-btn {
+    padding: 0.5rem 1.6rem;
+    background-color: var(--yellow);
+    color: var(--light);
+    font-size: 1rem;
+    text-align: center;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 500;
+    min-width: 5rem;
+    transition: All 0.1s linear;
+}
+
+.search-btn.disabled, .search-btn:disabled {
+    background-color: var(--light-darker) !important;
+    color: var(--light) !important;
+    cursor: not-allowed !important;
+}
+
+.search-btn.disabled:hover, .search-btn:disabled:hover {
+    background-color: var(--light-darker) !important;
+}
+
+.search-btn:hover {
+    background-color: var(--yellow-darker);
+}
+
+.search-btn.search-btn-primary {
+    background-color: var(--primary);
+    color: var(--light);
+}
+
+.search-btn.search-btn-primary:hover {
+    background-color: var(--primary-hover);
+}
+
+.search-btn.search-btn-success {
+    background-color: var(--success);
+    color: var(--light);
+}
+
+.search-btn.search-btn-success:hover {
+    background-color: var(--success-hover);
+}
+
+.search-btn.search-btn-warning {
+    background-color: var(--warning);
+    color: var(--light);
+}
+
+.search-btn.search-btn-warning:hover {
+    background-color: var(--warning-hover);
+}
+
+.search-btn.search-btn-danger {
+    background-color: var(--danger);
+    color: var(--light);
+}
+
+.search-btn.search-btn-danger:hover {
+    background-color: var(--danger-hover);
+}
+
+.search-btn.search-btn-info {
+    background-color: var(--info);
+    color: var(--light);
+}
+
+.search-btn.search-btn-info:hover {
+    background-color: var(--info-hover);
+}
+
+.search-btn.search-btn-dark {
+    background-color: var(--dark);
+    color: var(--light);
+}
+
+.search-btn.search-btn-dark:hover {
+    background-color: var(--dark-darker);
+}
+
+/* !EDIT CARD */
+
+.edit-card {
+    width: 40rem;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+/* !EDIT IMAGE */
+
+.edit-image {
+    background-color: grey;
+    width: 12rem;
+    height: 16rem;
+}
+
+/* !EDIT INPUT */
+
+.edit-input {
+    margin-left: 1rem;
+    margin-right: 0;
+}
+
+.edit-input[type=text], .edit-input[type=password], .edit-input[type=number] {
+    border: 2px solid var(--light-darker);
+    background-color: var(--light);
+    padding: 0.3rem 0.8rem;
+    border-radius: var(--border-radius);
+    min-width: 3rem;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: All 0.1s linear;
+}
+
+.edit-input[type=text]:hover, .edit-input[type=text]:focus, 
+.edit-input[type=password]:hover, .edit-input[type=password]:focus, 
+.edit-input[type=number]:hover, .edit-input[type=number]:focus {
+    border-color: var(--primary);
+}
+
+/* !SUBMIT BUTTON */
+
+.submit-btn {
+    padding: 0.8rem 1.6rem;
+    background-color: var(--yellow);
+    color: var(--light);
+    font-size: 1rem;
+    text-align: center;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 500;
+    min-width: 9rem;
+    transition: All 0.1s linear;
+}
+
+.submit-btn.disabled, .submit-btn:disabled {
+    background-color: var(--light-darker) !important;
+    color: var(--light) !important;
+    cursor: not-allowed !important;
+}
+
+.submit-btn.disabled:hover, .submit-btn:disabled:hover {
+    background-color: var(--light-darker) !important;
+}
+
+.submit-btn:hover {
+    background-color: var(--yellow-darker)
+}
+
+.submit-btn.submit-btn-primary {
+    background-color: var(--primary);
+    color: var(--light);
+}
+
+.submit-btn.submit-btn-primary:hover {
+    background-color: var(--primary-hover);
+}
+
+.submit-btn.submit-btn-success {
+    background-color: var(--success);
+    color: var(--light);
+}
+
+.submit-btn.submit-btn-success:hover {
+    background-color: var(--success-hover);
+}
+
+.submit-btn.submit-btn-warning {
+    background-color: var(--warning);
+    color: var(--light);
+}
+
+.submit-btn.submit-btn-warning:hover {
+    background-color: var(--warning-hover);
+}
+
+.submit-btn.submit-btn-danger {
+    background-color: var(--danger);
+    color: var(--light);
+}
+
+.submit-btn.submit-btn-danger:hover {
+    background-color: var(--danger-hover);
+}
+
+.submit-btn.submit-btn-info {
+    background-color: var(--info);
+    color: var(--light);
+}
+
+.submit-btn.submit-btn-info:hover {
+    background-color: var(--info-hover);
+}
+
+.submit-btn.submit-btn-dark {
+    background-color: var(--dark);
+    color: var(--light);
+}
+
+.submit-btn.submit-btn-dark:hover {
+    background-color: var(--dark-darker);
+}
+
+/* !CANCEL BUTTON */
+
+.cancel-btn {
+    padding: 0.8rem 1.6rem;
+    background-color: var(--red);
+    color: var(--light);
+    font-size: 1rem;
+    text-align: center;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 500;
+    min-width: 9rem;
+    transition: All 0.1s linear;
+}
+
+.cancel-btn.disabled, .cancel-btn:disabled {
+    background-color: var(--light-darker) !important;
+    color: var(--light) !important;
+    cursor: not-allowed !important;
+}
+
+.cancel-btn.disabled:hover, .cancel-btn:disabled:hover {
+    background-color: var(--light-darker) !important;
+}
+
+.cancel-btn:hover {
+    background-color: var(--red-darker)
+}
+
+.cancel-btn.cancel-btn-primary {
+    background-color: var(--primary);
+    color: var(--light);
+}
+
+.cancel-btn.cancel-btn-primary:hover {
+    background-color: var(--primary-hover);
+}
+
+.cancel-btn.cancel-btn-success {
+    background-color: var(--success);
+    color: var(--light);
+}
+
+.cancel-btn.cancel-btn-success:hover {
+    background-color: var(--success-hover);
+}
+
+.cancel-btn.cancel-btn-warning {
+    background-color: var(--warning);
+    color: var(--light);
+}
+
+.cancel-btn.cancel-btn-warning:hover {
+    background-color: var(--warning-hover);
+}
+
+.cancel-btn.cancel-btn-danger {
+    background-color: var(--danger);
+    color: var(--light);
+}
+
+.cancel-btn.cancel-btn-danger:hover {
+    background-color: var(--danger-hover);
+}
+
+.cancel-btn.cancel-btn-info {
+    background-color: var(--info);
+    color: var(--light);
+}
+
+.cancel-btn.cancel-btn-info:hover {
+    background-color: var(--info-hover);
+}
+
+.cancel-btn.cancel-btn-dark {
+    background-color: var(--dark);
+    color: var(--light);
+}
+
+.cancel-btn.cancel-btn-dark:hover {
+    background-color: var(--dark-darker);
+}
+
+/* !USER IMAGE */
+.change-image:hover {
+    cursor: pointer;
+    background-color: var(--light);
+    border-radius: var(--border-radius);
+    position: relative;
+    transition: all 0.1s linear;
+}
+
+.change-image img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.change-image .text {
+    display: none;
+}
+
+.change-image:hover .text {
+    display: block;
+    position: absolute;
+    top: 3rem;
+    left: 0;
+    color: var(--light);
+    text-align: center;
+}
+
+.change-image:hover {
+    background-color: var(--dark);
+}
+
+.change-image:hover img {
+    opacity: 0.5;
+}

@@ -1,7 +1,5 @@
 <?php
 
-require_once MODEL_PATH . 'User.php';
-
 class Kasir extends Controller
 {
     public function __construct() {
@@ -19,6 +17,11 @@ class Kasir extends Controller
 
         if(isset($_POST['customer_name'])) {
             $this->set_customer($_POST['customer_name']);
+        }
+
+        if(isset($_POST['checkout_done'])) {
+            $this->clear_customer_data();
+            $this->set_page(0);
         }
     }
 
@@ -44,11 +47,11 @@ class Kasir extends Controller
         else {
             if($user) {
                 if (strtolower($user['tipe']) == 'kasir') {
-                    $this::set_user($user);
                     return $this->page_kasir();
                 }           
                 else {
                     echo 'wrong auth';
+                    echo var_dump($user);
                     $auth->logout();
                 }         
             }
@@ -69,6 +72,10 @@ class Kasir extends Controller
 
     public function get_customer() {
         return $_SESSION['kasir']['customer_name'];;
+    }
+
+    public function clear_customer_data() {
+        unset($_SESSION['kasir']);
     }
 
     public function set_selected_menu($menu) {
@@ -100,7 +107,51 @@ class Kasir extends Controller
             $this->set_selected_menu($data['menu']);
             $result['code'] = 200;
             $result['text'] = 'success';
-            // $result['menu'] = $this->get_selected_menu();
+        }
+
+        if(isset($data['checkout']) && count($data['checkout']) > 0) {
+            require_once MODEL_PATH . 'Transaction.php';
+            $transaction = new Transaction();
+
+            $cashier_id = $this::get_user()['id'];
+            $customer = $this->get_customer();
+            $total = $data['checkout']['total'];
+            $order = $data['checkout']['order'];
+
+            $res = $transaction->insertTransaction($cashier_id, $customer, $total);
+
+            if($res) {
+                $transaction_id = $res[0][0]['LAST_INSERT_ID()'];
+                $status;
+
+                foreach($order as $menu_key => $menu) {
+                    $menu_id = $menu['id'];
+                    $size = $menu['size'];
+                    $ice = $menu['ice'];
+                    $sugar = $menu['sugar'];
+
+                    foreach($menu['topping'] as $topping_key => $topping) {
+                        $topping_id = $topping['id'];
+                        $status = $transaction->insertDetailTransaction($transaction_id, $menu_id, $topping_id, $size, $ice, $sugar);
+                    }
+
+                    if(!$status) {
+                        $result['code'] = 200;
+                        $result['text'] = [
+                            'error' => $transaction->get_error()
+                        ];
+                        break;
+                    }
+                }
+
+                $result['code'] = 200;
+                $result['text'] = 'success';
+            }
+            else {
+                $result['code'] = 200;
+                $result['text'] = $transaction->get_error();
+            }
+
         }
         
         echo json_encode($result);

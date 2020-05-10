@@ -93,6 +93,10 @@ class Router
             $base_url = $base_url[0];
             $url = str_replace('/' . $base_url, '', $url);
 
+            if(strstr($url, '?', true)) {
+                $url = strstr($url, '?', true);
+            }
+
             if ($url == '') {
                 $url = '/';
             }

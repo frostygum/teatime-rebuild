@@ -3,15 +3,15 @@
 class Menu extends Model 
 {
     protected $id;
-    protected $name;
-    protected $priceR;
-    protected $priceL;
+    protected $nama;
+    protected $hargaR;
+    protected $hargaL;
 
-    public function __construct($id, $name, $priceR, $priceL) {
+    public function __construct($id, $nama, $hargaR, $hargaL) {
         $this->id = $id;
-        $this->name = $name;
-        $this->priceR = $priceR;
-        $this->priceL = $priceL;
+        $this->nama = $nama;
+        $this->hargaR = $hargaR;
+        $this->hargaL = $hargaL;
     }
 
     public function get_id()
@@ -19,18 +19,18 @@ class Menu extends Model
         return $this->id;
     }
 
-    public function get_name() 
+    public function get_nama() 
     {
-        return $this->name;
+        return $this->nama;
     }
 
-    public function get_priceR() 
+    public function get_hargaR() 
     {
-        return $this->priceR;
+        return $this->hargaR;
     }
 
-    public function get_priceL()
+    public function get_hargaL()
     {
-        return $this->priceL;
+        return $this->hargaL;
     }
 }

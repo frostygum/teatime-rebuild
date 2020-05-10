@@ -14,6 +14,7 @@ define("DS", DIRECTORY_SEPARATOR);
 define("ROOT", getcwd() . DS);
 define("APP_PATH", ROOT . 'app' . DS);
 define("PUBLIC_PATH", $link . '/'. $url . '/' . 'public/');
+define("UPLOADS_PATH", $link . '/'. $url . '/' . 'public/uploads/');
 
 define("HELPER_PATH", APP_PATH . "helpers" . DS);
 define("CONFIG_PATH", APP_PATH . "config" . DS);

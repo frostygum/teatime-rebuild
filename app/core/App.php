@@ -11,6 +11,10 @@ class App
             $this::call('home')->index();
         });
 
+        Router::get('/about', function () {
+            $this::call('home')->about();
+        });
+
         // LOGIN & LOGOUT PAGE
         Router::get('/login', function () {
             $this::call('auth')->page_login();
@@ -36,6 +40,14 @@ class App
         // ADMIN PAGE
         Router::get('/admin', function () {
             $this::call('admin')->index();
+        });
+
+        Router::post('/admin', function () {
+            $this::call('admin')->index();
+        });
+
+        Router::post('/upload-profile', function () {
+            $this::call('admin')->handle_upload_photo();
         });
 
         // MANAGER PAGE

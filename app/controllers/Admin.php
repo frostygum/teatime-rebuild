@@ -1,188 +1,398 @@
 <?php
 
-require_once HELPER_PATH . 'Db.php';
-require_once MODEL_PATH . 'User.php';
+require MODEL_PATH . 'QueryUser.php';
+require MODEL_PATH . 'QueryMenu.php';
+require MODEL_PATH . 'QueryToping.php';
 
 class Admin extends Controller
 {
-    protected $db;
-
-    public function __construct()
-    {
-        $this->db = new DB();
-        $this->user = new User;
-    }
-
     public function index()
     {
-        $page = $this::create_page('admin', 'user_page');
-        $page->all_user = $this->get_all_user();
-        $page->render();
-
-        /* MASIH NYOBA-NYOBA
         $auth = $this::auth_helper();
         $user = $auth->get_auth();
 
-        if ($user != false) {
+        if ($user) {
             if (strtolower($user['tipe']) == 'admin') {
-                $page = $this::create_page('admin', 'test');
-                $page->user_information = $user;
-                $page->all_user = $this->get_all_user();
-                $page->render();
+                return $this->page_admin();
             } else {
                 echo 'wrong auth';
+                echo var_dump($user);
                 $auth->logout();
             }
         } else {
-            $username = $_POST['username'];
-            $user = $this->get_a_user($username);
-            $auth->setAuth();
             $this::set_redirect_url();
             header('location: ./login');
         }
-        */
     }
 
-    public function update_user()
+    public function page_admin()
     {
-        $post = json_decode(file_get_contents('php://input'), true);
-        $result = [];
+        if (!isset($_GET['page'])) {
+            header('location: ./admin?page=user');
+        }
 
-        if (isset($post) && isset($post['id'])) {
-            $id = $post['id'];
-            $name = null;
-            $username = null;
-            $password = null;
+        switch ($_GET['page']) {
+            case 'user':
+                $this->page_user();
+                break;
+            case 'menu':
+                $this->page_menu();
+                break;
+            case 'toping':
+                $this->page_topping();
+                break;
+            default:
+                $this->page_user();
+                break;
+        }
+    }
 
-            if (isset($post['name'])) {
-                $name = $post['name'];
-            }
-            if (isset($post['username'])) {
-                $username = $post['username'];
-            }
-            if (isset($post['password'])) {
-                $password = $post['password'];
-            }
+    public function page_user()
+    {
+        $page = $this::create_page('admin', 'userPage');
+        $page->user_information = $this->get_user();
 
-            $user = new User();
-            $user->update_user($id, $username, $name, $password);
-
-            if ($user->get_error() == null) {
-                $result['code'] = 200;
-                $result['text'] = 'Success';
-            } else {
-                $result['code'] = 200;
-                $result['text'] = $user->get_error();
+        if (isset($_POST['command'])) {
+            switch ($_POST['command']) {
+                case 'add-user':
+                    $res = $this->add_user();
+                    if ($res == 'berhasil') {
+                        $page->status = $res;
+                    } else {
+                        $page->error = $res;
+                    }
+                    break;
+                case 'edit-user':
+                    $res = $this->edit_user();
+                    if ($res == 'berhasil') {
+                        $page->status = $res;
+                    } else {
+                        $page->error = $res;
+                    }
+                    break;
+                case 'delete-user':
+                    $res = $this->delete_user();
+                    if ($res == 'berhasil') {
+                        $page->status = $res;
+                    } else {
+                        $page->error = $res;
+                    }
+                    break;
             }
+        }
+
+        $q_user = new QueryUser;
+        $all_user = $q_user->get_all_user();
+
+        $page->all_user = $all_user;
+        $page->render();
+    }
+
+    public function page_menu()
+    {
+        $page = $this::create_page('admin', 'menuPage');
+        $page->user_information = $this->get_user();
+
+        if (isset($_POST['command'])) {
+            switch ($_POST['command']) {
+                case 'add-menu':
+                    $res = $this->add_menu();
+                    if ($res == 'berhasil') {
+                        $page->status = $res;
+                    }
+                    else {
+                        $page->error = $res;
+                    }
+                break;
+                case 'edit-menu':
+                    $res = $this->edit_menu();
+                    if($res == 'berhasil') {
+                        $page->status = $res;
+                    }
+                    else {
+                        $page->error = $res;
+                    }
+                break;
+                case 'delete-menu':
+                    $res = $this->delete_menu();
+                    if($res == 'berhasil') {
+                        $page->status = $res;
+                    }
+                    else {
+                        $page->error = $res;
+                    }
+                break;
+            }
+        }
+
+        require_once MODEL_PATH . 'QueryMenu.php';
+        $q_menu = new QueryMenu();
+
+        $page->all_menu = $q_menu->get_all_menu();
+        $page->render();
+    }
+
+    public function page_topping()
+    {
+        $page = $this::create_page('admin', 'toppingPage');
+        $page->user_information = $this->get_user();
+
+        if (isset($_POST['command'])) {
+            switch ($_POST['command']) {
+                case 'add-topping':
+                    $res = $this->add_topping();
+                    if ($res == 'berhasil') {
+                        $page->status = $res;
+                    }
+                    else {
+                        $page->error = $res;
+                    }
+                break;
+                case 'edit-topping':
+                    $res = $this->edit_topping();
+                    if($res == 'berhasil') {
+                        $page->status = $res;
+                    }
+                    else {
+                        $page->error = $res;
+                    }
+                break;
+                case 'delete-topping':
+                    $res = $this->delete_topping();
+                    if($res == 'berhasil') {
+                        $page->status = $res;
+                    }
+                    else {
+                        $page->error = $res;
+                    }
+                break;
+            }
+        }
+
+        require_once MODEL_PATH . 'QueryToping.php';
+        $q_topping = new QueryToping();
+
+        $page->all_topping = $q_topping->get_all_topping();
+        $page->render();
+    }
+
+    private function add_user()
+    {
+        $name = $_POST['name'];
+        $username = $_POST['username'];
+        $role = $_POST['role'];
+        $password = $_POST['password'];
+        $profile_location = $_POST['profile_location'];
+
+        if (!empty($name) && !empty($username) && !empty($role) && !empty($password) && !empty($profile_location)) {
+            $q_user = new QueryUser;
+            $q_user->create_user($name, $username, $role, $password, $profile_location);
+            if (!$q_user) {
+                return $q_user->get_error();
+            }
+            return 'berhasil';
         } else {
-            $result['code'] = 200;
-            $result['text'] = 'invalid or missing params';
+            return 'missing params';
         }
-
-        echo json_encode($result);
     }
-
-    public function insert_user()
+    private function edit_user()
     {
-        $post = json_decode(file_get_contents('php://input'), true);
-        $result = [];
+        $id = $_POST['id'];
+        $name = $_POST['name'];
+        $username = $_POST['username'];
+        $role = $_POST['role'];
+        $password = $_POST['password'];
+        $profile_location = $_POST['profile_location'];
 
-        if (isset($post) && isset($post['name']) && isset($post['username']) && isset($post['tipe']) && isset($post['password'])) {
-            $name = $post['name'];
-            $username = $post['username'];
-            $tipe = $post['tipe'];
-            $password = $post['password'];
-
-
-            $user = new User();
-            $user->create_user($name, $username, $tipe, $password);
-
-            if ($user->get_error() == null) {
-                $result['code'] = 200;
-                $result['text'] = 'Success';
-            } else {
-                $result['code'] = 200;
-                $result['text'] = $user->get_error();
+        if (!empty($id)) {
+            if (empty($name)) {
+                $name = null;
             }
-        } else {
-            $result['code'] = 200;
-            $result['text'] = 'invalid or missing params';
-        }
-
-        echo json_encode($result);
-    }
-
-    public function delete_user()
-    {
-        $post = json_decode(file_get_contents('php://input'), true);
-        $result = [];
-
-        if (isset($post) && isset($post['username']) && isset($post['id'])) {
-            $username = $post['username'];
-            $id = $post['id'];
-
-            $user = new User();
-            $user->delete_user($id, $username);
-
-            if ($user->get_error() == null) {
-                $result['code'] = 200;
-                $result['text'] = 'Success';
-            } else {
-                $result['code'] = 200;
-                $result['text'] = $user->get_error();
+            if (empty($username)) {
+                $username = null;
             }
+            if (empty($role)) {
+                $role = null;
+            }
+            if (empty($password)) {
+                $password = null;
+            }
+
+            $q_user = new QueryUser;
+            $q_user->update_user($id, $username, $name, $role, $password, null, $profile_location);
+
+            if (!$q_user) {
+                return $q_user->get_error();
+            }
+
+            return 'berhasil';
         } else {
-            $result['code'] = 200;
-            $result['text'] = 'invalid or missing params';
+            return 'missing id';
         }
-
-        echo json_encode($result);
     }
 
-    // public function get_a_user($username) {
-    //     $query = '
-    //     '
-    // }
-
-    public function get_all_user()
+    private function delete_user()
     {
-        $query = '
-            SELECT
-                id,
-                nama_pengguna,
-                tipe,
-                username
-            FROM
-                Pengguna
-        ';
+        $id = $_POST['id'];
+        $username = $_POST['username'];
+        if (!empty($id) && !empty($username)) {
+            $q_user = new QueryUser;
+            $q_user->delete_user($id, $username);
 
-        $queryResult = $this->db->executeSelectQuery($query);
-        $result = [];
-        foreach ($queryResult as $key => $value) {
-            $result[] = new User($value['id'], $value['nama_pengguna'], $value['tipe'], $value['username']);
+            if (!$q_user) {
+                return $q_user->get_error();
+            }
+
+            return 'berhasil';
+        } else {
+            return 'missing params';
         }
-
-        return $result;
     }
 
-    public function get_all_menu()
+    private function add_menu()
     {
-        $query = '
-            SELECT
-                id,
-                nama_minuman,
-                harga_regular,
-                harga_large
-            FROM
-                Menu
-        ';
+        $name = $_POST['name'];
+        $price_r = $_POST['harga_r'];
+        $price_l = $_POST['harga_l'];
 
-        $queryResult = $this->db->executeSelectQuery($query);
-        $result = [];
-        foreach ($queryResult as $key => $value) {
-            $result[] = new Menu($value['id'], $value['nama_minuman'], $value['harga_regular'], $value['harga_large']);
+        if (!empty($price_r) && !empty($price_l) && !empty($name)) {
+            $q_menu = new QueryMenu;
+            $q_menu->create_menu($name, $price_r, $price_l);
+            if (!$q_menu) {
+                return $q_menu->get_error();
+            }
+            return 'berhasil';
+        } else {
+            return 'missing params';
         }
+    }
 
-        return $result;
+    private function edit_menu()
+    {
+        $id = $_POST['id'];
+        $name = $_POST['name'];
+        $price_r = $_POST['harga_r'];
+        $price_l = $_POST['harga_l'];
+
+        if (!empty($id)) {
+            if (empty($name)) {
+                $name = null;
+            }
+            if (empty($price_r)) {
+                $price_r = null;
+            }
+            if (empty($price_l)) {
+                $price_l = null;
+            }
+            $q_menu = new QueryMenu;
+            $q_menu->update_menu($id, $name, $price_r, $price_l);
+            if (!$q_menu) {
+                return $q_menu->get_error();
+            }
+            return 'berhasil';
+        } else {
+            return 'missing params';
+        }
+    }
+
+    private function delete_menu()
+    {
+        $id = $_POST['id'];
+        if (!empty($id)) {
+            $q_menu = new QueryMenu;
+            $q_menu->delete_menu($id);
+
+            if (!$q_menu) {
+                return $q_menu->get_error();
+            }
+
+            return 'berhasil';
+        } else {
+            return 'missing params';
+        }
+    }
+
+    private function add_topping()
+    {
+        $name = $_POST['name'];
+        $price = $_POST['harga'];
+
+        if (!empty($price) && !empty($name)) {
+            $q_topping = new QueryToping;
+            $q_topping->create_toping($name, $price);
+            if (!$q_topping) {
+                return $q_topping->get_error();
+            }
+            return 'berhasil';
+        } else {
+            return 'missing params';
+        }
+    }
+
+    private function edit_topping()
+    {
+        $id = $_POST['id'];
+        $name = $_POST['name'];
+        $price = $_POST['harga'];
+
+        if (!empty($id)) {
+            if (empty($name)) {
+                $name = null;
+            }
+            if (empty($price)) {
+                $price = null;
+            }
+
+            $q_topping = new QueryToping;
+            $q_topping->update_toping($id, $name, $price);
+            if (!$q_topping) {
+                return $q_topping->get_error();
+            }
+            return 'berhasil';
+        } else {
+            return 'missing params';
+        }
+    }
+
+    private function delete_topping()
+    {
+        $id = $_POST['id'];
+
+        if (!empty($id)) {
+            $q_topping = new QueryToping;
+            $q_topping->delete_toping($id);
+            if (!$q_topping) {
+                return $q_topping->get_error();
+            }
+            return 'berhasil';
+        } else {
+            return 'missing params';
+        }
+    }
+
+    public function handle_upload_photo()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+            if ($_FILES['profile']['name'] != "") {
+				$oldName = $_FILES['profile']['tmp_name'];
+				$newName = dirname(__DIR__) . "\\..\\public\\uploads\\" . $_FILES['profile']['name'];
+				if (move_uploaded_file($oldName, $newName)) {
+					echo json_encode([
+						"code" => "success",
+						"location" => $_FILES['profile']['name']
+					]);
+				} else {
+					echo json_encode([
+						"code" => "failed",
+						"location" => 'error in uploading'
+					]);
+				}
+			} else {
+                echo json_encode([
+                    "code" => "error",
+                    "location" => 'no file uplaoded'
+                ]);
+            }   
+        }
     }
 }

@@ -141,14 +141,13 @@ class QueryToping extends Model
         return true;
     }
 
-    public function delete_toping($id, $nama)
+    public function delete_toping($id)
     {
         $id = $this->db->escapeString($id);
-        $nama = $this->db->escapeString($nama);
 
         $query = "
             DELETE FROM toping
-            WHERE id = '$id' AND nama_toping = '$nama'
+            WHERE id = '$id'
         ";
 
         $query_result = $this->db->executeNonSelectQuery($query);

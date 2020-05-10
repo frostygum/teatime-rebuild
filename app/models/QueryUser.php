@@ -28,7 +28,7 @@ class QueryUser extends Model
         return $result;
     }
 
-    public function update_user($id, $username = null, $name = null, $password = null, $last_login = null)
+    public function update_user($id, $username = null, $name = null, $role = null, $password = null, $last_login = null)
     {
         $id = $this->db->escapeString($id);
         $name = $this->db->escapeString($name);
@@ -45,9 +45,13 @@ class QueryUser extends Model
         if ($name != null) {
             $query .= " nama_pengguna = '$name',";
         }
+        if ($role != null) {
+            $query .= " tipe = '$role',";
+        }
         if ($password != null) {
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
             $query .= " password = '$hashed_password',";
+            $query .= " last_login = NULL,";
         }
         if ($last_login != null) {
             $query .= " last_login = '$last_login',";

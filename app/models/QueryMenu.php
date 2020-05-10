@@ -175,7 +175,7 @@ class QueryMenu extends Model
 
         $query = "
             INSERT INTO Menu (
-                nama_toping, harga_regular, harga_large 
+                nama_minuman, harga_regular, harga_large 
             )
             VALUES (
                 '$name', '$harga_r', '$harga_l'

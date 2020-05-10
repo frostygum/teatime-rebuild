@@ -105,9 +105,9 @@
                 echo '
                     allMenu.push({
                         id: '. $value->get_id() .',
-                        name: "'. $value->get_name() .'",
-                        price_r: '. $value->get_priceR() .',
-                        price_l: '. $value->get_priceL() .',
+                        name: "'. $value->get_nama() .'",
+                        price_r: '. $value->get_hargaR() .',
+                        price_l: '. $value->get_hargaL() .',
                     });
                 ';
             }

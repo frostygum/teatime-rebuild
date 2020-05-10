@@ -7,13 +7,13 @@
         <div class="card shadow display-flex" style="height: 70vh; overflow: hidden;">
             <!-- LEFT AREA / SIDE NAVIGATION BAR -->
             <div class="sidebar">
-                <div class="p-2">
+                <div class="p-2 cursor-pointer" onclick="window.location = './admin?page=user'">
                     <h6>User</h6>
                 </div>
-                <div class="sidebar-active p-2">
+                <div class="sidebar-active p-2 cursor-pointer" onclick="window.location = './admin?page=menu'">
                     <h6>Menu</h6>
                 </div>
-                <div class="p-2">
+                <div class="p-2 cursor-pointer" onclick="window.location = './admin?page=toping'">
                     <h6>Toping</h6>
                 </div>
             </div>
@@ -23,8 +23,6 @@
                 <div class="display-flex" style="width:80%; height:100%; flex-direction: column;">
                     <!-- FORM CARD -->
                     <div class="card edit-card bg-teal display-flex p-2" style="min-height: 18rem;">
-                        <!-- PICTURE -->
-                        <div class="edit-image"></div>
                         <!-- INPUT -->
                         <div class="text-light">
                             <div>

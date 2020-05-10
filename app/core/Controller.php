@@ -20,11 +20,7 @@ class Controller
         $_SESSION['redirect_location'] = $_SERVER['REQUEST_URI'];
     }
 
-    public static function set_user($user) {
-        $_SESSION['kasir']['user'] = $user;
-    }
-
     public static function get_user() {
-        return $_SESSION['kasir']['user'];
+        return $_SESSION['login_session'];
     }
 }

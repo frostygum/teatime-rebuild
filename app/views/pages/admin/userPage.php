@@ -65,11 +65,31 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="display-flex justify-content-start p-2" style="max-width: 55rem; overflow: auto;">
+                        <!-- TABLE -->
+                        <table class="main-table" id="table-menu">
+                            <thead>
+                                <tr class="main-table-header-row">
+                                    <th class="p-1">No</th>
+                                    <th class="p-1" style="min-width: 10rem">Username</th>
+                                    <th class="p-1" style="min-width: 10rem">Nama</th>
+                                    <th class="p-1">Tipe</th>
+                                    <th class="p-1">last login</th>
+                                    <th class="p-1">status</th>
+                                    <th class="p-1" style="min-width: 10rem">action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div> 
     </div>
 </div>
+
+<input type="file" id="input-profile" name="profile" style="display: none">
 
 <!-- MODAL EDIT -->
 <div id="modal-edit" class="modal">
@@ -79,9 +99,19 @@
             
             <h5 class="text-center">Edit User</h5>
             
+            <div class="display-grid gid-col-1 justify-content-center align-items-center">
+                <div class="change-image" onclick="trigger_select_image()">
+                    <img id="profile" src="<?= UPLOADS_PATH . 'user-1.png' ?>" style="width: 10rem; height: auto" />
+                    <div class="text">
+                        click to change profile
+                    </div>
+                </div>
+            </div>
+            
             <form method="POST" action="./admin?page=user" id="form-edit">
                 <input type="hidden" name="command" value="edit-user">
                 <input type="hidden" name="id" value="">
+                <input type="hidden" name="profile_location" value="">
                 <div class="display-grid grid-g-2 mt-4">
                     <div>
                         <p class="text-bold m-0">Nama Pengguna</p>
@@ -124,9 +154,19 @@
             <span class="fa fa-times custom-close" onclick="toggleModal('modal-add')"></span>
             
             <h5 class="text-center">Add User</h5>
+
+            <div class="display-grid gid-col-1 justify-content-center align-items-center">
+                <div class="change-image" onclick="trigger_select_image()">
+                    <img id="profile-add" src="<?= UPLOADS_PATH . 'user-1.png' ?>" style="width: 10rem; height: auto" />
+                    <div class="text">
+                        click to add profile
+                    </div>
+                </div>
+            </div>
             
-            <form method="POST" action="./admin?page=user">
+            <form method="POST" action="./admin?page=user" id="form-add">
                 <input type="hidden" name="command" value="add-user">
+                <input type="hidden" name="profile_location" value="">
                 <div class="display-grid grid-g-2 mt-4">
                     <div>
                         <p class="text-bold m-0">Nama Pengguna</p>
@@ -249,7 +289,8 @@
                     name: "'. $user->get_nama() .'",
                     username: "'. $user->get_username() .'",
                     tipe: "'. $user->get_tipe() .'",
-                    last_login: "'. $user->get_last_login() .'"
+                    last_login: "'. $user->get_last_login() .'",
+                    profile_location: "'. $user->get_profile_path() .'"
                 });
             ';
         }
@@ -354,6 +395,7 @@
         form.name.value = user.name;
         form.username.value = user.username;
         form.role.checked = user.tipe;
+        document.getElementById('profile').src = '<?= UPLOADS_PATH ?>' + user.profile_location;
 
         toggleModal('modal-edit');
     }
@@ -368,4 +410,41 @@
 
         toggleModal('modal-delete');
     }
+
+    function trigger_select_image($userId) {
+        let profileInput = document.getElementById('input-profile');
+        profileInput.click();
+    }
+
+    function upload_image(event) {
+        let files = event.target.files
+        let formData = new FormData()
+
+        formData.append('username', files[0])
+        formData.append('profile', files[0])
+
+		fetch('./upload-profile', {
+            method: 'POST',
+            body: formData
+		})
+		.then(response => response.json())
+		.then(response => {
+            console.log(response);
+            document.getElementById('profile').src = '<?= UPLOADS_PATH ?>' + response.location;
+            document.getElementById('profile-add').src = '<?= UPLOADS_PATH ?>' + response.location;
+            let form = document.getElementById('form-edit');
+            form.profile_location.value = response.location;
+            let formAdd = document.getElementById('form-add');
+            formAdd.profile_location.value = response.location;
+        })
+        .catch(error => {
+            console.error(error)
+        })
+    }
+
+    document.getElementById('input-profile').onchange = function(event) {
+        console.log(event);
+
+        upload_image(event);
+    };
 </script>

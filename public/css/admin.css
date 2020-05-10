@@ -465,3 +465,39 @@
 .cancel-btn.cancel-btn-dark:hover {
     background-color: var(--dark-darker);
 }
+
+/* !USER IMAGE */
+.change-image:hover {
+    cursor: pointer;
+    background-color: var(--light);
+    border-radius: var(--border-radius);
+    position: relative;
+    transition: all 0.1s linear;
+}
+
+.change-image img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.change-image .text {
+    display: none;
+}
+
+.change-image:hover .text {
+    display: block;
+    position: absolute;
+    top: 3rem;
+    left: 0;
+    color: var(--light);
+    text-align: center;
+}
+
+.change-image:hover {
+    background-color: var(--dark);
+}
+
+.change-image:hover img {
+    opacity: 0.5;
+}

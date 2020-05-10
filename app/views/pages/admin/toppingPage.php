@@ -87,6 +87,11 @@
                             Edit
                         </button>
                     </div>
+                    <div class="mt-3">
+                        <button type="submit" name="button" class="btn btn-primary block bg-primary shadow py-1 text-bold">
+                            Edit
+                        </button>
+                    </div>
 
                     
                 </div>

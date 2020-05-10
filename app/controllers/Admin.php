@@ -22,8 +22,14 @@ class Admin extends Controller
 
         if($user) {
             if (true) {
-                $this::set_user($user);
-                return $this->page_admin();
+                if (strtolower($user['tipe']) == 'admin') {
+                    return $this->page_admin();
+                }           
+                else {
+                    echo 'wrong auth';
+                    echo var_dump($user);
+                    $auth->logout();
+                }   
             }           
             else {
                 echo 'wrong auth';
@@ -46,8 +52,10 @@ class Admin extends Controller
                 break;
                 case 'menu':
                     $this->page_menu();
+                break;
                 case 'toping' :
                     $this->page_topping();
+                break;
                 default:
                     $this->page_user();
                 break;
@@ -61,6 +69,7 @@ class Admin extends Controller
     public function page_user()
     {
         $page = $this::create_page('admin', 'userPage');
+        $page->user_information = $this->get_user();
         $page->all_user = $this->get_all_user();
         $page->render();
     }
@@ -68,6 +77,7 @@ class Admin extends Controller
     public function page_menu()
     {
         $page = $this::create_page('admin', 'menuPage');
+        $page->user_information = $this->get_user();
         $page->all_menu = $this->get_all_menu();
         $page->render();
     }
@@ -75,6 +85,7 @@ class Admin extends Controller
     public function page_topping()
     {
         $page = $this::create_page('admin', 'toppingPage');
+        $page->user_information = $this->get_user();
         $page->all_topping = $this->get_all_topping();
         $page->render();
     }

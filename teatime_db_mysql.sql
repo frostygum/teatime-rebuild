@@ -9,6 +9,7 @@ CREATE TABLE Pengguna
 	tipe varchar(50) NOT NULL,
 	username varchar(255) NOT NULL,
 	last_login DATE DEFAULT NULL,
+	profile_location varchar(255) DEFAULT NULL,
 	password varchar(255) NOT NULL,
 	PRIMARY KEY (id),
 	UNIQUE (username)

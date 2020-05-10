@@ -14,7 +14,7 @@ class QueryUser extends Model
     public function get_all_user() {
         $query = '
             SELECT
-                id, nama_pengguna, username, tipe, password, last_login
+                id, nama_pengguna, username, tipe, password, last_login, profile_location
             FROM
                 Pengguna
         ';
@@ -22,18 +22,19 @@ class QueryUser extends Model
         $queryResult = $this->db->executeSelectQuery($query);
         $result = [];
         foreach ($queryResult as $key => $value) {
-            $result[] = new User($value['id'], $value['nama_pengguna'], $value['tipe'], $value['username'], $value['last_login']);
+            $result[] = new User($value['id'], $value['nama_pengguna'], $value['tipe'], $value['username'], $value['last_login'], $value['profile_location']);
         }
 
         return $result;
     }
 
-    public function update_user($id, $username = null, $name = null, $role = null, $password = null, $last_login = null)
+    public function update_user($id, $username = null, $name = null, $role = null, $password = null, $last_login = null, $profile_location = null)
     {
         $id = $this->db->escapeString($id);
         $name = $this->db->escapeString($name);
         $username = $this->db->escapeString($username);
         $password = $this->db->escapeString($password);
+        $profile_location = $this->db->escapeString($profile_location);
 
         $query = "
             UPDATE pengguna
@@ -47,6 +48,9 @@ class QueryUser extends Model
         }
         if ($role != null) {
             $query .= " tipe = '$role',";
+        }
+        if ($profile_location != null) {
+            $query .= " profile_location = '$profile_location',";
         }
         if ($password != null) {
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
@@ -89,20 +93,21 @@ class QueryUser extends Model
         return true;
     }
 
-    public function create_user($name, $username, $tipe, $password)
+    public function create_user($name, $username, $tipe, $password, $profile_location)
     {
         $name = $this->db->escapeString($name);
         $username = $this->db->escapeString($username);
         $tipe = $this->db->escapeString($tipe);
         $password = $this->db->escapeString($password);
+        $profile_location = $this->db->escapeString($profile_location);
 
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         $query = "
             INSERT INTO pengguna (
-                nama_pengguna, username, tipe, password
+                nama_pengguna, username, tipe, password, profile_location
             )
             VALUES (
-                '$name', '$username', '$tipe', '$hashed_password'
+                '$name', '$username', '$tipe', '$hashed_password', '$profile_location'
             )
         ";
 
@@ -123,7 +128,7 @@ class QueryUser extends Model
 
         $query = "
             SELECT
-                id, username, tipe, password, last_login
+                id, username, tipe, password, last_login, profile_location
             FROM 
                 pengguna
             WHERE   
@@ -138,7 +143,7 @@ class QueryUser extends Model
         } else {
             if (count($query_result) != 0) {
                 if (password_verify($password, $query_result[0]['password'])) {
-                    return new User($query_result[0]['id'], $query_result[0]['username'], $query_result[0]['tipe'], $query_result[0]['username'], $query_result[0]['last_login']);
+                    return new User($query_result[0]['id'], $query_result[0]['username'], $query_result[0]['tipe'], $query_result[0]['username'], $query_result[0]['last_login'], $query_result[0]['profile_location']);
                 } else {
                     $this->error = 'user or password incorrect';
                     return false;

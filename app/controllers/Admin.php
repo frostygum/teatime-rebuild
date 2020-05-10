@@ -57,29 +57,26 @@ class Admin extends Controller
                     $res = $this->add_user();
                     if ($res == 'berhasil') {
                         $page->status = $res;
-                    }
-                    else {
+                    } else {
                         $page->error = $res;
                     }
-                break;
+                    break;
                 case 'edit-user':
                     $res = $this->edit_user();
-                    if($res == 'berhasil') {
+                    if ($res == 'berhasil') {
                         $page->status = $res;
-                    }
-                    else {
+                    } else {
                         $page->error = $res;
                     }
-                break;
+                    break;
                 case 'delete-user':
                     $res = $this->delete_user();
-                    if($res == 'berhasil') {
+                    if ($res == 'berhasil') {
                         $page->status = $res;
-                    }
-                    else {
+                    } else {
                         $page->error = $res;
                     }
-                break;
+                    break;
             }
         }
 
@@ -101,29 +98,26 @@ class Admin extends Controller
                     $res = $this->add_menu();
                     if ($res == 'berhasil') {
                         $page->status = $res;
-                    }
-                    else {
+                    } else {
                         $page->error = $res;
                     }
-                break;
+                    break;
                 case 'edit-menu':
                     $res = $this->edit_menu();
-                    if($res == 'berhasil') {
+                    if ($res == 'berhasil') {
                         $page->status = $res;
-                    }
-                    else {
+                    } else {
                         $page->error = $res;
                     }
-                break;
+                    break;
                 case 'delete-menu':
                     $res = $this->delete_menu();
-                    if($res == 'berhasil') {
+                    if ($res == 'berhasil') {
                         $page->status = $res;
-                    }
-                    else {
+                    } else {
                         $page->error = $res;
                     }
-                break;
+                    break;
             }
         }
 
@@ -145,29 +139,26 @@ class Admin extends Controller
                     $res = $this->add_topping();
                     if ($res == 'berhasil') {
                         $page->status = $res;
-                    }
-                    else {
+                    } else {
                         $page->error = $res;
                     }
-                break;
+                    break;
                 case 'edit-topping':
                     $res = $this->edit_topping();
-                    if($res == 'berhasil') {
+                    if ($res == 'berhasil') {
                         $page->status = $res;
-                    }
-                    else {
+                    } else {
                         $page->error = $res;
                     }
-                break;
+                    break;
                 case 'delete-topping':
                     $res = $this->delete_topping();
-                    if($res == 'berhasil') {
+                    if ($res == 'berhasil') {
                         $page->status = $res;
-                    }
-                    else {
+                    } else {
                         $page->error = $res;
                     }
-                break;
+                    break;
             }
         }
 
@@ -184,10 +175,11 @@ class Admin extends Controller
         $username = $_POST['username'];
         $role = $_POST['role'];
         $password = $_POST['password'];
+        $profile_location = $_POST['profile_location'];
 
-        if (!empty($name) && !empty($username) && !empty($role) && !empty($password)) {
+        if (!empty($name) && !empty($username) && !empty($role) && !empty($password) && !empty($profile_location)) {
             $q_user = new QueryUser;
-            $q_user->create_user($name, $username, $role, $password);
+            $q_user->create_user($name, $username, $role, $password, $profile_location);
             if (!$q_user) {
                 return $q_user->get_error();
             }
@@ -197,29 +189,31 @@ class Admin extends Controller
         }
     }
 
-    private function edit_user() {
+    private function edit_user()
+    {
         $id = $_POST['id'];
         $name = $_POST['name'];
         $username = $_POST['username'];
         $role = $_POST['role'];
         $password = $_POST['password'];
+        $profile_location = $_POST['profile_location'];
 
         if (!empty($id)) {
-            if(empty($name)) {
+            if (empty($name)) {
                 $name = null;
             }
-            if(empty($username)) {
+            if (empty($username)) {
                 $username = null;
             }
-            if(empty($role)) {
+            if (empty($role)) {
                 $role = null;
             }
-            if(empty($password)) {
+            if (empty($password)) {
                 $password = null;
             }
 
             $q_user = new QueryUser;
-            $q_user->update_user($id, $username, $name, $role, $password);
+            $q_user->update_user($id, $username, $name, $role, $password, null, $profile_location);
 
             if (!$q_user) {
                 return $q_user->get_error();
@@ -231,10 +225,11 @@ class Admin extends Controller
         }
     }
 
-    private function delete_user() {
+    private function delete_user()
+    {
         $id = $_POST['id'];
         $username = $_POST['username'];
-        if(!empty($id) && !empty($username)) {
+        if (!empty($id) && !empty($username)) {
             $q_user = new QueryUser;
             $q_user->delete_user($id, $username);
 
@@ -243,8 +238,7 @@ class Admin extends Controller
             }
 
             return 'berhasil';
-        }
-        else {
+        } else {
             return 'missing params';
         }
     }
@@ -267,20 +261,21 @@ class Admin extends Controller
         }
     }
 
-    private function edit_menu() {
+    private function edit_menu()
+    {
         $id = $_POST['id'];
         $name = $_POST['name'];
         $price_r = $_POST['harga_r'];
         $price_l = $_POST['harga_l'];
 
         if (!empty($id)) {
-            if(empty($name)) {
+            if (empty($name)) {
                 $name = null;
             }
-            if(empty($price_r)) {
+            if (empty($price_r)) {
                 $price_r = null;
             }
-            if(empty($price_l)) {
+            if (empty($price_l)) {
                 $price_l = null;
             }
             $q_menu = new QueryMenu;
@@ -294,9 +289,10 @@ class Admin extends Controller
         }
     }
 
-    private function delete_menu() {
+    private function delete_menu()
+    {
         $id = $_POST['id'];
-        if(!empty($id)) {
+        if (!empty($id)) {
             $q_menu = new QueryMenu;
             $q_menu->delete_menu($id);
 
@@ -305,8 +301,7 @@ class Admin extends Controller
             }
 
             return 'berhasil';
-        }
-        else {
+        } else {
             return 'missing params';
         }
     }
@@ -328,16 +323,17 @@ class Admin extends Controller
         }
     }
 
-    private function edit_topping() {
+    private function edit_topping()
+    {
         $id = $_POST['id'];
         $name = $_POST['name'];
         $price = $_POST['harga'];
 
         if (!empty($id)) {
-            if(empty($name)) {
+            if (empty($name)) {
                 $name = null;
             }
-            if(empty($price)) {
+            if (empty($price)) {
                 $price = null;
             }
 
@@ -352,7 +348,8 @@ class Admin extends Controller
         }
     }
 
-    private function delete_topping() {
+    private function delete_topping()
+    {
         $id = $_POST['id'];
 
         if (!empty($id)) {
@@ -364,6 +361,32 @@ class Admin extends Controller
             return 'berhasil';
         } else {
             return 'missing params';
+        }
+    }
+
+    public function handle_upload_photo()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+            if ($_FILES['profile']['name'] != "") {
+				$oldName = $_FILES['profile']['tmp_name'];
+				$newName = dirname(__DIR__) . "\\..\\public\\uploads\\" . $_FILES['profile']['name'];
+				if (move_uploaded_file($oldName, $newName)) {
+					echo json_encode([
+						"code" => "success",
+						"location" => $_FILES['profile']['name']
+					]);
+				} else {
+					echo json_encode([
+						"code" => "failed",
+						"location" => 'error in uploading'
+					]);
+				}
+			} else {
+                echo json_encode([
+                    "code" => "error",
+                    "location" => 'no file uplaoded'
+                ]);
+            }   
         }
     }
 }

@@ -43,6 +43,45 @@
                                 Add
                             </button>
                         </div>
+                        <br>
+                        <button class="search-btn mt-3" onclick="clearSearch()">clear</button>
+                        <button class="manage-btn p-1 mt-4">Add</button>
+                    </div>
+                    <div class="display-flex justify-content-start p-2" style="max-width: 55rem; overflow: auto;">
+                        <!-- TABLE -->
+                        <table class="main-table" id="table-menu">
+                            <thead>
+                                <tr class="main-table-header-row">
+                                    <th class="p-1">No</th>
+                                    <th class="p-1" style="min-width: 10rem">Username</th>
+                                    <th class="p-1" style="min-width: 10rem">Nama</th>
+                                    <th class="p-1">Tipe</th>
+                                    <th class="p-1">last login</th>
+                                    <th class="p-1">status</th>
+                                    <th class="p-1" style="min-width: 10rem">action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="display-flex justify-content-start p-2" style="max-width: 55rem; overflow: auto;">
+                        <!-- TABLE -->
+                        <table class="main-table" id="table-menu">
+                            <thead>
+                                <tr class="main-table-header-row">
+                                    <th class="p-1">No</th>
+                                    <th class="p-1" style="min-width: 10rem">Username</th>
+                                    <th class="p-1" style="min-width: 10rem">Nama</th>
+                                    <th class="p-1">Tipe</th>
+                                    <th class="p-1">last login</th>
+                                    <th class="p-1">status</th>
+                                    <th class="p-1" style="min-width: 10rem">action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
                     </div>
                     <div class="display-flex justify-content-start p-2" style="max-width: 55rem; overflow: auto;">
                         <!-- TABLE -->

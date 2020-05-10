@@ -89,6 +89,18 @@
                             <p class="text-bold m-0">Harga Large</p>
                             <input class="input block" type="text" name="harga_l" placeholder="harga ukuran large">
                         </div>
+                        <br>
+                        <button class="search-btn mt-3" onclick="clearSearch()">clear</button>
+                    </div>
+                    <div class="mt-3">
+                        <button type="submit" name="button" class="btn btn-primary block bg-primary shadow py-1 text-bold">
+                            Edit
+                        </button>
+                    </div>
+                    <div class="mt-3">
+                        <button type="submit" name="button" class="btn btn-primary block bg-primary shadow py-1 text-bold">
+                            Edit
+                        </button>
                     </div>
                     <div class="mt-3">
                         <button type="submit" name="button" class="btn btn-primary block bg-primary shadow py-1 text-bold">

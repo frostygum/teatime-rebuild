@@ -98,26 +98,29 @@ class Admin extends Controller
                     $res = $this->add_menu();
                     if ($res == 'berhasil') {
                         $page->status = $res;
-                    } else {
+                    }
+                    else {
                         $page->error = $res;
                     }
-                    break;
+                break;
                 case 'edit-menu':
                     $res = $this->edit_menu();
-                    if ($res == 'berhasil') {
+                    if($res == 'berhasil') {
                         $page->status = $res;
-                    } else {
+                    }
+                    else {
                         $page->error = $res;
                     }
-                    break;
+                break;
                 case 'delete-menu':
                     $res = $this->delete_menu();
-                    if ($res == 'berhasil') {
+                    if($res == 'berhasil') {
                         $page->status = $res;
-                    } else {
+                    }
+                    else {
                         $page->error = $res;
                     }
-                    break;
+                break;
             }
         }
 
@@ -158,7 +161,7 @@ class Admin extends Controller
                     } else {
                         $page->error = $res;
                     }
-                    break;
+                break;
             }
         }
 

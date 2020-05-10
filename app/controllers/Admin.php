@@ -20,22 +20,22 @@ class Admin extends Controller
         $auth = $this::auth_helper();
         $user = $auth->get_auth();
 
-        // if($user) {
-        //     if (true) {
-        //         $this::set_user($user);
-        //         return $this->page_admin();
-        //     }           
-        //     else {
-        //         echo 'wrong auth';
-        //         $auth->logout();
-        //     }         
-        // }
-        // else {
-        //     $this::set_redirect_url();
-        //     header('location: ./login');
-        // }
+        if($user) {
+            if (true) {
+                $this::set_user($user);
+                return $this->page_admin();
+            }           
+            else {
+                echo 'wrong auth';
+                $auth->logout();
+            }         
+        }
+        else {
+            $this::set_redirect_url();
+            header('location: ./login');
+        }
         
-        return $this->page_user();
+        // return $this->page_user();
     }
 
     public function page_admin() {

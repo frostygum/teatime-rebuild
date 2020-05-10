@@ -1,8 +1,10 @@
 <?php
 
+require_once MODEL_PATH . 'User.php';
 class QueryUser extends Model
 {
     protected $db;
+    protected $error = null;
 
     public function __construct()
     {
@@ -12,10 +14,7 @@ class QueryUser extends Model
     public function get_all_user() {
         $query = '
             SELECT
-                id,
-                nama_pengguna,
-                tipe,
-                username
+                id, nama_pengguna, username, tipe, password, last_login
             FROM
                 Pengguna
         ';
@@ -23,13 +22,13 @@ class QueryUser extends Model
         $queryResult = $this->db->executeSelectQuery($query);
         $result = [];
         foreach ($queryResult as $key => $value) {
-            $result[] = new User($value['id'], $value['nama_pengguna'], $value['tipe'], $value['username']);
+            $result[] = new User($value['id'], $value['nama_pengguna'], $value['tipe'], $value['username'], $value['last_login']);
         }
 
         return $result;
     }
 
-    public function update_user($id, $username = null, $name = null, $password = null)
+    public function update_user($id, $username = null, $name = null, $password = null, $last_login = null)
     {
         $id = $this->db->escapeString($id);
         $name = $this->db->escapeString($name);
@@ -49,6 +48,9 @@ class QueryUser extends Model
         if ($password != null) {
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
             $query .= " password = '$hashed_password',";
+        }
+        if ($last_login != null) {
+            $query .= " last_login = '$last_login',";
         }
         $query = substr($query, 0, -1);
         $query .= " WHERE id = '$id'";
@@ -117,7 +119,7 @@ class QueryUser extends Model
 
         $query = "
             SELECT
-                id, username, tipe, password
+                id, username, tipe, password, last_login
             FROM 
                 pengguna
             WHERE   
@@ -132,10 +134,7 @@ class QueryUser extends Model
         } else {
             if (count($query_result) != 0) {
                 if (password_verify($password, $query_result[0]['password'])) {
-                    $this->id = $query_result[0]['id'];
-                    $this->username = $query_result[0]['username'];
-                    $this->tipe = $query_result[0]['tipe'];
-                    return true;
+                    return new User($query_result[0]['id'], $query_result[0]['username'], $query_result[0]['tipe'], $query_result[0]['username'], $query_result[0]['last_login']);
                 } else {
                     $this->error = 'user or password incorrect';
                     return false;
@@ -145,5 +144,9 @@ class QueryUser extends Model
                 return false;
             }
         }
+    }
+
+    public function get_error() {
+        return $this->error;
     }
 }

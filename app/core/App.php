@@ -11,6 +11,10 @@ class App
             $this::call('home')->index();
         });
 
+        Router::get('/about', function () {
+            $this::call('home')->about();
+        });
+
         // LOGIN & LOGOUT PAGE
         Router::get('/login', function () {
             $this::call('auth')->page_login();

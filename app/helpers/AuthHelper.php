@@ -45,7 +45,7 @@ class AuthHelper
             $date = date("Y-m-d");
 
             $q_user = new QueryUser;
-            $res = $q_user->update_user($id, null, null, null, $date);
+            $res = $q_user->update_user($id, null, null, null, null, $date);
 
             if ($res) {
                return true;

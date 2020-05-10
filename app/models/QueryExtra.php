@@ -43,7 +43,7 @@ class QueryExtra extends Model {
         return $queryResult;
     }
 
-    public function get_menuPopular_list()
+    public function get_popular_menu()
     {
         $query = '
         SELECT 

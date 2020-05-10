@@ -8,7 +8,7 @@
 
         <div class="card shadow display-flex" style="height: 70vh">
             <!-- KIRI -->
-            <div class="side-navbar" >
+            <div class="side-navbar">
                 <div class="p-2 side-navbar-tab" style="border-radius: var(--border-radius) 0 0 0">
                     <h6>Dashboard</h6>
                 </div>
@@ -24,25 +24,25 @@
             <div class="p-2" style="width: 100%;">
                 <!--isi-->
                 <div class="display-grid grid-col-2 grid-g-1 mt-1">
-
                     <!--kanan kiri-->
-                    <div >
+                    <div>
+                        <!--button-->
                         <div class="m-2" style="float: right">
                             <button class="btn btn-manager">Tanggal</button>
                             <div class="dropdown">
-                            <button onclick="toggleDropdown('type')" class="dropdown-btn btn-manager">
-                                Type
-                                <span class="fa fa-caret-down ml-1"></span>
-                            </button>
-                            <div id="type" class="dropdown-content content-manager">
-                                <a href="">Detail Transaksi</a>
-                                <a href="">Transaksi</a>
+                                <button onclick="toggleDropdown('type')" class="dropdown-btn btn-manager">
+                                    Type
+                                    <span class="fa fa-caret-down ml-1"></span>
+                                </button>
+                                <div id="type" class="dropdown-content content-manager">
+                                    <a href="">Detail Transaksi</a>
+                                    <a href="">Transaksi</a>
+                                </div>
                             </div>
-                        </div>
                         </div>
                         <div class="p-1">
                             <table class="table tabelManager">
-                                <tr class="tableHeader"  >
+                                <tr class="tableHeader">
                                     <th>Time</th>
                                     <th>Customer</th>
                                     <th style="min-width:10rem">Drink</th>

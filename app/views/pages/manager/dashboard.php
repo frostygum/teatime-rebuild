@@ -6,8 +6,7 @@
 
     <!--<?= isset($user_information) ? $user_information['username'] : '' ?>-->
     <div class="container mt-4">
-
-        <div class="card shadow display-flex" style="height: 70vh">
+        <div class="card shadow display-flex" style="height: auto">
             <!-- KIRI -->
             <div class="side-navbar">
                 <div class="p-2 side-navbar-tab-active" style="border-radius: var(--border-radius) 0 0 0">
@@ -44,8 +43,23 @@
                     </div>
                 </div>
 
-                <div>
-                    ceritanya grafik
+                <div class="display-flex justify-content-center ">
+                    <div class="card shadow">
+                        <div class="card-header">
+                            <h6 class="m-0">Penjualan Tahun ini</h6>
+                        </div>
+                        <div class="card-content">
+                            <canvas id="sample_chart" class="chartjs-render-monitor"></canvas>
+                        </div>
+                    </div>
+                    <div class="card shadow ml-2">
+                        <div class="card-header">
+                            <h6 class="m-0">Pemasukan Tahun ini</h6>
+                        </div>
+                        <div class="card-content">
+                            <canvas id="sample_chart" class="chartjs-render-monitor"></canvas>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="display-grid grid-col-3 grid-g-2 m-3">

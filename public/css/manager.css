@@ -1,6 +1,6 @@
 /*side navbar*/
 .side-navbar{
-    width:20rem !important;
+    width: 15rem !important;
     background-color: var(--dark);
     color: var(--light);
     border-radius: var(--border-radius) 0 0 var(--border-radius)

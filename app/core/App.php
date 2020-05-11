@@ -42,6 +42,14 @@ class App
             $this::call('admin')->index();
         });
 
+        Router::post('/admin', function () {
+            $this::call('admin')->index();
+        });
+
+        Router::post('/upload-profile', function () {
+            $this::call('admin')->handle_upload_photo();
+        });
+
         // MANAGER PAGE
         Router::get('/manager', function () {
             $this::call('manager')->index();

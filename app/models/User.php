@@ -7,14 +7,16 @@ class User extends Model
     protected $tipe;
     protected $username;
     protected $last_login;
+    protected $profile_path;
 
-    public function __construct($id, $nama, $tipe, $username, $last_login)
+    public function __construct($id, $nama, $tipe, $username, $last_login, $profile_path)
     {
         $this->id = $id;
         $this->nama = $nama;
         $this->tipe = $tipe;
         $this->username = $username;
         $this->last_login = $last_login;
+        $this->profile_path = $profile_path;
     }
 
     public function get_id()
@@ -39,5 +41,9 @@ class User extends Model
 
     public function get_last_login() {
         return $this->last_login;
+    }
+
+    public function get_profile_path() {
+        return $this->profile_path;
     }
 }

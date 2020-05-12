@@ -75,41 +75,4 @@ class Auth extends controller
         $this::auth_helper()->logout();
         $this->redirect();
     }
-
-    private function redirect($tipe = null)
-    {
-        $page = rtrim($_SERVER['REQUEST_URI'], '/');
-        $page = ltrim($page, '/');
-        $page = explode('/', $page);
-        $page_base = $page[0];
-
-        echo $page_base;
-        
-        if (isset($_SESSION['redirect_location'])) {
-            $page = rtrim($_SESSION['redirect_location'], '/');
-            $page = ltrim($page, '/');
-            $page = explode('/', $page);
-            $page_before = $page[count($page) - 1];
-
-            switch (strtolower($page_before)) {
-                case 'admin':
-                    header('location: ' . $page_base . "/" . "admin");
-                    break;
-                case 'kasir':
-                    header('location: ' . $_SESSION['redirect_location']);
-                    break;
-                case 'manager':
-                    header('location: ' . $_SESSION['redirect_location']);
-                    break;
-                default:
-                    header('location: /' . $page_base);
-                    break;
-            }
-        } else if(isset($tipe)) {
-            header('location: /' . $page_base . "/" . $tipe);
-        }
-        else {
-            header('location: /' . $page_base);
-        }
-    }
 }

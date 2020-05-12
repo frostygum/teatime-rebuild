@@ -4,7 +4,7 @@ require_once MODEL_PATH . 'Toping.php';
 class Manager extends Controller
 {
     protected $db;
-    
+
     public function __construct()
     {
         $this->db = new DB();
@@ -15,46 +15,43 @@ class Manager extends Controller
         $auth = $this::auth_helper();
         $user = $auth->get_auth();
 
-        if($user) {
+        if ($user) {
             if (true) {
                 // $this::set_user($user);
                 return $this->page_manager();
-            }           
-            else {
+            } else {
                 echo 'wrong auth';
                 $auth->logout();
-            }         
+            }
+        } else {
+            $this->redirect('login');
         }
-        else {
-            $this::set_redirect_url();
-            header('location: ./login');
-        }
-        
     }
 
-    public function page_manager() {
-        if(isset($_GET['page'])) {
-            switch($_GET['page']) {
+    public function page_manager()
+    {
+        if (isset($_GET['page'])) {
+            switch ($_GET['page']) {
                 case 'dashboard':
                     $this->page_dashboard();
-                break;
+                    break;
                 case 'data':
                     $this->page_data();
-                break;
+                    break;
                 case 'ranking':
                     $this->page_ranking();
-                break;
+                    break;
                 default:
                     $this->page_dashboard();
-                break;
+                    break;
             }
-        }
-        else {
+        } else {
             header('location: ./manager?page=dashboard');
         }
     }
 
-    public function page_dashboard() {
+    public function page_dashboard()
+    {
         $page = $this::create_page('manager', 'dashboard');
         date_default_timezone_set('Asia/Jakarta');
         $date = date('Ymd');
@@ -75,7 +72,8 @@ class Manager extends Controller
         $page->render();
     }
 
-    public function page_data() {
+    public function page_data()
+    {
         $page = $this::create_page('manager', 'data');
         date_default_timezone_set('Asia/Jakarta');
         $date = date('Ymd');
@@ -87,13 +85,14 @@ class Manager extends Controller
         $page->user_information = $this::get_user();
         $page->render();
     }
-    
-    public function page_ranking() {
+
+    public function page_ranking()
+    {
         $page = $this::create_page('manager', 'ranking');
         date_default_timezone_set('Asia/Jakarta');
         $date = date('Ymd');
         $firstDay = date('Ym01');
-        $lastDay = date('Ym31'); 
+        $lastDay = date('Ym31');
         require_once MODEL_PATH . 'QueryExtra.php';
         $extra = new QueryExtra();
         $page->listMenu = $extra->get_menu_rank($firstDay, $lastDay, 'DESC');
@@ -103,7 +102,4 @@ class Manager extends Controller
         $page->user_information = $this::get_user();
         $page->render();
     }
-    
-    
-
 }

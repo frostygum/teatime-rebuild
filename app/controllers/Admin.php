@@ -3,7 +3,6 @@
 require MODEL_PATH . 'QueryUser.php';
 require MODEL_PATH . 'QueryMenu.php';
 require MODEL_PATH . 'QueryToping.php';
-
 class Admin extends Controller
 {
     public function index()
@@ -93,6 +92,13 @@ class Admin extends Controller
         $page = $this::create_page('admin', 'menuPage');
         $page->user_information = $this->get_user();
 
+        // if(isset($_GET['dis']) && !empty($_GET['dis'])) {
+        //     $query_display = $_GET['dis'];
+        // }
+        // else {
+        //     $query_display = 1;
+        // }
+
         if (isset($_POST['command'])) {
             switch ($_POST['command']) {
                 case 'add-menu':
@@ -128,6 +134,12 @@ class Admin extends Controller
         require_once MODEL_PATH . 'QueryMenu.php';
         $q_menu = new QueryMenu();
 
+        // $offset = 10;
+        // $start = 0 + ($offset * ($query_display - 1));
+        // $end = $offset * $query_display;
+
+        // $page->all_menu = $q_menu->get_menu_range($start, $end);
+        // $page->total_menu = $q_menu->count_menu();
         $page->all_menu = $q_menu->get_all_menu();
         $page->render();
     }
@@ -143,26 +155,23 @@ class Admin extends Controller
                     $res = $this->add_topping();
                     if ($res == 'berhasil') {
                         $page->status = $res;
-                    }
-                    else {
+                    } else {
                         $page->error = $res;
                     }
-                break;
+                    break;
                 case 'edit-topping':
                     $res = $this->edit_topping();
-                    if($res == 'berhasil') {
+                    if ($res == 'berhasil') {
                         $page->status = $res;
-                    }
-                    else {
+                    } else {
                         $page->error = $res;
                     }
-                break;
+                    break;
                 case 'delete-topping':
                     $res = $this->delete_topping();
-                    if($res == 'berhasil') {
+                    if ($res == 'berhasil') {
                         $page->status = $res;
-                    }
-                    else {
+                    } else {
                         $page->error = $res;
                     }
                 break;
@@ -195,6 +204,7 @@ class Admin extends Controller
             return 'missing params';
         }
     }
+
     private function edit_user()
     {
         $id = $_POST['id'];
@@ -373,20 +383,22 @@ class Admin extends Controller
     public function handle_upload_photo()
     {
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
-            if ($_FILES['profile']['name'] != "") {
-				$oldName = $_FILES['profile']['tmp_name'];
-				$newName = dirname(__DIR__) . "\\..\\public\\uploads\\" . $_FILES['profile']['name'];
+            if ($_FILES['profile']['name'] != "" && isset($_POST['username'])) {
+                $oldName = $_FILES['profile']['tmp_name'];
+                $ext = '.' . pathinfo($_FILES['profile']['name'], PATHINFO_EXTENSION);
+				$newName = dirname(__DIR__) . "\\..\\public\\uploads\\" . $_POST['username'] . $ext;
 				if (move_uploaded_file($oldName, $newName)) {
 					echo json_encode([
 						"code" => "success",
-						"location" => $_FILES['profile']['name']
+						"location" => $_POST['username'] . $ext
 					]);
 				} else {
 					echo json_encode([
-						"code" => "failed",
+						"code" => "error",
 						"location" => 'error in uploading'
 					]);
 				}
+                
 			} else {
                 echo json_encode([
                     "code" => "error",

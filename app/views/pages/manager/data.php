@@ -28,12 +28,18 @@
                     <div>
                         <!--button-->
                         <div class="m-2" style="float: right">
+<<<<<<< HEAD
                             <div class="dropdown ml-2" style="float: right">
+=======
+                            <button class="btn btn-manager">Tanggal</button>
+                            <div class="dropdown">
+>>>>>>> b4cdedde8e9d07102e5413554dea60224b5ca9e6
                                 <button onclick="toggleDropdown('type')" class="dropdown-btn btn-manager">
                                     Type
                                     <span class="fa fa-caret-down ml-1"></span>
                                 </button>
                                 <div id="type" class="dropdown-content content-manager">
+<<<<<<< HEAD
                                     <a class="cursor-pointer" onclick="handle_change_date_type('detail')">Detail Transaksi</a>
                                     <a class="cursor-pointer" onclick="handle_change_date_type('not-detail')">Transaksi</a>
                                 </div>
@@ -46,6 +52,15 @@
                         </div>
                         <div class="p-1">
                             <table class="table tabelManager" id="table-detail">
+=======
+                                    <a href="">Detail Transaksi</a>
+                                    <a href="">Transaksi</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-1">
+                            <table class="table tabelManager">
+>>>>>>> b4cdedde8e9d07102e5413554dea60224b5ca9e6
                                 <tr class="tableHeader">
                                     <th>Time</th>
                                     <th>Customer</th>
@@ -92,7 +107,11 @@
                                             <tr class="tableData">
                                                 <td >' . $value["waktu_transaksi"] . '</td>
                                                 <td >' . $value["nama_pemesan"] . '</td>
-                                                <td style="text-align: center">' . $value["jumlah"] . '</td>
+                                                <td >' . $value["nama_minuman"] . '</td>
+                                                <td >' . $value["nama_toping"] . '</td>
+                                                <td >' . $value["ukuran_gelas"] . '</td>
+                                                <td >' . $value["banyak_es"] . '</td>
+                                                <td >' . $value["banyak_gula"] . '</td>
                                                 <td >' . $value["total"] . '</td>
                                             </tr>
                                         ';

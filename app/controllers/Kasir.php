@@ -130,9 +130,14 @@ class Kasir extends Controller
                     $ice = $menu['ice'];
                     $sugar = $menu['sugar'];
 
-                    foreach($menu['topping'] as $topping_key => $topping) {
-                        $topping_id = $topping['id'];
-                        $status = $transaction->insertDetailTransaction($transaction_id, $menu_id, $topping_id, $size, $ice, $sugar);
+                    if(isset($menu['topping']) && !empty($menu['topping'])) {
+                        foreach($menu['topping'] as $topping_key => $topping) {
+                            $topping_id = $topping['id'];
+                            $status = $transaction->insertDetailTransaction($transaction_id, $menu_id, $topping_id, $size, $ice, $sugar);
+                        }
+                    }
+                    else {
+                        $status = $transaction->insertDetailTransaction($transaction_id, $menu_id, null, $size, $ice, $sugar);
                     }
 
                     if(!$status) {
@@ -180,6 +185,7 @@ class Kasir extends Controller
 
     private function enterCustomerName()
     {
+        $this->clear_customer_data();
         $page = $this::create_page('kasir', 'enterCustomerName');
         
         $page->user_information = $this->get_user();

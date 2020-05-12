@@ -12,6 +12,16 @@
 
 .menu-title {
     font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+}
+
+.menu-title p.menu-qty {
+    display: none;
+}
+
+.menu-title p.selected {
+    display: block;
 }
 
 .menu-content {
@@ -24,7 +34,6 @@
 .menu-content > div > span {
     font-size: 1rem;
 }
-
 
 .menu.selected {
     background-color: var(--light);

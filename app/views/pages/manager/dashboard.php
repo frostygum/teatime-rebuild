@@ -9,13 +9,13 @@
         <div class="card shadow display-flex" style="height: auto">
             <!-- KIRI -->
             <div class="side-navbar">
-                <div class="p-2 side-navbar-tab-active" style="border-radius: var(--border-radius) 0 0 0">
+                <div class="p-2 side-navbar-tab-active" style="border-radius: var(--border-radius) 0 0 0" >
                     <h6>Dashboard</h6>
                 </div>
-                <div class="p-2 side-navbar-tab">
+                <div class="p-2 side-navbar-tab" onclick="window.location = './manager?page=data'">
                     <h6>Data</h6>
                 </div>
-                <div class="p-2 side-navbar-tab">
+                <div class="p-2 side-navbar-tab" onclick="window.location = './manager?page=ranking'">
                     <h6>Ranking</h6>
                 </div>
             </div>
@@ -25,7 +25,7 @@
                 <div class="display-grid grid-col-3 grid-g-4 m-2 p-2">
                     <div class="card bg-red shadow p-2 text-center text-light panel">
                         <h4>
-                            <?= $totalCup["count(id)"]; ?>
+                            <?= $totalCup["count(detailtransaksi.idMenu)"]; ?>
                         </h4>
                         <h6 class="p-1 ket-panel">Total Cups</h6>
                     </div>
@@ -65,15 +65,15 @@
                 <div class="display-grid grid-col-3 grid-g-2 m-3">
                     <div class="card bg-blue shadow p-2 text-center text-light" style="width: 16rem">
                         <h6>Most Popular Menu</h6>
-                        <p>Brown Milk Tea</p>
+                        <p><?php echo $topMenu['nama_minuman'];?></p>
                     </div>
                     <div class="card bg-blue shadow p-2 text-center text-light" style="width: 16rem">
                         <h6>Most Popular Topping</h6>
-                        <p>Brown Pearl</p>
+                        <p><?php echo $topToping['nama_toping'];?></p>
                     </div>
                     <div class="card bg-blue shadow p-2 text-center text-light" style="width: 16rem">
                         <h6>Best Cashier</h6>
-                        <p>Juan</p>
+                        <p><?php echo $topKasir['nama_pengguna'];?></p>
                     </div>
                 </div>
             </div>

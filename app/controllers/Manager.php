@@ -82,7 +82,7 @@ class Manager extends Controller
 
             $dataPerThisMonth[] = [
                 "day" => $day,
-                "total" => $extra->get_total_transaksi_harian($date)['count(id)']
+                "total" => $extra->get_total_pemasukan_harian($date)['sum(total)']
             ];
         }
 

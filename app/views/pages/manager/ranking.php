@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" onload="handle_change_sort_type('ascending')">
 
     <?php
     require_once VIEW_PATH . "templates/header.php";
@@ -27,7 +27,7 @@
                     <!--kanan kiri-->
                     <div class="p-1 tableArea">
                         <!--ini menu-->
-                        <table class="table tabelManager">
+                        <table class="table tabelManager" id="menu-descending">
                             <thead>
                                 <tr class="tableHeader">
                                     <th>Rank</th>
@@ -39,7 +39,7 @@
                                 <?php
                                 //var_dump($listMenu);
                                 $i = 1;
-                                foreach ($listMenu as $key => $value) {
+                                foreach ($listMenuDESC as $key => $value) {
                                     echo "
                                         <tr class='tableData' style=' color: var(--dark-darker); background-color: var(--white)'>
                                             <td style='text-align: center;'>" . $i . "</td>
@@ -51,11 +51,35 @@
                                 }
                                 ?>
                             </tbody>
+                        </table>
 
-
+                        <table class="table tabelManager" id="menu-ascending" style="display: none;">
+                            <thead>
+                                <tr class="tableHeader">
+                                    <th>Rank</th>
+                                    <th style="min-width:10rem">Nama</th>
+                                    <th>Total Penjualan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                //var_dump($listMenu);
+                                $i = 1;
+                                foreach ($listMenuASC as $key => $value) {
+                                    echo "
+                                        <tr class='tableData' style=' color: var(--dark-darker); background-color: var(--white)'>
+                                            <td style='text-align: center;'>" . $i . "</td>
+                                            <td >" . $value['nama'] . "</td>
+                                            <td style='text-align: center'>" . $value['terjual'] . "</td>
+                                        </tr>
+                                    ";
+                                    $i++;
+                                }
+                                ?>
+                            </tbody>
                         </table>
                         <!--ini toping-->
-                        <table class="table tabelManager">
+                        <table class="table tabelManager" id="toping-descending">
                             <tr class="tableHeader">
                                 <th>Rank</th>
                                 <th style="min-width:10rem">Nama</th>
@@ -63,7 +87,28 @@
                             </tr>
                             <?php
                             $i = 1;
-                            foreach ($listToping as $key => $value) {
+                            foreach ($listTopingDESC as $key => $value) {
+                                echo "
+                                        <tr class='tableData' style=' color: var(--dark-darker); background-color: var(--white)'>
+                                            <td style='text-align: center;'>" . $i . "</td>
+                                            <td >" . $value['nama'] . "</td>
+                                            <td style='text-align: center'>" . $value['terjual'] . "</td>
+                                        </tr>
+                                    ";
+                                $i++;
+                            }
+                            ?>
+                        </table>
+
+                        <table class="table tabelManager" id="toping-ascending"  style="display: none;">
+                            <tr class="tableHeader">
+                                <th>Rank</th>
+                                <th style="min-width:10rem">Nama</th>
+                                <th>Total Penjualan</th>
+                            </tr>
+                            <?php
+                            $i = 1;
+                            foreach ($listTopingASC as $key => $value) {
                                 echo "
                                         <tr class='tableData' style=' color: var(--dark-darker); background-color: var(--white)'>
                                             <td style='text-align: center;'>" . $i . "</td>
@@ -76,7 +121,7 @@
                             ?>
                         </table>
                         <!--ini kasir-->
-                        <table class="table tabelManager">
+                        <table class="table tabelManager" id="kasir-descending">
                             <tr class="tableHeader">
                                 <th>Rank</th>
                                 <th style="min-width:10rem">Nama</th>
@@ -84,7 +129,28 @@
                             </tr>
                             <?php
                             $i = 1;
-                            foreach ($listKasir as $key => $value) {
+                            foreach ($listKasirDESC as $key => $value) {
+                                echo "
+                                        <tr class='tableData' style=' color: var(--dark-darker); background-color: var(--white)'>
+                                            <td style='text-align: center;'>" . $i . "</td>
+                                            <td >" . $value['nama'] . "</td>
+                                            <td style='text-align: center'>" . $value['transaksi'] . "</td>
+                                        </tr>
+                                    ";
+                                $i++;
+                            }
+                            ?>
+                        </table>
+
+                        <table class="table tabelManager" id="kasir-ascending"  style="display: none;">
+                            <tr class="tableHeader">
+                                <th>Rank</th>
+                                <th style="min-width:10rem">Nama</th>
+                                <th>Total transaksi</th>
+                            </tr>
+                            <?php
+                            $i = 1;
+                            foreach ($listKasirASC as $key => $value) {
                                 echo "
                                         <tr class='tableData' style=' color: var(--dark-darker); background-color: var(--white)'>
                                             <td style='text-align: center;'>" . $i . "</td>
@@ -98,7 +164,8 @@
                         </table>
                     </div>
                     <!--kanan kanan-->
-                    <div style="width: 80%; margin-top: 1rem">
+                    <div class="display-flex" style="flex-direction: column; width: 80%; margin-top: 1rem">
+                        <!-- TYPE -->
                         <div class="dropdown">
                             <button onclick="toggleDropdown('type')" class="dropdown-btn btn-manager">
                                 Type
@@ -110,14 +177,51 @@
                                 <a href="">Kasir</a>
                             </div>
                         </div>
-                        <br>
-
-                        <button class="btn mt-2 btn-manager">
-                            Sort
-                        </button>
+                        
+                        <!-- SORT -->
+                        <div class="dropdown mt-1" style="float: right">
+                            <button onclick="toggleDropdown('sort')" class="dropdown-btn btn-manager">
+                                Sort
+                                <span class="fa fa-caret-down ml-1"></span>
+                            </button>
+                            <div id="sort" class="dropdown-content content-manager">
+                                <a class="cursor-pointer" onclick="handle_change_sort_type('ascending')">Ascending</a>
+                                <a class="cursor-pointer" onclick="handle_change_sort_type('descending')">Descending</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
         </div>
     </div>
+</div>
+
+<script type="text/javascript" defer>
+    function handle_change_sort_type(sortType) {
+        let menuDescending = document.getElementById('menu-descending');
+        let topingDescending = document.getElementById('toping-descending');
+        let kasirDescending = document.getElementById('kasir-descending');
+
+        let menuAscending = document.getElementById('menu-ascending');
+        let topingAscending = document.getElementById('toping-ascending');
+        let kasirAscending = document.getElementById('kasir-ascending');
+
+        if(sortType === 'ascending') {
+            menuDescending.style.display = '';
+            menuAscending.style.display = 'none';
+            topingDescending.style.display = '';
+            topingAscending.style.display = 'none';
+            kasirDescending.style.display = '';
+            kasirAscending.style.display = 'none';
+        }
+        else {
+            menuDescending.style.display = 'none';
+            menuAscending.style.display = '';
+            topingDescending.style.display = 'none';
+            topingAscending.style.display = '';
+            kasirDescending.style.display = 'none';
+            kasirAscending.style.display = '';
+        }
+    }
+</script>

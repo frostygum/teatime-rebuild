@@ -28,6 +28,21 @@ class QueryUser extends Model
         return $result;
     }
 
+    public function get_user_by_id($id) {
+        $query = '
+            SELECT
+                id, nama_pengguna, username, tipe, password, last_login, profile_location
+            FROM
+                Pengguna
+            WHERE
+                id = '. $id .'
+        ';
+
+        $queryResult = $this->db->executeSelectQuery($query);
+
+        return new User($queryResult[0]['id'], $queryResult[0]['nama_pengguna'], $queryResult[0]['tipe'], $queryResult[0]['username'], $queryResult[0]['last_login'], $queryResult[0]['profile_location']);
+    }
+
     public function update_user($id, $username = null, $name = null, $role = null, $password = null, $last_login = null, $profile_location = null)
     {
         $id = $this->db->escapeString($id);
@@ -75,6 +90,7 @@ class QueryUser extends Model
 
     public function delete_user($id, $username)
     {
+        $user = $this->get_user_by_id($id);
         $id = $this->db->escapeString($id);
         $username = $this->db->escapeString($username);
 
@@ -88,6 +104,12 @@ class QueryUser extends Model
         if (!$query_result) {
             $this->error = $this->db->get_error();
             return false;
+        }
+
+        $file_path = ROOT . 'public' . DS . 'uploads' . DS . $user->get_profile_path();
+
+        if(file_exists($file_path)) {
+            unlink($file_path);
         }
 
         return true;

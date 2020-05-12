@@ -145,8 +145,12 @@ class Transaction extends Model
         return $query_result;
     }
 
-    public function insertDetailTransaction($transaction_id, $menu_id, $toping_id, $size, $ice, $sugar)
+    public function insertDetailTransaction($transaction_id, $menu_id, $toping_id = null, $size, $ice, $sugar)
     {
+        if($toping_id == null) {
+            $toping_id = 'NULL';
+        }
+
         $query = "
             INSERT INTO 
                 `detailtransaksi` 

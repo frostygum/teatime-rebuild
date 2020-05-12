@@ -69,11 +69,63 @@ class QueryExtra extends Model
             echo $this->error;
             return false;
         }*/
+        $result = $queryResult[0];
+
+        return $result;
+    }
+
+    //cari total seluruh 
+    public function get_total_cup()
+    {
+        $query = '
+            SELECT 
+                count(detailtransaksi.idMenu)
+            FROM 
+                transaksipemesanan
+                JOIN detailtransaksi ON transaksipemesanan.id = detailtransaksi.idTransaksi
+        ';
+        $queryResult = $this->db->executeSelectQuery($query);
+        if (!$queryResult) {
+            $this->error = $this->db->get_error();
+
+            echo $this->error;
+            return false;
+        }
+        $result = $queryResult[0];
+        return $result;
+    }
+
+    public function get_total_transaksi()
+    {
+        $query = '
+        SELECT 
+            count(id)
+        FROM 
+            transaksiPemesanan
+        ';
         $queryResult = $this->db->executeSelectQuery($query);
         $result = $queryResult[0];
 
         return $result;
     }
+
+    public function get_total_pemasukan()
+    {
+        $query = '
+        SELECT 
+            sum(total)
+        FROM 
+            transaksiPemesanan
+        ';
+        $queryResult = $this->db->executeSelectQuery($query);
+        $result = $queryResult[0];
+        if ($result['sum(total)'] != null) {
+        } else {
+            $result['sum(total)'] = 0;
+        }
+        return $result;
+    }
+
 
     public function get_popular_menu()
     {

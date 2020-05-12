@@ -6,7 +6,7 @@
 
     <div class="container mt-4">
 
-        <div class="card shadow display-flex" style="height: 70vh">
+        <div class="card shadow display-flex" style="min-height: 70vh">
             <!-- KIRI -->
             <div class="side-navbar">
                 <div class="p-2 side-navbar-tab" style="border-radius: var(--border-radius) 0 0 0" onclick="window.location = './manager?page=dashboard'">

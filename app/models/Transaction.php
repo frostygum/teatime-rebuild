@@ -55,7 +55,6 @@ class Transaction extends Model
         WHERE TransaksiPemesanan.tanggal_transaksi = ' . $date . '
         ';
         $queryResult = $this->db->executeSelectQuery($query);
-        var_dump($queryResult);
         if (!$queryResult) {
             $this->error = $this->db->get_error();
             
@@ -73,6 +72,36 @@ class Transaction extends Model
                 "ukuran_gelas" => $value['ukuran_gelas'],
                 "banyak_es" => $value['banyak_es'],
                 "banyak_gula" => $value['banyak_gula'],
+                "total" => $value['total']
+            ];
+        }
+        return $result;
+    }
+
+    public function get_transaksi_by_date($date)
+    {
+        $query = '
+        SELECT 
+            TransaksiPemesanan.id, TransaksiPemesanan.waktu_transaksi , TransaksiPemesanan.nama_pemesan, COUNT(detailtransaksi.idMenu) , TransaksiPemesanan.total
+        FROM detailtransaksi 
+            JOIN transaksipemesanan ON transaksipemesanan.id = detailtransaksi.idTransaksi  
+        WHERE TransaksiPemesanan.tanggal_transaksi = ' . $date . '
+        GROUP BY TransaksiPemesanan.id,TransaksiPemesanan.waktu_transaksi , TransaksiPemesanan.nama_pemesan,TransaksiPemesanan.total
+        ';
+        $queryResult = $this->db->executeSelectQuery($query);
+        if (!$queryResult) {
+            $this->error = $this->db->get_error();
+            
+            echo $this->error;
+            return false;
+        }
+        $result = [];
+        foreach ($queryResult as $key => $value) {
+            $result[] = [
+                "id" => $value['id'],
+                "waktu_transaksi" => $value['waktu_transaksi'],
+                "nama_pemesan" => $value['nama_pemesan'],
+                "jumlah" => $value['COUNT(detailtransaksi.idMenu)'],
                 "total" => $value['total']
             ];
         }

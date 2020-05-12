@@ -151,32 +151,32 @@ class QueryExtra extends Model
         return $result;
     }*/
 
-    //list rank belum dibenerin
+    //list rank 
     public function get_kasir_rank($bulanAwal, $bulanAkhir, $orderby = '')
     {
         $query = '
-        SELECT 
-        Pengguna.nama_pengguna, COUNT(pesanan.id) 
-        FROM 
-            Pengguna
-            LEFT OUTER JOIN (
-            SELECT *
-            FROM TransaksiPemesanan
-        WHERE TransaksiPemesanan.tanggal_transaksi >= ' . $bulanAwal . ' and TransaksiPemesanan.tanggal_transaksi <= ' . $bulanAkhir . ')AS pesanan  
-        ON pesanan.idKasir = Pengguna.id
-        WHERE 
-            Pengguna.tipe = "kasir"
-        GROUP BY 
-            Pengguna.nama_pengguna
-        ORDER BY 
-            COUNT(pesanan.id) ' . $orderby . '
+            SELECT 
+            Pengguna.nama_pengguna, COUNT(transaksiBulanan.id) 
+            FROM 
+                Pengguna
+                LEFT OUTER JOIN (
+                SELECT *
+                FROM TransaksiPemesanan
+			    WHERE TransaksiPemesanan.tanggal_transaksi >= ' . $bulanAwal . ' and TransaksiPemesanan.tanggal_transaksi <= ' . $bulanAkhir . ')AS transaksiBulanan  
+			    ON transaksiBulanan.idKasir = Pengguna.id
+            WHERE 
+                Pengguna.tipe = "kasir"
+            GROUP BY 
+                Pengguna.nama_pengguna
+            ORDER BY 
+                COUNT(transaksiBulanan.id) ' . $orderby . '
         ';
         $queryResult = $this->db->executeMultiQuery($query);
         $result = [];
         foreach ($queryResult[0] as $key => $value) {
             $result[] = [
                 "nama" => $value['nama_pengguna'],
-                "transaksi" => $value['COUNT(pesanan.id)']
+                "transaksi" => $value['COUNT(transaksiBulanan.id)']
             ];
         }
         return $result;
@@ -185,21 +185,20 @@ class QueryExtra extends Model
     public function get_menu_rank($bulanAwal, $bulanAkhir, $orderby = '')
     {
         $query = '
-        SELECT Menu.nama_minuman, COUNT(DetailTransaksi.idMenu) 
+        SELECT Menu.nama_minuman, COUNT(pesanan.idMenu) 
         FROM 
-            DetailTransaksi 
+            pesanan 
             INNER JOIN 
                 (select *
                 from TransaksiPemesanan
-                WHERE TransaksiPemesanan.tanggal_transaksi >= "' . $bulanAwal . '" and TransaksiPemesanan.tanggal_transaksi <= "' . $bulanAkhir . '") as pemesanan
-            ON pemesanan.id = DetailTransaksi.idTransaksi
+                WHERE TransaksiPemesanan.tanggal_transaksi >= ' . $bulanAwal . ' and TransaksiPemesanan.tanggal_transaksi <= '  . $bulanAkhir . ') as transaksiBulanan
+            ON transaksiBulanan.id = pesanan.idTransaksi
             RIGHT OUTER JOIN Menu 
-            ON Menu.id = DetailTransaksi.idMenu
-            
+            ON Menu.id = pesanan.idMenu
         GROUP BY 
             Menu.nama_minuman
         ORDER BY 
-            COUNT(DetailTransaksi.idMenu) ' . $orderby . '
+            COUNT(pesanan.idMenu) ' . $orderby . '
         ';
 
         $queryResult = $this->db->executeMultiQuery($query);
@@ -214,7 +213,7 @@ class QueryExtra extends Model
         foreach ($queryResult[0] as $key => $value) {
             $result[] = [
                 "nama" => $value['nama_minuman'],
-                "terjual" => $value['COUNT(DetailTransaksi.idMenu)']
+                "terjual" => $value['COUNT(pesanan.idMenu)']
             ];
         }
         return $result;
@@ -225,26 +224,27 @@ class QueryExtra extends Model
     {
         $query = '
             SELECT 
-                Toping.nama_toping, COUNT(DetailTransaksi.idToping) 
+                Toping.nama_toping, COUNT(memilikiToping.idToping) 
             FROM 
-                DetailTransaksi  
+                pesanan  
                 INNER JOIN 
-                    (select *
-                    from TransaksiPemesanan
-                    WHERE TransaksiPemesanan.tanggal_transaksi >= ' . $bulanAwal . ' and TransaksiPemesanan.tanggal_transaksi <= ' . $bulanAkhir . ') as pemesanan
-                ON pemesanan.id = DetailTransaksi.idTransaksi
-                RIGHT OUTER JOIN Toping ON Toping.id = DetailTransaksi.idToping
-            GROUP BY 
-                Toping.nama_toping
-            ORDER BY 
-                COUNT(DetailTransaksi.idToping) ' . $orderby . '
+                        (select *
+                        from TransaksiPemesanan
+                        WHERE TransaksiPemesanan.tanggal_transaksi >= ' . $bulanAwal . ' and TransaksiPemesanan.tanggal_transaksi <= ' . $bulanAkhir . ') as transaksiBulanan
+                        ON transaksiBulanan.id = pesanan.idTransaksi  INNER JOIN memilikiToping
+                        ON memilikiToping.idpesanan = pesanan.id RIGHT OUTER JOIN toping
+                        ON toping.id = memilikiToping.idToping
+                GROUP BY 
+                    Toping.nama_toping
+                ORDER BY 
+                    COUNT(memilikiToping.idToping)  ' . $orderby . '
         ';
         $queryResult = $this->db->executeMultiQuery($query);
         $result = [];
         foreach ($queryResult[0] as $key => $value) {
             $result[] = [
                 "nama" => $value['nama_toping'],
-                "terjual" => $value['COUNT(DetailTransaksi.idToping)']
+                "terjual" => $value['COUNT(memilikiToping.idToping)']
             ];
         }
         return $result;
@@ -255,18 +255,21 @@ class QueryExtra extends Model
     {
         $query = '
             SELECT 
-                nama_toping
+                Toping.nama_toping, COUNT(memilikiToping.idToping) 
             FROM 
-                DetailTransaksi 
-                RIGHT OUTER JOIN Toping ON Toping.id = DetailTransaksi.idToping
-                INNER JOIN TransaksiPemesanan ON TransaksiPemesanan.id = DetailTransaksi.idTransaksi
-            WHERE 
-                tanggal_transaksi >= ' . $bulanAwal . ' and tanggal_transaksi <= ' . $bulanAkhir . '
+                pesanan  
+                INNER JOIN 
+                    (select *
+                    from TransaksiPemesanan
+                    WHERE TransaksiPemesanan.tanggal_transaksi >= ' . $bulanAwal . ' and TransaksiPemesanan.tanggal_transaksi <= ' . $bulanAkhir . ') as transaksiBulanan
+                ON transaksiBulanan.id = pesanan.idTransaksi  INNER JOIN memilikiToping
+                ON memilikiToping.idpesanan = pesanan.id RIGHT OUTER JOIN toping
+                ON toping.id = memilikiToping.idToping
             GROUP BY 
-                nama_toping
+                Toping.nama_toping
             ORDER BY 
-                COUNT(DetailTransaksi.idToping) desc
-            LIMIT '.$top.'
+                COUNT(memilikiToping.idToping)  DESC
+            LIMIT ' . $top . '
         ';
         $queryResult = $this->db->executeSelectQuery($query);
         $result = $queryResult[0];
@@ -276,28 +279,29 @@ class QueryExtra extends Model
     public function get_top_menu($bulanAwal, $bulanAkhir, $top = 1)
     {
         $query = '
-        SELECT 
-            nama_minuman
-        FROM 
-            DetailTransaksi 
-            RIGHT OUTER JOIN Menu ON Menu.id = DetailTransaksi.idMenu
-            INNER JOIN TransaksiPemesanan ON TransaksiPemesanan.id = DetailTransaksi.idTransaksi
-        WHERE 
-            tanggal_transaksi >= ' . $bulanAwal . ' and tanggal_transaksi <= ' . $bulanAkhir . '
-        GROUP BY 
-            nama_minuman
-        ORDER BY 
-            COUNT(DetailTransaksi.idMenu) desc
-        LIMIT '.$top.'
+            SELECT Menu.nama_minuman, COUNT(pesanan.idMenu) 
+            FROM 
+                pesanan 
+                INNER JOIN 
+                    (select *
+                    from TransaksiPemesanan
+                    WHERE TransaksiPemesanan.tanggal_transaksi >= ' . $bulanAwal . ' and TransaksiPemesanan.tanggal_transaksi <= '  . $bulanAkhir . ') as transaksiBulanan
+                ON transaksiBulanan.id = pesanan.idTransaksi RIGHT OUTER JOIN Menu 
+                ON Menu.id = pesanan.idMenu
+            GROUP BY 
+                Menu.nama_minuman
+            ORDER BY 
+                COUNT(pesanan.idMenu) DESC
+            LIMIT ' . $top . '
         ';
         $queryResult = $this->db->executeSelectQuery($query);
-        if (!$queryResult) {
+        /*if (!$queryResult) {
             $this->error = $this->db->get_error();
             
             echo $this->error;
             return false;
-        }
-         
+        }*/
+
         $result = $queryResult[0];
         return $result;
     }
@@ -306,21 +310,25 @@ class QueryExtra extends Model
     {
         $query = '
             SELECT 
-                Pengguna.nama_pengguna
+                Pengguna.nama_pengguna, COUNT(transaksiBulanan.id) 
             FROM 
-                TransaksiPemesanan 
-                INNER JOIN Pengguna ON TransaksiPemesanan.idKasir = Pengguna.id
+                Pengguna
+                LEFT OUTER JOIN (
+                SELECT *
+                FROM TransaksiPemesanan
+			    WHERE TransaksiPemesanan.tanggal_transaksi >= ' . $bulanAwal . ' and TransaksiPemesanan.tanggal_transaksi <= ' . $bulanAkhir . ')AS transaksiBulanan  
+			    ON transaksiBulanan.idKasir = Pengguna.id
             WHERE 
-                tanggal_transaksi >= ' . $bulanAwal . ' and tanggal_transaksi <= ' . $bulanAkhir . '
+                Pengguna.tipe = "kasir"
             GROUP BY 
                 Pengguna.nama_pengguna
             ORDER BY 
-                COUNT(TransaksiPemesanan.idKasir) desc
-            LIMIT '.$top.'
+                COUNT(transaksiBulanan.id) DESC
+            LIMIT ' . $top . '
         ';
         $queryResult = $this->db->executeSelectQuery($query);
         $result = $queryResult[0];
-        
+
         return $result;
     }
 }

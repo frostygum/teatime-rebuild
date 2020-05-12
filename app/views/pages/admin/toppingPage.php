@@ -80,7 +80,7 @@
                     </div>
                     <div>
                         <p class="text-bold m-0">Harga</p>
-                        <input class="input block" type="text" name="harga" placeholder="harga toping">
+                        <input class="input block" type="text" name="harga" placeholder="harga toping" onfocusout="handle_add_digit(event)">
                     </div>
                     <div class="mt-3">
                         <button type="submit" name="button" class="btn btn-primary block bg-primary shadow py-1 text-bold">
@@ -199,7 +199,7 @@
 <script type="text/javascript" defer>
     let toppingList = [];
     let tableUser = document.getElementById('table-topping');
-    let formatter = new Intl.NumberFormat('en-IN', {
+    let formatter = new Intl.NumberFormat(['ban', 'id'], {
         style: 'currency',
         currency: 'IDR',
         maximumSignificantDigits: 3

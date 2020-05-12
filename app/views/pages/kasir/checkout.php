@@ -92,10 +92,10 @@
     let selectedMenu = [];
     let totalPrice = 0;
 
-    let formatter = new Intl.NumberFormat('en-IN', {
+    let formatter = new Intl.NumberFormat(['ban', 'id'], {
         style: 'currency',
         currency: 'IDR',
-        maximumSignificantDigits: 3
+        maximumSignificantDigits: 2
     });
 
     <?php 
@@ -189,9 +189,9 @@
                 return res.text();
             })
             .then(function(res) {
-                // console.log(res);
+                console.log(res);
                 let result = JSON.parse(res);
-                // console.log(result);
+                console.log(result);
                 if(result && result.text === "success") {
                     resolve(true);
                 }

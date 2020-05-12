@@ -6,7 +6,7 @@
 
     <div class="container mt-4">
 
-        <div class="card shadow display-flex" style="height: 80vh; overflow: hidden">
+        <div class="card shadow display-flex" style="min-height: 80vh;">
             <!-- KIRI -->
             <div class="side-navbar">
                 <div class="p-2 side-navbar-tab" style="border-radius: var(--border-radius) 0 0 0" onclick="window.location = './manager?page=dashboard'">
@@ -43,7 +43,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="p-1" style="max-height: 40rem; overflow: auto">
+                        <div class="p-1" style="max-height: 30rem; overflow: auto">
                             <table class="table tableManager" id="table-detail" style="width: 100%;">
                                 <tr class="tableHeader">
                                     <th>Time</th>

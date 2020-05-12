@@ -69,8 +69,25 @@ class Manager extends Controller
         $page->topToping = $extra->get_top_toping($firstDay, $lastDay);
         $page->topKasir = $extra->get_top_kasir($firstDay, $lastDay);
 
-        $dataPerThisMonth = [];
+        $salePerMonth = [];
+        //get data penjualan sebulan
+        for($i = 1; $i < cal_days_in_month(CAL_GREGORIAN,2,date('Y')); $i++) {
+            $day = $i;
+            if(strlen($i) < 2) {
+                $day = "0" . $i;
+            }
 
+            $date = date('Ym') . $day;
+
+            $salePerThisMonth[] = [
+                "day" => $day,
+                "total" => $extra->get_total_cup_harian($date)['count(Pesanan.idMenu)']
+            ];
+        }
+        $page->salePerThisMonth = json_encode($salePerThisMonth);
+
+
+        $dataPerThisMonth = [];
         // get data transaksi sebulan
         for($i = 1; $i < cal_days_in_month(CAL_GREGORIAN,2,date('Y')); $i++) {
             $day = $i;
@@ -85,8 +102,9 @@ class Manager extends Controller
                 "total" => $extra->get_total_transaksi_harian($date)['count(id)']
             ];
         }
-
         $page->dataPerThisMonth = json_encode($dataPerThisMonth);
+
+
         $page->user_information = $this::get_user();
         $page->render();
     }

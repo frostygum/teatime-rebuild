@@ -44,6 +44,30 @@ CREATE TABLE TransaksiPemesanan
     FOREIGN KEY (idKasir) REFERENCES Pengguna(id)
 );
 
+CREATE TABLE Pesanan
+(
+	id INT NOT NULL AUTO_INCREMENT,
+	idTransaksi INT NOT NULL,
+	idMenu INT NOT NULL,
+	banyak_es VARCHAR(10) NOT NULL,
+	banyak_gula VARCHAR(10) NOT NULL,
+	ukuran_gelas VARCHAR(10) NOT NULL,
+	PRIMARY KEY (idPesanan)
+    FOREIGN KEY (idTransaksi) REFERENCES TransaksiPemesanan(id),
+	FOREIGN KEY (idMenu) REFERENCES Menu(id),
+	FOREIGN KEY (idToping) REFERENCES Toping(id)
+);
+
+CREATE TABLE MemilikiToping
+(
+	idPesanan INT NOT NULL,
+	idToping INT NOT NULL,
+	PRIMARY KEY (idPesanan, idToping),
+	FOREIGN KEY (idPesanan) REFERENCES Pesanan(id),
+	FOREIGN KEY (idToping) REFERENCES Toping(id)
+);
+
+/*
 CREATE TABLE DetailTransaksi
 (
 	idTransaksi INT NOT NULL,
@@ -56,6 +80,7 @@ CREATE TABLE DetailTransaksi
 	FOREIGN KEY (idMenu) REFERENCES Menu(id),
 	FOREIGN KEY (idToping) REFERENCES Toping(id)
 );
+*/
 
 /* 	
 	SEED PENGGUNA untuk coba login

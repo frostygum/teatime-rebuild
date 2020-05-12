@@ -6,7 +6,7 @@
 
     <!--<?= isset($user_information) ? $user_information['username'] : '' ?>-->
     <div class="container mt-4">
-        <div class="card shadow display-flex" style="min-height: 80vh; overflow: hidden">
+        <div class="card shadow display-flex" style="min-height: 80vh">
             <!-- KIRI -->
             <div class="side-navbar">
                 <div class="p-2 side-navbar-tab-active" style="border-radius: var(--border-radius) 0 0 0" >

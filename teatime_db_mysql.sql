@@ -75,7 +75,7 @@ INSERT INTO `pengguna` (`id`, `nama_pengguna`, `tipe`, `username`, `password`) V
 (1, 'kasir_1', 'kasir', 'frostyKasir', '$2y$10$A/oDzRiF9qlI9ViNrNWyX.X4hOkq4QSD56xI0vkYgkYqZkpYjAKX6'),
 (2, 'admin_1', 'admin', 'frostyAdmin', '$2y$10$A/oDzRiF9qlI9ViNrNWyX.X4hOkq4QSD56xI0vkYgkYqZkpYjAKX6'),
 (3, 'manager_1', 'manager', 'frostyManager', '$2y$10$A/oDzRiF9qlI9ViNrNWyX.X4hOkq4QSD56xI0vkYgkYqZkpYjAKX6'),
-(4, 'daniel', 'kasir', 'daniel', NULL, '$2y$10$NJi5HnU5yiaqwiZ/1/rWne9isjuOWFLVpKWEczR76dQwAqFxNyw1y');
+(4, 'daniel', 'kasir', 'daniel', '$2y$10$NJi5HnU5yiaqwiZ/1/rWne9isjuOWFLVpKWEczR76dQwAqFxNyw1y');
 
 INSERT INTO `toping` (`id`, `nama_toping`, `harga_toping`) VALUES
 (1, 'Pearl', 5000),

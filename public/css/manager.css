@@ -31,7 +31,7 @@
 }
 /*panel*/
 .ket-panel{
-    background-color: var(--teal);
+    background-color: var(--yellow);
     color: var(--dark-darker);
     width: 12rem;
     border-radius: var(--border-radius);
@@ -39,7 +39,7 @@
 }
 
 .ket-panel-data{
-    background-color: var(--teal);
+    background-color: var(--yellow);
     color: var(--dark-darker);
     width: 6rem;
     border-radius: var(--border-radius);

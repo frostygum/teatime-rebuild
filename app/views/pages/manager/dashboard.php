@@ -6,7 +6,7 @@
 
     <!--<?= isset($user_information) ? $user_information['username'] : '' ?>-->
     <div class="container mt-4">
-        <div class="card shadow display-flex" style="height: 80vh; overflow: hidden">
+        <div class="card shadow display-flex" style="min-height: 80vh">
             <!-- KIRI -->
             <div class="side-navbar">
                 <div class="p-2 side-navbar-tab-active" style="border-radius: var(--border-radius) 0 0 0" >
@@ -25,7 +25,7 @@
                 <div class="display-grid grid-col-3 grid-g-4 m-2 p-2">
                     <div class="card bg-red shadow p-2 text-center text-light panel">
                         <h4>
-                            <?= $totalCup["count(pesanan.idMenu)"]; ?>
+                            <?= $totalCup["count(Pesanan.idMenu)"]; ?>
                         </h4>
                         <h6 class="p-1 ket-panel">Total Cups</h6>
                     </div>

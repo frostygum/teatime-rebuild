@@ -44,6 +44,65 @@ class QueryMenu extends Model
         return $result;
     }
 
+    public function count_menu() {
+        $query = '
+            SELECT
+                COUNT(id)
+            FROM
+                Menu
+        ';
+
+        $queryResult = $this->db->executeSelectQuery($query);
+        $result = 0;
+
+        if ($this->db->get_error() != null) {
+            $this->error = $this->db->get_error();
+            return false;
+        } else {
+            if (count($queryResult) != 0) {
+                $result = $queryResult[0]['COUNT(id)'];
+            } else {
+                $this->error = $this->db->get_error();
+                return false;
+            }
+        }
+
+        return $result;
+    }
+
+    public function get_menu_range($start, $end)
+    {
+        $query = '
+            SELECT
+                id,
+                nama_minuman,
+                harga_regular,
+                harga_large
+            FROM
+                Menu
+            LIMIT '. $start .', '. $end .'
+        ';
+
+        $queryResult = $this->db->executeSelectQuery($query);
+        $result = [];
+
+        if ($this->db->get_error() != null) {
+            $this->error = $this->db->get_error();
+            return false;
+        } else {
+            if (count($queryResult) != 0) {
+                foreach ($queryResult as $key => $value) {
+                    $result[] = new Menu($value['id'], $value['nama_minuman'], $value['harga_regular'], $value['harga_large']);
+                }
+            } else {
+                $this->error = $this->db->get_error();
+                return false;
+            }
+        }
+
+        return $result;
+    }
+
     public function get_menu_by_id($id)
     {
         $query = '

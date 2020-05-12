@@ -4,7 +4,7 @@
     ?>
 
     <div class="container mt-4">
-        <div class="card shadow display-grid grid-col-2" style="height: 80vh; overflow: hidden;">
+        <div class="card shadow display-grid" style="height: 80vh; overflow: hidden; grid-template-columns: 15rem auto">
             <!-- LEFT AREA / SIDE NAVIGATION BAR -->
             <div class="sidebar" style="width: 15rem">
                 <div class="p-2 cursor-pointer" onclick="window.location = './admin?page=user'">
@@ -18,10 +18,10 @@
                 </div>
             </div>
             <!-- RIGHT AREA -->
-            <div class="display-grid my-4 mx-2">
-                <div class="display-grid grid-col-1 align-content-start">
+            <div class="display-grid align-content-space-between my-4 mx-2">
+                <div class="display-grid grid-col-1  grid-g-4 align-content-start">
                     <!-- MAIN AREA -->
-                    <div class="display-grid p-2 grid-col-2 justify-content-space-between">
+                    <div class="display-grid grid-col-2 justify-content-space-between">
                         <div>
                             <!-- SEARCH USER -->
                             <input type="text" id="search-inpt" class="input bg-teal text-light border-0" placeholder="Search name" onkeyup="searchMenu(event)" />
@@ -32,8 +32,10 @@
                                 </button>
                                 <div id="select_filter" class="dropdown-content fltr-dropdown-content">
                                     <a onclick="searchFilterMenu('milk tea')">Milk Tea</a>
-                                    <a onclick="searchFilterMenu('coffee')">Coffee</a>
-                                    <a onclick="searchFilterMenu('Tea')">Tea</a>
+                                    <a onclick="searchFilterMenu('latte')">Latte</a>
+                                    <a onclick="searchFilterMenu('smoothie')">Smoothie</a>
+                                    <a onclick="searchFilterMenu('mousse')">Mousse</a>
+                                    <a onclick="searchFilterMenu('yogurt')">Yogurt</a>
                                 </div>
                             </div>
                             <button class="search-btn" onclick="clearSearch()">clear</button>
@@ -41,10 +43,11 @@
                         <button class="manage-btn" onclick="toggleModal('modal-add')">
                             Add
                         </button>
-                    </div>
-                    <div class="display-flex justify-content-start p-2" style="max-width: 55rem; overflow: auto">
+                    </div>   
+
+                    <div class="display-flex justify-content-start" style="width: 100%; max-height: 30rem; overflow: auto">
                         <!-- TABLE -->
-                        <Table class="main-table" id="table-menu" style="width: 54rem">
+                        <Table class="main-table" id="table-menu" style="width: 100%; height: 70%">
                             <thead>
                                 <tr class="main-table-header-row">
                                     <th class="p-1">No</th>
@@ -57,11 +60,13 @@
                             <tbody>
                             </tbody>
                         </Table>
-                    </div>
+                    </div>        
                 </div>
+                <div class="display-flex justify-content-center" style="height: 2rem" id="pagination"></div>
             </div>
         </div> 
     </div>
+
 </div>
 
 <!-- MODAL EDIT -->
@@ -83,24 +88,12 @@
                     <div class="display-grid grid-col-2 grid-g-2">
                         <div>
                             <p class="text-bold m-0">Harga Reguler</p>
-                            <input class="input block" type="text" name="harga_r" placeholder="harga ukuran reguler">
+                            <input class="input block" type="text" name="harga_r" placeholder="harga ukuran reguler" onfocusout="handle_add_digit(event)">
                         </div>
                         <div>
                             <p class="text-bold m-0">Harga Large</p>
-                            <input class="input block" type="text" name="harga_l" placeholder="harga ukuran large">
+                            <input class="input block" type="text" name="harga_l" placeholder="harga ukuran large" onfocusout="handle_add_digit(event)">
                         </div>
-                        <br>
-                        <button class="search-btn mt-3" onclick="clearSearch()">clear</button>
-                    </div>
-                    <div class="mt-3">
-                        <button type="submit" name="button" class="btn btn-primary block bg-primary shadow py-1 text-bold">
-                            Edit
-                        </button>
-                    </div>
-                    <div class="mt-3">
-                        <button type="submit" name="button" class="btn btn-primary block bg-primary shadow py-1 text-bold">
-                            Edit
-                        </button>
                     </div>
                     <div class="mt-3">
                         <button type="submit" name="button" class="btn btn-primary block bg-primary shadow py-1 text-bold">
@@ -125,17 +118,17 @@
                 <input type="hidden" name="command" value="add-menu">
                 <div class="display-grid grid-g-2 mt-4">
                     <div>
-                        <p class="text-bold m-0">Nama Menu</p>
+                        <p class="text-bold m-0">Nama Menu <span class="text-danger">*</span></p>
                         <input class="input block" type="text" name="name" placeholder="nama lengkap">
                     </div>
                     <div class="display-grid grid-col-2 grid-g-2">
                         <div>
-                            <p class="text-bold m-0">Harga Reguler</p>
-                            <input class="input block" type="text" name="harga_r" placeholder="harga ukuran reguler">
+                            <p class="text-bold m-0">Harga Reguler <span class="text-danger">*</span></p>
+                            <input class="input block" type="text" name="harga_r" placeholder="harga ukuran reguler" onfocusout="handle_add_digit(event)">
                         </div>
                         <div>
-                            <p class="text-bold m-0">Harga Large</p>
-                            <input class="input block" type="text" name="harga_l" placeholder="harga ukuran large">
+                            <p class="text-bold m-0">Harga Large <span class="text-danger">*</span></p>
+                            <input class="input block" type="text" name="harga_l" placeholder="harga ukuran large" onfocusout="handle_add_digit(event)">
                         </div>
                     </div>
                     <div class="mt-3">
@@ -225,11 +218,19 @@
 <script type="text/javascript" defer>
     let menuList = [];
     let tableUser = document.getElementById('table-menu');
+    let rendered_records = 10;
+    let currentMenuPage = 1;
+    let pagination = document.getElementById('pagination');
     let formatter = new Intl.NumberFormat('en-IN', {
         style: 'currency',
         currency: 'IDR',
         maximumSignificantDigits: 3
     });
+
+    function setMenuPage(number) {
+        currentMenuPage = number;
+        renderPagination()
+    }
     
     <?php
         foreach ($all_menu as $key => $menu) {
@@ -244,12 +245,27 @@
         }
     ?>
 
+    for(let i = 1; i <= Math.ceil(menuList.length / rendered_records); i++) {
+        let btn = document.createElement('button');
+        btn.className = 'btn btn-primary mx-1';
+        btn.textContent = i;
+        btn.onclick = () => setMenuPage(i);
+
+        pagination.appendChild(btn);
+    }
+
     for(let i = menuList.length - 1; i >= 0; i--) {
+        let display = 'none';
+        if(i < rendered_records && i >= 0) {
+            display = '';
+        }
+
         let menu = menuList[i];
 
         let row = tableUser.insertRow(1);
         row.id = `menu-${menu.id}`;
         row.className = "main-table-data-row";
+        row.style.display = display;
 
         let number = row.insertCell(0)
         let name = row.insertCell(1);
@@ -259,6 +275,7 @@
 
         number.textContent = i + 1;
         number.className = "text-center text-dark p-1";
+        number.id = i;
         name.textContent = menu.name;
         name.className = "text-dark p-1";
         price_r.textContent = formatter.format(menu.price_r);
@@ -276,17 +293,37 @@
         `;
     }
 
-    function searchMenu(e) {
-        let searchVal = e.target.value;
+    function renderPagination() {
         for(let i = 0; i < menuList.length; i++) {
             let curr = menuList[i];
             let currItem = document.getElementById(`menu-${curr.id}`);
-            
-            if(curr.name.toLowerCase().indexOf(searchVal) > -1) {
+            let numberItem = currItem.firstChild.id;
+
+            if(numberItem >= (rendered_records * (currentMenuPage - 1)) && numberItem < (rendered_records * currentMenuPage)) {
                 currItem.style.display = ''; 
             }
             else {
                 currItem.style.display = 'none';
+            }
+        }
+    }
+
+    function searchMenu(e) {
+        let searchVal = e.target.value;
+        if(searchVal == '') {
+            renderPagination();
+        }
+        else {
+            for(let i = 0; i < menuList.length; i++) {
+                let curr = menuList[i];
+                let currItem = document.getElementById(`menu-${curr.id}`);
+                
+                if(curr.name.toLowerCase().indexOf(searchVal) > -1) {
+                    currItem.style.display = ''; 
+                }
+                else {
+                    currItem.style.display = 'none';
+                }
             }
         }
     }
@@ -302,6 +339,10 @@
             }
             else {
                 currItem.style.display = 'none';
+            }
+
+            if(searchVal == '') {
+                renderPagination();
             }
         }
     }
@@ -340,5 +381,11 @@
         form.id.value = menu.id;
 
         toggleModal('modal-delete');
+    }
+
+    function handle_add_digit(event) {
+        if(event.target.value.length <= 2) {
+            event.target.value *= 1000;
+        }
     }
 </script>

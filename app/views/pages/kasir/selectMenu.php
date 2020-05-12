@@ -95,7 +95,7 @@
 
 <script type="text/javascript" defer>
 
-    let formatter = new Intl.NumberFormat('en-IN', {
+    let formatter = new Intl.NumberFormat(['ban', 'id'], {
         style: 'currency',
         currency: 'IDR',
         maximumSignificantDigits: 3

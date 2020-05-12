@@ -4,7 +4,7 @@
     ?>
 
     <div class="container mt-4">
-        <div class="card shadow display-grid grid-col-2" style="height: 80vh; overflow: hidden;">
+        <div class="card shadow display-grid" style="height: 80vh; overflow: hidden; grid-template-columns: 15rem auto">
             <!-- LEFT AREA / SIDE NAVIGATION BAR -->
             <div class="sidebar" style="width: 15rem">
                 <div class="p-2 cursor-pointer" onclick="window.location = './admin?page=user'">
@@ -19,9 +19,9 @@
             </div>
             <!-- RIGHT AREA -->
             <div class="display-grid my-4 mx-2">
-                <div class="display-grid grid-col-1 align-content-start">
+                <div class="display-grid grid-col-1  grid-g-4 align-content-start">
                     <!-- MAIN AREA -->
-                    <div class="display-grid p-2 grid-col-2 justify-content-space-between">
+                    <div class="display-grid grid-col-2 justify-content-space-between">
                         <div>
                             <!-- SEARCH USER -->
                             <input type="text" id="search-inpt" class="input bg-teal text-light border-0" placeholder="Search name" onkeyup="searchTopping(event)" />
@@ -41,9 +41,9 @@
                         </button>
                     </div>   
 
-                    <div class="display-flex justify-content-start p-2" style="max-width: 55rem; overflow: auto">
+                    <div class="display-flex justify-content-start" style="width: 100%; max-height: 30rem; overflow: auto">
                         <!-- TABLE -->
-                        <Table class="main-table" id="table-topping" style="width: 54rem">
+                        <Table class="main-table" id="table-topping" style="width: 100%; height: 70%">
                             <thead>
                                 <tr class="main-table-header-row">
                                     <th class="p-1">No</th>
@@ -87,13 +87,6 @@
                             Edit
                         </button>
                     </div>
-                    <div class="mt-3">
-                        <button type="submit" name="button" class="btn btn-primary block bg-primary shadow py-1 text-bold">
-                            Edit
-                        </button>
-                    </div>
-
-                    
                 </div>
             </form>
         </div>
@@ -112,12 +105,12 @@
                 <input type="hidden" name="command" value="add-topping">
                 <div class="display-grid grid-g-2 mt-4">
                     <div>
-                        <p class="text-bold m-0">Nama Toping</p>
+                        <p class="text-bold m-0">Nama Toping <span class="text-danger">*</span></p>
                         <input class="input block" type="text" name="name" placeholder="nama toping">
                     </div>
                     <div>
-                        <p class="text-bold m-0">Harga</p>
-                        <input class="input block" type="text" name="harga" placeholder="harga toping">
+                        <p class="text-bold m-0">Harga <span class="text-danger">*</span></p>
+                        <input class="input block" type="text" name="harga" placeholder="harga toping" onfocusout="handle_add_digit(event)">
                     </div>
                     <div class="mt-3">
                         <button type="submit" name="button" class="btn btn-primary block bg-primary shadow py-1 text-bold">
@@ -316,5 +309,11 @@
         form.id.value = topping.id;
 
         toggleModal('modal-delete');
+    }
+
+    function handle_add_digit(event) {
+        if(event.target.value.length <= 2) {
+            event.target.value *= 1000;
+        }
     }
 </script>

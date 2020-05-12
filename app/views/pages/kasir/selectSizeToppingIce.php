@@ -191,8 +191,8 @@
         for(let i = 0; i < selectedMenu.length; i++) {
             let currSelected = selectedMenu[i];
             let opt = document.createElement('option');
-            opt.value = currSelected.id;
-            opt.textContent = currSelected.name;
+            opt.value = `${currSelected.id}-${currSelected.pos}`;
+            opt.textContent = currSelected.name + ` (${currSelected.pos})`;
             selectMenu.appendChild(opt);
         }
     }
@@ -309,8 +309,6 @@
                                 arr.push(dataTopping[id]);
                             }
                         }
-
-                        console.log(selectedMenu)
                         selectedMenu[currentMenu].topping = arr;
                     break;
                 }
@@ -321,8 +319,12 @@
     function handleSelectedMenu() {
         let found = false;
         let pos = 0;
+        let arrDataLocMenu = menu.value.split("-")
+        let menuId = arrDataLocMenu[0];
+        let menuKe = arrDataLocMenu[1];
+
         for(let i = 0; i < selectedMenu.length; i++) {
-            if (selectedMenu[i].id == menu.value) {
+            if (selectedMenu[i].id == menuId && selectedMenu[i].pos == menuKe) {
                 found = true;
                 pos = i;
                 break;

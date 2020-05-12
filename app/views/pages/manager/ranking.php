@@ -6,16 +6,16 @@
 
     <div class="container mt-4">
 
-        <div class="card shadow display-flex" style="height: 70vh">
+        <div class="card shadow display-flex" style="min-height: 70vh">
             <!-- KIRI -->
             <div class="side-navbar">
-                <div class="p-2 side-navbar-tab" style="border-radius: var(--border-radius) 0 0 0">
+                <div class="p-2 side-navbar-tab" style="border-radius: var(--border-radius) 0 0 0" onclick="window.location = './manager?page=dashboard'">
                     <h6>Dashboard</h6>
                 </div>
-                <div class="p-2 side-navbar-tab-active">
+                <div class="p-2 side-navbar-tab" onclick="window.location = './manager?page=data'">
                     <h6>Data</h6>
                 </div>
-                <div class="p-2 side-navbar-tab">
+                <div class="p-2 side-navbar-tab-active">
                     <h6>Ranking</h6>
                 </div>
             </div>
@@ -26,21 +26,70 @@
                 <div class="display-grid grid-col-2 grid-g-2  mt-2">
                     <!--kanan kiri-->
                     <div class="p-1 tableArea">
+                        <!--ini menu-->
+                        <table class="table tabelManager">
+                            <thead>
+                                <tr class="tableHeader">
+                                    <th>Rank</th>
+                                    <th style="min-width:10rem">Nama</th>
+                                    <th>Total Penjualan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                //var_dump($listMenu);
+                                $i = 1;
+                                foreach ($listMenu as $key => $value) {
+                                    echo "
+                                        <tr class='tableData' style=' color: var(--dark-darker); background-color: var(--white)'>
+                                            <td style='text-align: center;'>" . $i . "</td>
+                                            <td >" . $value['nama'] . "</td>
+                                            <td style='text-align: center'>" . $value['terjual'] . "</td>
+                                        </tr>
+                                    ";
+                                    $i++;
+                                }
+                                ?>
+                            </tbody>
+
+
+                        </table>
+                        <!--ini toping-->
                         <table class="table tabelManager">
                             <tr class="tableHeader">
                                 <th>Rank</th>
-                                <th>Nama</th>
-                                <th >Total Penjualan</th>
+                                <th style="min-width:10rem">Nama</th>
+                                <th>Total Penjualan</th>
                             </tr>
                             <?php
-                            //var_dump($listPopularitasMenu);
                             $i = 1;
-                            foreach ($listPopularitasMenu as $key => $value) {
+                            foreach ($listToping as $key => $value) {
                                 echo "
                                         <tr class='tableData' style=' color: var(--dark-darker); background-color: var(--white)'>
                                             <td style='text-align: center;'>" . $i . "</td>
                                             <td >" . $value['nama'] . "</td>
                                             <td style='text-align: center'>" . $value['terjual'] . "</td>
+                                        </tr>
+                                    ";
+                                $i++;
+                            }
+                            ?>
+                        </table>
+                        <!--ini kasir-->
+                        <table class="table tabelManager">
+                            <tr class="tableHeader">
+                                <th>Rank</th>
+                                <th style="min-width:10rem">Nama</th>
+                                <th>Total transaksi</th>
+                            </tr>
+                            <?php
+                            $i = 1;
+                            foreach ($listKasir as $key => $value) {
+                                echo "
+                                        <tr class='tableData' style=' color: var(--dark-darker); background-color: var(--white)'>
+                                            <td style='text-align: center;'>" . $i . "</td>
+                                            <td >" . $value['nama'] . "</td>
+                                            <td style='text-align: center'>" . $value['transaksi'] . "</td>
                                         </tr>
                                     ";
                                 $i++;

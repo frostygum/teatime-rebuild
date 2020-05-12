@@ -1,6 +1,6 @@
 /*side navbar*/
 .side-navbar{
-    width:20rem !important;
+    width: 15rem !important;
     background-color: var(--dark);
     color: var(--light);
     border-radius: var(--border-radius) 0 0 var(--border-radius)
@@ -84,7 +84,9 @@
     width: 10rem;
     height: 2rem;
     font-size: 1.2rem;
-    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .btn-manager:hover, .btn-manager:focus{

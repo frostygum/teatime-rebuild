@@ -4,7 +4,7 @@
     ?>
 
     <div class="container mt-4">
-        <div class="card shadow display-grid grid-col-2" style="height: 80vh; overflow: hidden;">
+        <div class="card shadow display-grid" style="height: 80vh; overflow: hidden; grid-template-columns: 15rem auto">
             <!-- LEFT AREA / SIDE NAVIGATION BAR -->
             <div class="sidebar" style="width: 15rem">
                 <div class="sidebar-active p-2 cursor-pointer" onclick="window.location = './admin?page=user'">
@@ -18,10 +18,10 @@
                 </div>
             </div>
             <!-- RIGHT AREA -->
-            <div class="display-grid my-4 mx-2">
-                <div class="display-grid grid-col-1 align-content-start">
+            <div class="display-grid align-content-space-between my-4 mx-2">
+                <div class="display-grid grid-col-1  grid-g-4 align-content-start">
                     <!-- MAIN AREA -->
-                    <div class="display-grid p-2 grid-col-2 justify-content-space-between">
+                    <div class="display-grid grid-col-2 justify-content-space-between">
                         <div>
                             <!-- SEARCH USER -->
                             <input type="text" id="search-inpt" class="input bg-teal text-light border-0" placeholder="Search name" onkeyup="searchUser(event)" />
@@ -39,35 +39,14 @@
                             <button class="search-btn" onclick="clearSearch()">clear</button>
                         </div>
                         <div>
-                            <button class="manage-btn" onclick="toggleModal('modal-add')">
+                            <button class="manage-btn" onclick="toggleModalAdd()">
                                 Add
                             </button>
                         </div>
-                        <br>
-                        <button class="search-btn mt-3" onclick="clearSearch()">clear</button>
-                        <button class="manage-btn p-1 mt-4">Add</button>
                     </div>
-                    <div class="display-flex justify-content-start p-2" style="max-width: 55rem; overflow: auto;">
+                    <div class="display-flex justify-content-start" style="width: 100%; max-height: 30rem; overflow: auto">
                         <!-- TABLE -->
-                        <table class="main-table" id="table-menu">
-                            <thead>
-                                <tr class="main-table-header-row">
-                                    <th class="p-1">No</th>
-                                    <th class="p-1" style="min-width: 10rem">Username</th>
-                                    <th class="p-1" style="min-width: 10rem">Nama</th>
-                                    <th class="p-1">Tipe</th>
-                                    <th class="p-1">last login</th>
-                                    <th class="p-1">status</th>
-                                    <th class="p-1" style="min-width: 10rem">action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="display-flex justify-content-start p-2" style="max-width: 55rem; overflow: auto;">
-                        <!-- TABLE -->
-                        <table class="main-table" id="table-menu">
+                        <Table class="main-table" id="table-user" style="width: 100%; height: 70%">
                             <thead>
                                 <tr class="main-table-header-row">
                                     <th class="p-1">No</th>
@@ -101,7 +80,7 @@
             
             <div class="display-grid gid-col-1 justify-content-center align-items-center">
                 <div class="change-image" onclick="trigger_select_image()">
-                    <img id="profile" src="<?= UPLOADS_PATH . 'user-1.png' ?>" style="width: 10rem; height: auto" />
+                    <img id="profile" src="<?= $this::add_image('no-img', 'png') ?>" style="width: 10rem; height: auto" />
                     <div class="text">
                         click to change profile
                     </div>
@@ -157,10 +136,13 @@
 
             <div class="display-grid gid-col-1 justify-content-center align-items-center">
                 <div class="change-image" onclick="trigger_select_image()">
-                    <img id="profile-add" src="<?= UPLOADS_PATH . 'user-1.png' ?>" style="width: 10rem; height: auto" />
+                    <img id="profile-add" src="<?= $this::add_image('no-img', 'png') ?>" style="width: 10rem; height: auto" />
                     <div class="text">
                         click to add profile
                     </div>
+                </div>
+                <div class="badge bg-danger text-light mt-1 text-center" style="font-size: 0.8rem">
+                    require profile image
                 </div>
             </div>
             
@@ -169,15 +151,15 @@
                 <input type="hidden" name="profile_location" value="">
                 <div class="display-grid grid-g-2 mt-4">
                     <div>
-                        <p class="text-bold m-0">Nama Pengguna</p>
+                        <p class="text-bold m-0">Nama Pengguna <span class="text-danger">*</span> </p>
                         <input class="input block" type="text" name="name" placeholder="nama lengkap">
                     </div>
                     <div>
-                        <p class="text-bold m-0">Username</p>
+                        <p class="text-bold m-0">Username <span class="text-danger">*</span></p>
                         <input class="input block" type="text" name="username" placeholder="username">
                     </div>
                     <div>
-                        <p class="text-bold m-0">Pilih Role</p>
+                        <p class="text-bold m-0">Pilih Role <span class="text-danger">*</span></p>
                         <div class="custom-select text-bold" style="border: 2px solid var(--light-darker); border-radius: var(--border-radius)">
                             <select name="role">
                                 <option value="">--select role--</option>
@@ -188,7 +170,7 @@
                         </div>
                     </div>
                     <div>
-                        <p class="text-bold mt-0">Password</p>
+                        <p class="text-bold mt-0">Password <span class="text-danger">*</span></p>
                         <input class="input block" type="password" name="password" placeholder="password">
                     </div>
                     <div class="mt-3">
@@ -224,6 +206,20 @@
                 </div>
             </form>
         </div>
+    </div>
+</div>
+
+<div class='alert'>
+    <div id='alert-box' class='alert-content'>
+        <div class='alert-icon'>  
+            <span class='fa fa-exclamation-triangle'></span>
+        </div>
+        <div class='alert-text' id="alert-text">
+            
+        </div>
+        <button class='alert-close' onclick='toggleAlert(`alert-box`)'>
+            <span class='fa fa-times-circle'></span>
+        </button>
     </div>
 </div>
 
@@ -279,7 +275,7 @@
 <script type="text/javascript" defer>
 
     let userList = [];
-    let tableUser = document.getElementById('table-menu');
+    let tableUser = document.getElementById('table-user');
 
     <?php
         foreach ($all_user as $key => $user) {
@@ -297,6 +293,7 @@
     ?>
 
     for(let i = userList.length - 1; i >= 0; i--) {
+        let activeSelectedUser = null;
         let user = userList[i];
 
         let row = tableUser.insertRow(1);
@@ -341,6 +338,17 @@
                 <span class="fa fa-trash"></span>
             </button>
         `;
+    }
+
+    function randomString(length) {
+        const regex = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMOPQRSTUVWXYZ1234567890';
+        let string = '';
+
+        for(let i = 0; i < length; i++) {
+            string += regex.charAt(Math.floor(Math.random() * regex.length));
+        }
+
+        return string;
     }
 
     function searchUser(e) {
@@ -391,13 +399,31 @@
         let form = document.getElementById('form-edit');
         let formElements = form.elements;
 
+        let random = randomString(25);
+        activeSelectedUser = `user-profile-${random}`
+
         form.id.value = user.id;
         form.name.value = user.name;
         form.username.value = user.username;
         form.role.checked = user.tipe;
-        document.getElementById('profile').src = '<?= UPLOADS_PATH ?>' + user.profile_location;
+
+        if(user.profile_location != '') {
+            let path = '<?= UPLOADS_PATH ?>' + user.profile_location;
+            document.getElementById('profile').src = path;
+        }
+        else {
+            let path = "<?= str_replace('\\', '/', $this::add_image('no-img', 'png')) ?>";
+            document.getElementById('profile').src = path;
+        }
 
         toggleModal('modal-edit');
+    }
+
+    function toggleModalAdd() {
+        let random = randomString(25);
+        activeSelectedUser = `user-profile-${random}`
+
+        toggleModal('modal-add');
     }
 
     function toggleModalDelete(userId) {
@@ -416,30 +442,42 @@
         profileInput.click();
     }
 
+    function isFileImage(file) {
+        const acceptedImageTypes = ['image/jpeg', 'image/png', 'image/svg'];
+    
+        return file && acceptedImageTypes.includes(file.type)
+    }
+
     function upload_image(event) {
-        let files = event.target.files
-        let formData = new FormData()
+        let files = event.target.files;
+        let formData = new FormData();
 
-        formData.append('username', files[0])
-        formData.append('profile', files[0])
+        if(isFileImage(files[0])) {
+            formData.append('username', activeSelectedUser);
+            formData.append('profile', files[0]);
 
-		fetch('./upload-profile', {
-            method: 'POST',
-            body: formData
-		})
-		.then(response => response.json())
-		.then(response => {
-            console.log(response);
-            document.getElementById('profile').src = '<?= UPLOADS_PATH ?>' + response.location;
-            document.getElementById('profile-add').src = '<?= UPLOADS_PATH ?>' + response.location;
-            let form = document.getElementById('form-edit');
-            form.profile_location.value = response.location;
-            let formAdd = document.getElementById('form-add');
-            formAdd.profile_location.value = response.location;
-        })
-        .catch(error => {
-            console.error(error)
-        })
+            fetch('./upload-profile', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(response => {
+                console.log(response);
+                document.getElementById('profile').src = '<?= UPLOADS_PATH ?>' + response.location;
+                document.getElementById('profile-add').src = '<?= UPLOADS_PATH ?>' + response.location;
+                let form = document.getElementById('form-edit');
+                form.profile_location.value = response.location;
+                let formAdd = document.getElementById('form-add');
+                formAdd.profile_location.value = response.location;
+            })
+            .catch(error => {
+                console.error(error)
+            })
+        }
+        else {
+            document.getElementById('alert-text').textContent = 'file type is not image or not allowed';
+            toggleAlert('alert-box');
+        }
     }
 
     document.getElementById('input-profile').onchange = function(event) {

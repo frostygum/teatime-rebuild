@@ -16,11 +16,24 @@ class Controller
         return new AuthHelper;
     }
 
-    public static function set_redirect_url() {
-        $_SESSION['redirect_location'] = $_SERVER['REQUEST_URI'];
-    }
-
     public static function get_user() {
         return $_SESSION['login_session'];
+    }
+
+    public function redirect($tipe = null)
+    {
+        $page = rtrim($_SERVER['REQUEST_URI'], '/');
+        $page = ltrim($page, '/');
+        $page = explode('/', $page);
+        $page_base = $page[0];
+
+        echo $page_base;
+    
+        if(isset($tipe)) {
+            header('location: /' . $page_base . "/" . $tipe);
+        }
+        else {
+            header('location: /' . $page_base);
+        }
     }
 }

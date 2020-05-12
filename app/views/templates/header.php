@@ -1,6 +1,6 @@
 <div class="navbar bg-teal shadow display-grid grid-col-3 align-content-center justify-content-between px-2">
     <div class="navbar-left">
-        <div class="logo display-grid grid-col-2 justify-content-between align-items-center">
+        <div class="logo display-grid grid-col-2 justify-content-between align-items-center cursor-pointer" onclick="window.location = '<?= BASE_PAGE ?>'">
             <img src="<?= $this::add_image('logo', 'svg') ?>" />
             <h5 class="logo-title">Teatime</h5>
         </div>

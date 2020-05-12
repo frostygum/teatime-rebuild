@@ -54,10 +54,7 @@
                     <div class="mt-4">
                         <h5 class="text-center">Payment Method</h5>
                         <button id="btn-cash" class="btn bg-purple mt-2 px-3 py-1" style="width: 20rem; margin: auto; display: block">
-                            <h6 class="text-center text-light">cash</h6>
-                        </button>
-                        <button id="btn-card" class="btn bg-purple mt-2 px-3 py-1" style="width: 20rem; margin: auto; display: block">
-                            <h6 class="text-center text-light">debit/credit card</h6>
+                            <h6 class="text-center text-light">Confirm Payment</h6>
                         </button>
                     </div>
                 </div>
@@ -192,8 +189,9 @@
                 return res.text();
             })
             .then(function(res) {
+                // console.log(res);
                 let result = JSON.parse(res);
-                console.log(result);
+                // console.log(result);
                 if(result && result.text === "success") {
                     resolve(true);
                 }
@@ -219,10 +217,6 @@
     }
 
     document.getElementById('btn-cash').addEventListener('click', function() {
-        toggleModal('modal-confirm');
-    });
-
-    document.getElementById('btn-card').addEventListener('click', function() {
         toggleModal('modal-confirm');
     });
 

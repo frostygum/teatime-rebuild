@@ -23,148 +23,51 @@
             <!-- KANAN -->
             <div class="p-2" style="width: 100%;">
                 <!--isi-->
-                <div class="display-grid grid-col-2 grid-g-2  mt-2">
+                <div class="display-grid grid-col-2 grid-g-2 mt-2" style="width: 100%">
                     <!--kanan kiri-->
-                    <div class="p-1 tableArea">
+                    <div class="p-1 tableArea" style="width: 40rem">
                         <!--ini menu-->
-                        <table class="table tabelManager" id="menu-descending">
+                        <table class="table tableManager mb-2" id="table-menu" style="display: block; width: 100%; max-height: 20rem; overflow: auto">
                             <thead>
                                 <tr class="tableHeader">
                                     <th>Rank</th>
-                                    <th style="min-width:10rem">Nama</th>
-                                    <th>Total Penjualan</th>
+                                    <th style="min-width:22rem">Nama</th>
+                                    <th style="min-width:10rem">Total Penjualan</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php
-                                //var_dump($listMenu);
-                                $i = 1;
-                                foreach ($listMenuDESC as $key => $value) {
-                                    echo "
-                                        <tr class='tableData' style=' color: var(--dark-darker); background-color: var(--white)'>
-                                            <td style='text-align: center;'>" . $i . "</td>
-                                            <td >" . $value['nama'] . "</td>
-                                            <td style='text-align: center'>" . $value['terjual'] . "</td>
-                                        </tr>
-                                    ";
-                                    $i++;
-                                }
-                                ?>
                             </tbody>
                         </table>
 
-                        <table class="table tabelManager" id="menu-ascending" style="display: none;">
-                            <thead>
-                                <tr class="tableHeader">
-                                    <th>Rank</th>
-                                    <th style="min-width:10rem">Nama</th>
-                                    <th>Total Penjualan</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                //var_dump($listMenu);
-                                $i = 1;
-                                foreach ($listMenuASC as $key => $value) {
-                                    echo "
-                                        <tr class='tableData' style=' color: var(--dark-darker); background-color: var(--white)'>
-                                            <td style='text-align: center;'>" . $i . "</td>
-                                            <td >" . $value['nama'] . "</td>
-                                            <td style='text-align: center'>" . $value['terjual'] . "</td>
-                                        </tr>
-                                    ";
-                                    $i++;
-                                }
-                                ?>
-                            </tbody>
-                        </table>
                         <!--ini toping-->
-                        <table class="table tabelManager" id="toping-descending">
-                            <tr class="tableHeader">
-                                <th>Rank</th>
-                                <th style="min-width:10rem">Nama</th>
-                                <th>Total Penjualan</th>
-                            </tr>
-                            <?php
-                            $i = 1;
-                            foreach ($listTopingDESC as $key => $value) {
-                                echo "
-                                        <tr class='tableData' style=' color: var(--dark-darker); background-color: var(--white)'>
-                                            <td style='text-align: center;'>" . $i . "</td>
-                                            <td >" . $value['nama'] . "</td>
-                                            <td style='text-align: center'>" . $value['terjual'] . "</td>
-                                        </tr>
-                                    ";
-                                $i++;
-                            }
-                            ?>
+                        <table class="table tableManager mb-2" id="table-topping" style="display: block; width: 100%; max-height: 20rem; overflow: auto">
+                            <thead>
+                                <tr class="tableHeader">
+                                    <th>Rank</th>
+                                    <th style="min-width:22rem">Nama</th>
+                                    <th style="min-width:10rem">Total Penjualan</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                            </tbody>
                         </table>
 
-                        <table class="table tabelManager" id="toping-ascending"  style="display: none;">
-                            <tr class="tableHeader">
-                                <th>Rank</th>
-                                <th style="min-width:10rem">Nama</th>
-                                <th>Total Penjualan</th>
-                            </tr>
-                            <?php
-                            $i = 1;
-                            foreach ($listTopingASC as $key => $value) {
-                                echo "
-                                        <tr class='tableData' style=' color: var(--dark-darker); background-color: var(--white)'>
-                                            <td style='text-align: center;'>" . $i . "</td>
-                                            <td >" . $value['nama'] . "</td>
-                                            <td style='text-align: center'>" . $value['terjual'] . "</td>
-                                        </tr>
-                                    ";
-                                $i++;
-                            }
-                            ?>
-                        </table>
                         <!--ini kasir-->
-                        <table class="table tabelManager" id="kasir-descending">
-                            <tr class="tableHeader">
-                                <th>Rank</th>
-                                <th style="min-width:10rem">Nama</th>
-                                <th>Total transaksi</th>
-                            </tr>
-                            <?php
-                            $i = 1;
-                            foreach ($listKasirDESC as $key => $value) {
-                                echo "
-                                        <tr class='tableData' style=' color: var(--dark-darker); background-color: var(--white)'>
-                                            <td style='text-align: center;'>" . $i . "</td>
-                                            <td >" . $value['nama'] . "</td>
-                                            <td style='text-align: center'>" . $value['transaksi'] . "</td>
-                                        </tr>
-                                    ";
-                                $i++;
-                            }
-                            ?>
-                        </table>
-
-                        <table class="table tabelManager" id="kasir-ascending"  style="display: none;">
-                            <tr class="tableHeader">
-                                <th>Rank</th>
-                                <th style="min-width:10rem">Nama</th>
-                                <th>Total transaksi</th>
-                            </tr>
-                            <?php
-                            $i = 1;
-                            foreach ($listKasirASC as $key => $value) {
-                                echo "
-                                        <tr class='tableData' style=' color: var(--dark-darker); background-color: var(--white)'>
-                                            <td style='text-align: center;'>" . $i . "</td>
-                                            <td >" . $value['nama'] . "</td>
-                                            <td style='text-align: center'>" . $value['transaksi'] . "</td>
-                                        </tr>
-                                    ";
-                                $i++;
-                            }
-                            ?>
+                        <table class="table tableManager" id="table-kasir" style="display: block; width: 100%; max-height: 20rem; overflow: auto">
+                            <thead>
+                                <tr class="tableHeader">
+                                    <th>Rank</th>
+                                    <th style="min-width:22rem">Nama</th>
+                                    <th style="min-width:10rem">Total transaksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
                         </table>
                     </div>
                     <!--kanan kanan-->
-                    <div class="display-flex" style="flex-direction: column; width: 80%; margin-top: 1rem">
+                    <div class="display-flex" style="flex-direction: column; margin-top: 1rem; width: 10rem">
                         <!-- TYPE -->
                         <div class="dropdown">
                             <button onclick="toggleDropdown('type')" class="dropdown-btn btn-manager">
@@ -199,147 +102,148 @@
 </div>
 
 <script type="text/javascript" defer>
-    function handle_change_type(type) {
-        let menuDescending = document.getElementById('menu-descending');
-        let topingDescending = document.getElementById('toping-descending');
-        let kasirDescending = document.getElementById('kasir-descending');
 
-        let menuAscending = document.getElementById('menu-ascending');
-        let topingAscending = document.getElementById('toping-ascending');
-        let kasirAscending = document.getElementById('kasir-ascending');
+let listMenuASC = [];
+let listMenuDESC = [];
+let listToppingASC = [];
+let listToppingDESC = [];
+let listKasirASC = [];
+let listKasirDESC = [];
 
-        if (menuDescending.style.display == '' || topingDescending.style.display == '' || kasirDescending.style.display == '') {
-            if (type == 'all') {
-                menuDescending.style.display = '';
-                topingDescending.style.display = '';
-                kasirDescending.style.display = '';
-                menuAscending.style.display = 'none';
-                topingAscending.style.display = 'none';
-                kasirAscending.style.display = 'none';
-            } else if (type == 'menu') {
-                menuDescending.style.display = '';
-                topingDescending.style.display = 'none';
-                kasirDescending.style.display = 'none';
-            } else if (type == 'toping') {
-                menuDescending.style.display = 'none';
-                topingDescending.style.display = '';
-                kasirDescending.style.display = 'none';
-            } else if (type == 'kasir') {
-                menuDescending.style.display = 'none';
-                topingDescending.style.display = 'none';
-                kasirDescending.style.display = '';
-            }
-        } else if (menuAscending.style.display == '' || topingAscending.style.display == '' || kasirAscending.style.display == '') {
-            if (type == 'all') {
-                menuAscending.style.display = '';
-                topingAscending.style.display = '';
-                kasirAscending.style.display = '';
-                menuDescending.style.display = 'none';
-                topingDescending.style.display = 'none';
-                kasirDescending.style.display = 'none';
-            } else if (type == 'menu') {
-                menuAscending.style.display = '';
-                topingAscending.style.display = 'none';
-                kasirAscending.style.display = 'none';
-            } else if (type == 'toping') {
-                menuAscending.style.display = 'none';
-                topingAscending.style.display = '';
-                kasirAscending.style.display = 'none';
-            } else if (type == 'kasir') {
-                menuAscending.style.display = 'none';
-                topingAscending.style.display = 'none';
-                kasirAscending.style.display = '';
-            }
+<?php
+    foreach ($listMenuASC as $key => $value) {
+        echo '
+            listMenuASC.push({
+                name: "'. $value["nama"] .'",
+                value: "'. $value['terjual'] .'"
+            })
+        ';
+    }
+?>
+
+<?php
+    foreach ($listMenuDESC as $key => $value) {
+        echo '
+            listMenuDESC.push({
+                name: "'. $value["nama"] .'",
+                value: "'. $value['terjual'] .'"
+            })
+        ';
+    }
+?>
+
+<?php
+    foreach ($listTopingDESC as $key => $value) {
+        echo '
+            listToppingDESC.push({
+                name: "'. $value["nama"] .'",
+                value: "'. $value['terjual'] .'"
+            })
+        ';
+    }
+?>
+
+<?php
+    foreach ($listTopingASC as $key => $value) {
+        echo '
+            listToppingASC.push({
+                name: "'. $value["nama"] .'",
+                value: "'. $value['terjual'] .'"
+            })
+        ';
+    }
+?>
+
+<?php
+    foreach ($listKasirASC as $key => $value) {
+        echo '
+            listKasirASC.push({
+                name: "'. $value["nama"] .'",
+                value: "'. $value['transaksi'] .'"
+            })
+        ';
+    }
+?>
+
+<?php
+    foreach ($listKasirDESC as $key => $value) {
+        echo '
+            listKasirDESC.push({
+                name: "'. $value["nama"] .'",
+                value: "'. $value['transaksi'] .'"
+            })
+        ';
+    }
+?>
+
+function renderTable(tableId, data) {
+    let selTable = document.getElementById(tableId);
+
+    if(selTable.rows.length > 1) {
+        for(let i = data.length - 1; i >= 0; i--) {
+            selTable.deleteRow(1);
         }
     }
 
-    function handle_change_sort(sortType) {
-        let menuDescending = document.getElementById('menu-descending');
-        let topingDescending = document.getElementById('toping-descending');
-        let kasirDescending = document.getElementById('kasir-descending');
+    for(let i = data.length - 1; i >= 0; i--) {
+        let menu = data[i];
+        let row = selTable.insertRow(1);
 
-        let menuAscending = document.getElementById('menu-ascending');
-        let topingAscending = document.getElementById('toping-ascending');
-        let kasirAscending = document.getElementById('kasir-ascending');
+        let rank = row.insertCell(0);
+        let name = row.insertCell(1);
+        let total = row.insertCell(2);
 
-        if (sortType == 'ascending') {
-            if ((menuAscending.style.display == '' || menuDescending.style.display == '') && (topingAscending.style.display == '' || topingDescending.style.display == '') && (kasirAscending.style.display == '' || kasirDescending.style.display == '')) {
-                menuDescending.style.display = 'none';
-                menuAscending.style.display = '';
-                topingDescending.style.display = 'none';
-                topingAscending.style.display = '';
-                kasirDescending.style.display = 'none';
-                kasirAscending.style.display = '';
-            } else if (menuAscending.style.display == '' || menuDescending.style.display == '') {
-                menuDescending.style.display = 'none';
-                menuAscending.style.display = '';
-                topingDescending.style.display = 'none';
-                topingAscending.style.display = 'none';
-                kasirDescending.style.display = 'none';
-                kasirAscending.style.display = 'none';
-            } else if (topingAscending.style.display == '' || topingDescending.style.display == '') {
-                menuDescending.style.display = 'none';
-                menuAscending.style.display = 'none';
-                topingDescending.style.display = 'none';
-                topingAscending.style.display = '';
-                kasirDescending.style.display = 'none';
-                kasirAscending.style.display = 'none';
-            } else if (kasirAscending.style.display == '' || kasirDescending.style.display == '') {
-                menuDescending.style.display = 'none';
-                menuAscending.style.display = 'none';
-                topingDescending.style.display = 'none';
-                topingAscending.style.display = 'none';
-                kasirDescending.style.display = 'none';
-                kasirAscending.style.display = '';
-            }
-        }
-        else {
-            if ((menuAscending.style.display == '' || menuDescending.style.display == '') && (topingAscending.style.display == '' || topingDescending.style.display == '') && (kasirAscending.style.display == '' || kasirDescending.style.display == '')) {
-                menuDescending.style.display = '';
-                menuAscending.style.display = 'none';
-                topingDescending.style.display = '';
-                topingAscending.style.display = 'none';
-                kasirDescending.style.display = '';
-                kasirAscending.style.display = 'none';
-            } else if (menuAscending.style.display == '' || menuDescending.style.display == '') {
-                menuDescending.style.display = '';
-                menuAscending.style.display = 'none';
-                topingDescending.style.display = 'none';
-                topingAscending.style.display = 'none';
-                kasirDescending.style.display = 'none';
-                kasirAscending.style.display = 'none';
-            } else if (topingAscending.style.display == '' || topingDescending.style.display == '') {
-                menuDescending.style.display = 'none';
-                menuAscending.style.display = 'none';
-                topingDescending.style.display = '';
-                topingAscending.style.display = 'none';
-                kasirDescending.style.display = 'none';
-                kasirAscending.style.display = 'none';
-            } else if (kasirAscending.style.display == '' || kasirDescending.style.display == '') {
-                menuDescending.style.display = 'none';
-                menuAscending.style.display = 'none';
-                topingDescending.style.display = 'none';
-                topingAscending.style.display = 'none';
-                kasirDescending.style.display = '';
-                kasirAscending.style.display = 'none';
-            }
-        }
+        rank.textContent = i + 1;
+        name.textContent = menu.name;
+        total.textContent = menu.value;
 
-        // if(sortType == 'ascending') {
-        //     menuDescending.style.display = '';
-        //     menuAscending.style.display = 'none';
-        //     topingDescending.style.display = '';
-        //     topingAscending.style.display = 'none';
-        //     kasirDescending.style.display = '';
-        //     kasirAscending.style.display = 'none';
-        // }
-        // else {
-        //     menuDescending.style.display = 'none';
-        //     menuAscending.style.display = '';
-        //     topingDescending.style.display = 'none';
-        //     topingAscending.style.display = '';
-        //     kasirDescending.style.display = 'none';
-        //     kasirAscending.style.display = '';
-        // }
+        rank.className = "text-dark p-1 text-center";
+        name.className = "text-dark p-1";
+        total.className = "text-dark p-1 text-center";
     }
+}
+
+renderTable('table-menu', listMenuDESC);
+renderTable('table-topping', listMenuDESC);
+renderTable('table-kasir', listMenuDESC);
+
+function handle_change_sort(sortType) {
+    if(sortType == "ascending") {
+        renderTable('table-menu', listMenuASC);
+        renderTable('table-topping', listToppingASC);
+        renderTable('table-kasir', listKasirASC);
+    }
+    else {
+        renderTable('table-menu', listMenuDESC);
+        renderTable('table-topping', listToppingDESC);
+        renderTable('table-kasir', listKasirDESC);
+    }
+}
+
+function handle_change_type(type) {
+
+    switch(type) {
+        case 'all':
+            document.getElementById('table-menu').style.display = 'block';
+            document.getElementById('table-topping').style.display = 'block';
+            document.getElementById('table-kasir').style.display = 'block';
+        break;
+        case 'menu':
+            document.getElementById('table-menu').style.display = 'block';
+            document.getElementById('table-topping').style.display = 'none';
+            document.getElementById('table-kasir').style.display = 'none';
+        break;
+        case 'toping':
+            document.getElementById('table-menu').style.display = 'none';
+            document.getElementById('table-topping').style.display = 'block';
+            document.getElementById('table-kasir').style.display = 'none';
+        break;
+        case 'kasir':
+            document.getElementById('table-menu').style.display = 'none';
+            document.getElementById('table-topping').style.display = 'none';
+            document.getElementById('table-kasir').style.display = 'block';
+        break;
+    }
+}
+
 </script>

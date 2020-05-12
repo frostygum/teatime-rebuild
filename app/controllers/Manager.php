@@ -56,13 +56,20 @@ class Manager extends Controller
 
     public function page_dashboard() {
         $page = $this::create_page('manager', 'dashboard');
-        
-        require_once MODEL_PATH . 'Transaction.php';
-        $transaction = new Transaction();
-
-        $page->totalTransaksi = $transaction->get_total_transaksiHarian();
-        $page->totalCup = $transaction->get_total_cupHarian();
-        $page->totalPemasukan = $transaction->get_total_pemasukanHarian();
+        date_default_timezone_set('Asia/Jakarta');
+        $date = date('Ymd');
+        $firstDay = date('Ym01');
+        $lastDay = date('Ym31');
+        require_once MODEL_PATH . 'QueryExtra.php';
+        $extra = new QueryExtra();
+        //total
+        $page->totalTransaksi = $extra->get_total_transaksi_harian($date);
+        $page->totalCup = $extra->get_total_cup_harian($date);
+        $page->totalPemasukan = $extra->get_total_pemasukan_harian($date);
+        //top
+        $page->topMenu = $extra->get_top_menu($firstDay, $lastDay);
+        $page->topToping = $extra->get_top_toping($firstDay, $lastDay);
+        $page->topKasir = $extra->get_top_kasir($firstDay, $lastDay);
 
         $page->user_information = $this::get_user();
         $page->render();
@@ -70,10 +77,12 @@ class Manager extends Controller
 
     public function page_data() {
         $page = $this::create_page('manager', 'data');
+        date_default_timezone_set('Asia/Jakarta');
+        $date = date('Ymd');
         require_once MODEL_PATH . 'Transaction.php';
         $transaction = new Transaction();
 
-        $page->dataTransaksi = $transaction->get_data_Transaksi();
+        $page->dataTransaksi = $transaction->get_all_transaksi_by_date($date);
 
         $page->user_information = $this::get_user();
         $page->render();
@@ -81,35 +90,20 @@ class Manager extends Controller
     
     public function page_ranking() {
         $page = $this::create_page('manager', 'ranking');
-        require_once MODEL_PATH . 'Transaction.php';
-        $transaction = new Transaction();
-
-        $page->listPopularitasMenu = $transaction->get_menuPopular_list();
+        date_default_timezone_set('Asia/Jakarta');
+        $date = date('Ymd');
+        $firstDay = date('Ym01');
+        $lastDay = date('Ym31'); 
+        require_once MODEL_PATH . 'QueryExtra.php';
+        $extra = new QueryExtra();
+        $page->listMenu = $extra->get_menu_rank($firstDay, $lastDay, 'DESC');
+        $page->listToping = $extra->get_toping_rank($firstDay, $lastDay, 'DESC');
+        $page->listKasir = $extra->get_kasir_rank($firstDay, $lastDay, 'DESC');
 
         $page->user_information = $this::get_user();
         $page->render();
     }
     
-    /*public function index()
-    {
-        //$page->test = 'hai';
-        
-        $auth = $this::auth_helper();
-        $user = $auth->get_auth();
-
-        if ($user) {
-            if (strtolower($user['tipe']) == 'manager') {
-                $page = $this::create_page('manager', 'index');
-                $page->user_information = $user;
-                $page->render();
-            } else {
-                echo 'wrong auth';
-                $auth->logout();
-            }
-        } else {
-            $this::set_redirect_url();
-            header('location: ./login');
-        }
-    }*/
+    
 
 }

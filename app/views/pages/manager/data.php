@@ -8,14 +8,14 @@
 
         <div class="card shadow display-flex" style="height: 70vh">
             <!-- KIRI -->
-            <div class="side-navbar" >
-                <div class="p-2 side-navbar-tab" style="border-radius: var(--border-radius) 0 0 0">
+            <div class="side-navbar">
+                <div class="p-2 side-navbar-tab" style="border-radius: var(--border-radius) 0 0 0" onclick="window.location = './manager?page=dashboard'">
                     <h6>Dashboard</h6>
                 </div>
                 <div class="p-2 side-navbar-tab-active">
                     <h6>Data</h6>
                 </div>
-                <div class="p-2 side-navbar-tab">
+                <div class="p-2 side-navbar-tab" onclick="window.location = './manager?page=ranking'">
                     <h6>Ranking</h6>
                 </div>
             </div>
@@ -24,25 +24,25 @@
             <div class="p-2" style="width: 100%;">
                 <!--isi-->
                 <div class="display-grid grid-col-2 grid-g-1 mt-1">
-
                     <!--kanan kiri-->
-                    <div >
+                    <div>
+                        <!--button-->
                         <div class="m-2" style="float: right">
                             <button class="btn btn-manager">Tanggal</button>
                             <div class="dropdown">
-                            <button onclick="toggleDropdown('type')" class="dropdown-btn btn-manager">
-                                Type
-                                <span class="fa fa-caret-down ml-1"></span>
-                            </button>
-                            <div id="type" class="dropdown-content content-manager">
-                                <a href="">Detail Transaksi</a>
-                                <a href="">Transaksi</a>
+                                <button onclick="toggleDropdown('type')" class="dropdown-btn btn-manager">
+                                    Type
+                                    <span class="fa fa-caret-down ml-1"></span>
+                                </button>
+                                <div id="type" class="dropdown-content content-manager">
+                                    <a href="">Detail Transaksi</a>
+                                    <a href="">Transaksi</a>
+                                </div>
                             </div>
-                        </div>
                         </div>
                         <div class="p-1">
                             <table class="table tabelManager">
-                                <tr class="tableHeader"  >
+                                <tr class="tableHeader">
                                     <th>Time</th>
                                     <th>Customer</th>
                                     <th style="min-width:10rem">Drink</th>
@@ -57,13 +57,13 @@
                                 foreach ($dataTransaksi as $key => $value) {
                                     echo '
                                             <tr class="tableData">
-                                                <td >' . $value["date"] . '</td>
-                                                <td >' . $value["customer"] . '</td>
-                                                <td >' . $value["order"] . '</td>
-                                                <td >' . $value["topping"] . '</td>
-                                                <td >' . $value["size"] . '</td>
-                                                <td >' . $value["ice"] . '</td>
-                                                <td >' . $value["sugar"] . '</td>
+                                                <td >' . $value["waktu_transaksi"] . '</td>
+                                                <td >' . $value["nama_pemesan"] . '</td>
+                                                <td >' . $value["nama_minuman"] . '</td>
+                                                <td >' . $value["nama_toping"] . '</td>
+                                                <td >' . $value["ukuran_gelas"] . '</td>
+                                                <td >' . $value["banyak_es"] . '</td>
+                                                <td >' . $value["banyak_gula"] . '</td>
                                                 <td >' . $value["total"] . '</td>
                                             </tr>
                                         ';

@@ -263,7 +263,7 @@
         let kasirAscending = document.getElementById('kasir-ascending');
 
         if (sortType == 'ascending') {
-            if ((menuAscending.style.display == '' || menuDescending.style.display == '') && (topingAscending.style.display == '' || topingDescending == '') && (kasirAscending.style.display == '' || kasirDescending.style.display == '')) {
+            if ((menuAscending.style.display == '' || menuDescending.style.display == '') && (topingAscending.style.display == '' || topingDescending.style.display == '') && (kasirAscending.style.display == '' || kasirDescending.style.display == '')) {
                 menuDescending.style.display = 'none';
                 menuAscending.style.display = '';
                 topingDescending.style.display = 'none';
@@ -294,7 +294,7 @@
             }
         }
         else {
-            if ((menuAscending.style.display == '' || menuDescending.style.display == '') && (topingAscending.style.display == '' || topingDescending == '') && (kasirAscending.style.display == '' || kasirDescending.style.display == '')) {
+            if ((menuAscending.style.display == '' || menuDescending.style.display == '') && (topingAscending.style.display == '' || topingDescending.style.display == '') && (kasirAscending.style.display == '' || kasirDescending.style.display == '')) {
                 menuDescending.style.display = '';
                 menuAscending.style.display = 'none';
                 topingDescending.style.display = '';

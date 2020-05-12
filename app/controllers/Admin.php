@@ -3,6 +3,7 @@
 require MODEL_PATH . 'QueryUser.php';
 require MODEL_PATH . 'QueryMenu.php';
 require MODEL_PATH . 'QueryToping.php';
+
 class Admin extends Controller
 {
     public function index()
@@ -14,9 +15,9 @@ class Admin extends Controller
             if (strtolower($user['tipe']) == 'admin') {
                 return $this->page_admin();
             } else {
-                echo 'wrong auth';
-                echo var_dump($user);
                 $auth->logout();
+                $page = $this::create_page('error', 'ErrorWrongAuthUser');
+                $page->render();
             }
         } else {
             $this->redirect('login');

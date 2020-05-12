@@ -1,5 +1,5 @@
 <div class="container display-grid align-content-center h-100v">
-    <div class="mt-1 login-title display-grid justify-content-center">
+    <div class="mt-1 login-title display-grid justify-content-center cursor-pointer" onclick="window.location = '<?= BASE_PAGE ?>'">
         <div class="login-logo display-grid grid-col-2 align-items-center p-1">
             <img src="<?= $this::add_image('logo', 'svg') ?>" />
             <h3>Teatime</h3>

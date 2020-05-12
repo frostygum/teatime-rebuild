@@ -52,10 +52,9 @@ CREATE TABLE Pesanan
 	banyak_es VARCHAR(10) NOT NULL,
 	banyak_gula VARCHAR(10) NOT NULL,
 	ukuran_gelas VARCHAR(10) NOT NULL,
-	PRIMARY KEY (idPesanan)
+	PRIMARY KEY (id),
     FOREIGN KEY (idTransaksi) REFERENCES TransaksiPemesanan(id),
-	FOREIGN KEY (idMenu) REFERENCES Menu(id),
-	FOREIGN KEY (idToping) REFERENCES Toping(id)
+	FOREIGN KEY (idMenu) REFERENCES Menu(id)
 );
 
 CREATE TABLE MemilikiToping

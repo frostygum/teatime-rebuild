@@ -84,7 +84,9 @@
     width: 10rem;
     height: 2rem;
     font-size: 1.2rem;
-    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .btn-manager:hover, .btn-manager:focus{

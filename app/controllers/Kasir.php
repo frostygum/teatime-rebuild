@@ -185,6 +185,7 @@ class Kasir extends Controller
 
     private function enterCustomerName()
     {
+        $this->clear_customer_data();
         $page = $this::create_page('kasir', 'enterCustomerName');
         
         $page->user_information = $this->get_user();

@@ -37,7 +37,7 @@ class Auth extends controller
                 else {
                     $auth->set_last_login($isAuthenticated['id']);
                     $auth->setAuth($isAuthenticated['username'], $isAuthenticated['id'], $isAuthenticated['tipe']);
-                    $this->redirect();
+                    $this->redirect($isAuthenticated['tipe']);
                 }
             } else {
                 $page->error = $auth->get_error();
@@ -57,7 +57,7 @@ class Auth extends controller
                 if ($isPasswordChanged) {
                     $auth->setAuth($authenticated_user['username'], $authenticated_user['id'], $authenticated_user['tipe']);
                     $this->remove_auth();
-                    $this->redirect();
+                    $this->redirect($authenticated_user['tipe']);
                 } else {
                     $page->error = $auth->get_error();
                 }
@@ -76,18 +76,24 @@ class Auth extends controller
         $this->redirect();
     }
 
-    private function redirect()
+    private function redirect($tipe = null)
     {
+        $page = rtrim($_SERVER['REQUEST_URI'], '/');
+        $page = ltrim($page, '/');
+        $page = explode('/', $page);
+        $page_base = $page[0];
+
+        echo $page_base;
+        
         if (isset($_SESSION['redirect_location'])) {
             $page = rtrim($_SESSION['redirect_location'], '/');
             $page = ltrim($page, '/');
             $page = explode('/', $page);
             $page_before = $page[count($page) - 1];
-            $page_base = $page[0];
 
             switch (strtolower($page_before)) {
                 case 'admin':
-                    header('location: ' . $_SESSION['redirect_location']);
+                    header('location: ' . $page_base . "/" . "admin");
                     break;
                 case 'kasir':
                     header('location: ' . $_SESSION['redirect_location']);
@@ -99,8 +105,11 @@ class Auth extends controller
                     header('location: /' . $page_base);
                     break;
             }
-        } else {
-            header('location: /teatime');
+        } else if(isset($tipe)) {
+            header('location: /' . $page_base . "/" . $tipe);
+        }
+        else {
+            header('location: /' . $page_base);
         }
     }
 }

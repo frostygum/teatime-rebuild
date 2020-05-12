@@ -355,7 +355,7 @@
                     for(let i = 0; i < hasSelected.found.selected; i++) {
                         let found = isMenuSelected(menu);
 
-                        selectedMenu.splice(found.found.pos, 1);
+                        selectedMenu.splice(found.pos, 1);
                     }
 
                     for(let i = 1; i <= qty; i++) {
@@ -370,7 +370,6 @@
                     }
                 }
                 else {
-                    // loop = qty - hasSelected.found.selected;
                     console.log("nambah jadi : ", qty)
                     let disQty = document.getElementById(`menu-qty-${id}`);
                     disQty.textContent = qty;
@@ -378,7 +377,7 @@
                     for(let i = 0; i < hasSelected.found.selected; i++) {
                         let found = isMenuSelected(menu);
 
-                        selectedMenu.splice(found.found.pos, 1);
+                        selectedMenu.splice(found.pos, 1);
                     }
 
                     for(let i = 1; i <= qty; i++) {

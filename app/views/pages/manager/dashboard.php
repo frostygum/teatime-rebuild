@@ -9,7 +9,7 @@
         <div class="card shadow display-flex" style="min-height: 80vh">
             <!-- KIRI -->
             <div class="side-navbar">
-                <div class="p-2 side-navbar-tab-active" style="border-radius: var(--border-radius) 0 0 0" >
+                <div class="p-2 side-navbar-tab-active" style="border-radius: var(--border-radius) 0 0 0">
                     <h6>Dashboard</h6>
                 </div>
                 <div class="p-2 side-navbar-tab" onclick="window.location = './manager?page=data'">
@@ -43,8 +43,8 @@
                     </div>
                 </div>
 
-                <div class="display-flex justify-content-center ">
-                    <div class="card shadow">
+                <div class="display-grid grid-col-1 grid-g-2 justify-content-center">
+                    <div class="card shadow" style="width: 40rem">
                         <div class="card-header">
                             <h6 class="m-0">Penjualan Tahun ini</h6>
                         </div>
@@ -52,7 +52,7 @@
                             <canvas id="" class="chartjs-render-monitor"></canvas>
                         </div>
                     </div>
-                    <div class="card shadow ml-2">
+                    <div class="card shadow" style="width: 40rem">
                         <div class="card-header">
                             <h6 class="m-0">Pemasukan Bulan ini</h6>
                         </div>
@@ -65,15 +65,15 @@
                 <div class="display-grid grid-col-3 grid-g-2 m-3">
                     <div class="card bg-blue shadow p-2 text-center text-light" style="width: 16rem">
                         <h6>Most Popular Menu</h6>
-                        <p><?php echo $topMenu['nama_minuman'];?></p>
+                        <p><?php echo $topMenu['nama_minuman']; ?></p>
                     </div>
                     <div class="card bg-blue shadow p-2 text-center text-light" style="width: 16rem">
                         <h6>Most Popular Topping</h6>
-                        <p><?php echo $topToping['nama_toping'];?></p>
+                        <p><?php echo $topToping['nama_toping']; ?></p>
                     </div>
                     <div class="card bg-blue shadow p-2 text-center text-light" style="width: 16rem">
                         <h6>Best Cashier</h6>
-                        <p><?php echo $topKasir['nama_pengguna'];?></p>
+                        <p><?php echo $topKasir['nama_pengguna']; ?></p>
                     </div>
                 </div>
             </div>
@@ -84,18 +84,30 @@
 
 <script defer>
     var ctx = document.getElementById('pemasukan').getContext('2d');
+
+    let dataPerThisMonth = <?= $dataPerThisMonth ?>;
+    let labels = [];
+    let dayData = [];
+
+    if(dataPerThisMonth != '') {
+        dataPerThisMonth.map((data, i) => {
+            labels.push(data.day);
+            dayData.push(data.total);
+        });
+    }
+
     var chart = new Chart(ctx, {
         // The type of chart we want to create
         type: 'line',
 
         // The data for our dataset
         data: {
-            labels: ['1-5','6-10','11-15', '16-20', '21-25', '26-31'],
+            labels: labels,
             datasets: [{
-                label: 'My First dataset',
+                label: 'Banyak pemasukan ',
                 backgroundColor: 'rgb(255, 99, 132)',
                 borderColor: 'rgb(255, 99, 132)',
-                data: [0, 10, 5, 2, 20, 30, 45]
+                data: dayData
             }]
         },
 

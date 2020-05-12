@@ -79,7 +79,7 @@
                             </tbody>
                         </table>
                         <!--ini toping-->
-                        <table class="table tabelManager" id="toping-descending">
+                        <table class="table tabelManager mt-2" id="toping-descending">
                             <tr class="tableHeader">
                                 <th>Rank</th>
                                 <th style="min-width:10rem">Nama</th>
@@ -100,7 +100,7 @@
                             ?>
                         </table>
 
-                        <table class="table tabelManager" id="toping-ascending"  style="display: none;">
+                        <table class="table tabelManager mt-2" id="toping-ascending"  style="display: none;">
                             <tr class="tableHeader">
                                 <th>Rank</th>
                                 <th style="min-width:10rem">Nama</th>
@@ -121,7 +121,7 @@
                             ?>
                         </table>
                         <!--ini kasir-->
-                        <table class="table tabelManager" id="kasir-descending">
+                        <table class="table tabelManager mt-2" id="kasir-descending">
                             <tr class="tableHeader">
                                 <th>Rank</th>
                                 <th style="min-width:10rem">Nama</th>
@@ -142,7 +142,7 @@
                             ?>
                         </table>
 
-                        <table class="table tabelManager" id="kasir-ascending"  style="display: none;">
+                        <table class="table tabelManager mt-2" id="kasir-ascending"  style="display: none;">
                             <tr class="tableHeader">
                                 <th>Rank</th>
                                 <th style="min-width:10rem">Nama</th>

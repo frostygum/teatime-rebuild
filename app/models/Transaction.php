@@ -67,7 +67,9 @@ class Transaction extends Model
             TransaksiPemesanan.total
         FROM pesanan 
             JOIN transaksipemesanan ON transaksipemesanan.id = pesanan.idTransaksi 
-            JOIN menu ON menu.id = pesanan.idMenu JOIN toping ON toping.id = pesanan.idToping 
+            JOIN menu ON menu.id = pesanan.idMenu 
+            JOIN memilikitoping ON memilikitoping.idPesanan = pesanan.id
+            JOIN toping ON toping.id = memilikitoping.idToping 
         WHERE 
             TransaksiPemesanan.tanggal_transaksi = ' . $date . '
         ';

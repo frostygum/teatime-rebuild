@@ -53,6 +53,18 @@
 
 /*table data*/
 
+.tableManager {
+    border-collapse: collapse;
+}
+
+.tableManager th {
+    border: 1px solid var(--teal);
+}
+
+.tableManager td {
+    border: 1px solid var(--dark);
+}
+
 .tableArea{
     margin: 0 auto;
 }

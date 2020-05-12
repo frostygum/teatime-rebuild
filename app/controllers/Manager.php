@@ -113,9 +113,13 @@ class Manager extends Controller
         $lastDay = date('Ym31');
         require_once MODEL_PATH . 'QueryExtra.php';
         $extra = new QueryExtra();
-        $page->listMenu = $extra->get_menu_rank($firstDay, $lastDay, 'DESC');
-        $page->listToping = $extra->get_toping_rank($firstDay, $lastDay, 'DESC');
-        $page->listKasir = $extra->get_kasir_rank($firstDay, $lastDay, 'DESC');
+        $page->listMenuDESC = $extra->get_menu_rank($firstDay, $lastDay, 'DESC');
+        $page->listTopingDESC = $extra->get_toping_rank($firstDay, $lastDay, 'DESC');
+        $page->listKasirDESC = $extra->get_kasir_rank($firstDay, $lastDay, 'DESC');
+
+        $page->listMenuASC = $extra->get_menu_rank($firstDay, $lastDay, 'ASC');
+        $page->listTopingASC = $extra->get_toping_rank($firstDay, $lastDay, 'ASC');
+        $page->listKasirASC = $extra->get_kasir_rank($firstDay, $lastDay, 'ASC');
 
         $page->user_information = $this::get_user();
         $page->render();

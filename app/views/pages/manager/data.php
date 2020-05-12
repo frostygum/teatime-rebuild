@@ -107,7 +107,7 @@
                     <div>
                         <div class="p-2" style="width: 10rem">
                             <div class="card bg-red shadow p-1 text-center text-light panel-data">
-                                <h6><?= $totalCup["count(detailtransaksi.idMenu)"]; ?></h6>
+                                <h6><?= $totalCup["count(pesanan.idMenu)"]; ?></h6>
                                 <p class="p-1 ket-panel-data">Total Cups</p>
                             </div>
                             <div class="card bg-red shadow p-1 text-center text-light panel-data">

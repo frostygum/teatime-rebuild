@@ -210,6 +210,8 @@
     ?>
 
     if(selectedMenu.length != 0) {
+        document.getElementById('btn_submit_menu').disabled = false;
+
         for(let i = 0; i < selectedMenu.length; i++) {
             let currMenu = selectedMenu[i];
             let menu = document.getElementById(`menu-${currMenu.id}`);
@@ -224,6 +226,9 @@
                 disQty.classList.toggle('selected');
             }
         }
+    }
+    else {
+        document.getElementById('btn_submit_menu').disabled = true;
     }
     
     function validateInput() {
@@ -417,6 +422,13 @@
             for(let i = 0; i < hasSelected.found.selected; i++) {
                 selectedMenu.splice(hasSelected.pos, 1);
             }
+        }
+
+        if(selectedMenu.length > 0) {
+            document.getElementById('btn_submit_menu').disabled = false;
+        }
+        else {
+            document.getElementById('btn_submit_menu').disabled = true;
         }
 
         toggleModal('modal-quantity');

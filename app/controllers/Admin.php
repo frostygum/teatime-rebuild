@@ -19,8 +19,7 @@ class Admin extends Controller
                 $auth->logout();
             }
         } else {
-            $this::set_redirect_url();
-            header('location: ./login');
+            $this->redirect('login');
         }
     }
 

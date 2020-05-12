@@ -24,31 +24,29 @@ class Manager extends Controller
                 $auth->logout();
             }
         } else {
-            $this::set_redirect_url();
-            header('location: ./login');
+            $this->redirect('login');
         }
     }
 
-
     public function page_manager()
     {
-        if (!isset($_GET['page'])) {
+        if (isset($_GET['page'])) {
+            switch ($_GET['page']) {
+                case 'dashboard':
+                    $this->page_dashboard();
+                    break;
+                case 'data':
+                    $this->page_data();
+                    break;
+                case 'ranking':
+                    $this->page_ranking();
+                    break;
+                default:
+                    $this->page_dashboard();
+                    break;
+            }
+        } else {
             header('location: ./manager?page=dashboard');
-        }
-
-        switch ($_GET['page']) {
-            case 'dashboard':
-                $this->page_dashboard();
-                break;
-            case 'data':
-                $this->page_data();
-                break;
-            case 'ranking':
-                $this->page_ranking();
-                break;
-            default:
-                $this->page_dashboard();
-                break;
         }
     }
 

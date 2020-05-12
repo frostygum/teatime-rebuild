@@ -56,8 +56,7 @@ class Kasir extends Controller
                 }         
             }
             else {
-                $this::set_redirect_url();
-                header('location: ./login');
+                $this->redirect('login');
             }
         }
     }

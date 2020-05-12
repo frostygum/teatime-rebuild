@@ -23,16 +23,16 @@
             <!-- KANAN -->
             <div class="p-2" style="width: 100%;">
                 <!--isi-->
-                <div class="display-grid grid-col-2 grid-g-2  mt-2">
+                <div class="display-grid grid-col-2 grid-g-2 mt-2" style="width: 100%">
                     <!--kanan kiri-->
-                    <div class="p-1 tableArea">
+                    <div class="p-1 tableArea" style="width: 40rem">
                         <!--ini menu-->
-                        <table class="table tabelManager" id="menu-descending">
+                        <table class="table tableManager mb-2" id="menu-descending" style="display: block; width: 100%; max-height: 20rem; overflow: auto">
                             <thead>
                                 <tr class="tableHeader">
                                     <th>Rank</th>
-                                    <th style="min-width:10rem">Nama</th>
-                                    <th>Total Penjualan</th>
+                                    <th style="min-width:22rem">Nama</th>
+                                    <th style="min-width:10rem">Total Penjualan</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -53,12 +53,12 @@
                             </tbody>
                         </table>
 
-                        <table class="table tabelManager" id="menu-ascending" style="display: none;">
+                        <table class="table tableManager mb-2" id="menu-ascending" style="display: none; width: 100%; max-height: 20rem; overflow: auto">
                             <thead>
                                 <tr class="tableHeader">
                                     <th>Rank</th>
-                                    <th style="min-width:10rem">Nama</th>
-                                    <th>Total Penjualan</th>
+                                    <th style="min-width:22rem">Nama</th>
+                                    <th style="min-width:10rem">Total Penjualan</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -79,7 +79,7 @@
                             </tbody>
                         </table>
                         <!--ini toping-->
-                        <table class="table tabelManager" id="toping-descending">
+                        <table class="table tableManager mb-2" id="toping-descending">
                             <tr class="tableHeader">
                                 <th>Rank</th>
                                 <th style="min-width:10rem">Nama</th>
@@ -100,7 +100,7 @@
                             ?>
                         </table>
 
-                        <table class="table tabelManager" id="toping-ascending"  style="display: none;">
+                        <table class="table tableManager" id="toping-ascending"  style="display: none;">
                             <tr class="tableHeader">
                                 <th>Rank</th>
                                 <th style="min-width:10rem">Nama</th>
@@ -121,7 +121,7 @@
                             ?>
                         </table>
                         <!--ini kasir-->
-                        <table class="table tabelManager" id="kasir-descending">
+                        <table class="table tableManager" id="kasir-descending">
                             <tr class="tableHeader">
                                 <th>Rank</th>
                                 <th style="min-width:10rem">Nama</th>
@@ -142,7 +142,7 @@
                             ?>
                         </table>
 
-                        <table class="table tabelManager" id="kasir-ascending"  style="display: none;">
+                        <table class="table tableManager" id="kasir-ascending"  style="display: none;">
                             <tr class="tableHeader">
                                 <th>Rank</th>
                                 <th style="min-width:10rem">Nama</th>
@@ -164,7 +164,7 @@
                         </table>
                     </div>
                     <!--kanan kanan-->
-                    <div class="display-flex" style="flex-direction: column; width: 80%; margin-top: 1rem">
+                    <div class="display-flex" style="flex-direction: column; margin-top: 1rem; width: 10rem">
                         <!-- TYPE -->
                         <div class="dropdown">
                             <button onclick="toggleDropdown('type')" class="dropdown-btn btn-manager">

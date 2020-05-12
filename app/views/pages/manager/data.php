@@ -6,7 +6,7 @@
 
     <div class="container mt-4">
 
-        <div class="card shadow display-flex" style="min-height: 70vh">
+        <div class="card shadow display-flex" style="height: 80vh; overflow: hidden">
             <!-- KIRI -->
             <div class="side-navbar">
                 <div class="p-2 side-navbar-tab" style="border-radius: var(--border-radius) 0 0 0" onclick="window.location = './manager?page=dashboard'">
@@ -25,10 +25,14 @@
                 <!--isi-->
                 <div class="display-grid grid-col-2 grid-g-1 mt-1">
                     <!--kanan kiri-->
-                    <div>
+                    <div class="display-grid grid-col-1 align-content-start" style="width: 45rem">
                         <!--button-->
-                        <div class="m-2" style="float: right">
-                            <div class="dropdown ml-2" style="float: right">
+                        <div class="display-flex flex-align-center justify-content-end mb-2" style="height: 2rem">
+                            <form method="POST" action="./manager?page=data" id="form-date" class="m-0">
+                                <input type="date" class="input" id="tgl" name="tgl" placeholder="Tanggal" style="height:2rem" oninput="handle_date_input()">
+                            </form>
+
+                            <div class="dropdown ml-2">
                                 <button onclick="toggleDropdown('type')" class="dropdown-btn btn-manager">
                                     Type
                                     <span class="fa fa-caret-down ml-1"></span>
@@ -38,14 +42,9 @@
                                     <a class="cursor-pointer" onclick="handle_change_date_type('not-detail')">Transaksi</a>
                                 </div>
                             </div>
-
-                            <form method="POST" action="./manager?page=data" style="float: right" id="form-date">
-                                <input type="date" class="input" id="tgl" name="tgl" placeholder="Tanggal" style="height:2rem" oninput="handle_date_input()">
-                            </form>
-
                         </div>
-                        <div class="p-1">
-                            <table class="table tabelManager" id="table-detail">
+                        <div class="p-1" style="max-height: 40rem; overflow: auto">
+                            <table class="table tableManager" id="table-detail" style="width: 100%;">
                                 <tr class="tableHeader">
                                     <th>Time</th>
                                     <th>Customer</th>
@@ -77,7 +76,7 @@
                                 ?>
 
                             </table>
-                            <table class="table tabelManager" style="margin-left: auto; margin-right: auto; display: none" id="table-not-detail">
+                            <table class="table tabelManager" style="margin-left: auto; margin-right: auto; display: none; width: 100%;" id="table-not-detail">
                                 <tr class="tableHeader">
                                     <th style="min-width:5rem;">Time</th>
                                     <th style="min-width:10rem;">Customer</th>
@@ -107,7 +106,7 @@
                     <div>
                         <div class="p-2" style="width: 10rem">
                             <div class="card bg-red shadow p-1 text-center text-light panel-data">
-                                <h6><?= $totalCup["count(pesanan.idMenu)"]; ?></h6>
+                                <h6><?= $totalCup["count(Pesanan.idMenu)"]; ?></h6>
                                 <p class="p-1 ket-panel-data">Total Cups</p>
                             </div>
                             <div class="card bg-red shadow p-1 text-center text-light panel-data">

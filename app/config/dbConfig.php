@@ -4,5 +4,5 @@ class DBConfig {
     protected $host = "localhost";
     protected $username = "root";
     protected $password = "";
-    protected $dbname = "teatime";
+    protected $dbname = "teatime2";
 }

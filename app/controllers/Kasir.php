@@ -130,6 +130,7 @@ class Kasir extends Controller
                     $sugar = $menu['sugar'];
 
                     $orderRes = $transaction->insertOrder($transaction_id, $menu_id, $size, $ice, $sugar);
+                    $status = $orderRes;
 
                     if($orderRes) {
                         $order_id = $orderRes[0][0]['LAST_INSERT_ID()'];

@@ -172,9 +172,10 @@
                                 <span class="fa fa-caret-down ml-1"></span>
                             </button>
                             <div id="type" class="dropdown-content content-manager">
-                                <a href="">Menu</a>
-                                <a href="">Toping</a>
-                                <a href="">Kasir</a>
+                                <a class="cursor-pointer" onclick="handle_change_type('all')">All</a>
+                                <a class="cursor-pointer" onclick="handle_change_type('menu')">Menu</a>
+                                <a class="cursor-pointer" onclick="handle_change_type('toping')">Toping</a>
+                                <a class="cursor-pointer" onclick="handle_change_type('kasir')">Kasir</a>
                             </div>
                         </div>
                         
@@ -185,8 +186,8 @@
                                 <span class="fa fa-caret-down ml-1"></span>
                             </button>
                             <div id="sort" class="dropdown-content content-manager">
-                                <a class="cursor-pointer" onclick="handle_change_sort_type('ascending')">Ascending</a>
-                                <a class="cursor-pointer" onclick="handle_change_sort_type('descending')">Descending</a>
+                                <a class="cursor-pointer" onclick="handle_change_sort('descending')">Most</a>
+                                <a class="cursor-pointer" onclick="handle_change_sort('ascending')">Least</a>
                             </div>
                         </div>
                     </div>
@@ -198,7 +199,7 @@
 </div>
 
 <script type="text/javascript" defer>
-    function handle_change_sort_type(sortType) {
+    function handle_change_type(type) {
         let menuDescending = document.getElementById('menu-descending');
         let topingDescending = document.getElementById('toping-descending');
         let kasirDescending = document.getElementById('kasir-descending');
@@ -207,21 +208,138 @@
         let topingAscending = document.getElementById('toping-ascending');
         let kasirAscending = document.getElementById('kasir-ascending');
 
-        if(sortType === 'ascending') {
-            menuDescending.style.display = '';
-            menuAscending.style.display = 'none';
-            topingDescending.style.display = '';
-            topingAscending.style.display = 'none';
-            kasirDescending.style.display = '';
-            kasirAscending.style.display = 'none';
+        if (menuDescending.style.display == '' || topingDescending.style.display == '' || kasirDescending.style.display == '') {
+            if (type == 'all') {
+                menuDescending.style.display = '';
+                topingDescending.style.display = '';
+                kasirDescending.style.display = '';
+                menuAscending.style.display = 'none';
+                topingAscending.style.display = 'none';
+                kasirAscending.style.display = 'none';
+            } else if (type == 'menu') {
+                menuDescending.style.display = '';
+                topingDescending.style.display = 'none';
+                kasirDescending.style.display = 'none';
+            } else if (type == 'toping') {
+                menuDescending.style.display = 'none';
+                topingDescending.style.display = '';
+                kasirDescending.style.display = 'none';
+            } else if (type == 'kasir') {
+                menuDescending.style.display = 'none';
+                topingDescending.style.display = 'none';
+                kasirDescending.style.display = '';
+            }
+        } else if (menuAscending.style.display == '' || topingAscending.style.display == '' || kasirAscending.style.display == '') {
+            if (type == 'all') {
+                menuAscending.style.display = '';
+                topingAscending.style.display = '';
+                kasirAscending.style.display = '';
+                menuDescending.style.display = 'none';
+                topingDescending.style.display = 'none';
+                kasirDescending.style.display = 'none';
+            } else if (type == 'menu') {
+                menuAscending.style.display = '';
+                topingAscending.style.display = 'none';
+                kasirAscending.style.display = 'none';
+            } else if (type == 'toping') {
+                menuAscending.style.display = 'none';
+                topingAscending.style.display = '';
+                kasirAscending.style.display = 'none';
+            } else if (type == 'kasir') {
+                menuAscending.style.display = 'none';
+                topingAscending.style.display = 'none';
+                kasirAscending.style.display = '';
+            }
+        }
+    }
+
+    function handle_change_sort(sortType) {
+        let menuDescending = document.getElementById('menu-descending');
+        let topingDescending = document.getElementById('toping-descending');
+        let kasirDescending = document.getElementById('kasir-descending');
+
+        let menuAscending = document.getElementById('menu-ascending');
+        let topingAscending = document.getElementById('toping-ascending');
+        let kasirAscending = document.getElementById('kasir-ascending');
+
+        if (sortType == 'ascending') {
+            if ((menuAscending.style.display == '' || menuDescending.style.display == '') && (topingAscending.style.display == '' || topingDescending == '') && (kasirAscending.style.display == '' || kasirDescending.style.display == '')) {
+                menuDescending.style.display = 'none';
+                menuAscending.style.display = '';
+                topingDescending.style.display = 'none';
+                topingAscending.style.display = '';
+                kasirDescending.style.display = 'none';
+                kasirAscending.style.display = '';
+            } else if (menuAscending.style.display == '' || menuDescending.style.display == '') {
+                menuDescending.style.display = 'none';
+                menuAscending.style.display = '';
+                topingDescending.style.display = 'none';
+                topingAscending.style.display = 'none';
+                kasirDescending.style.display = 'none';
+                kasirAscending.style.display = 'none';
+            } else if (topingAscending.style.display == '' || topingDescending.style.display == '') {
+                menuDescending.style.display = 'none';
+                menuAscending.style.display = 'none';
+                topingDescending.style.display = 'none';
+                topingAscending.style.display = '';
+                kasirDescending.style.display = 'none';
+                kasirAscending.style.display = 'none';
+            } else if (kasirAscending.style.display == '' || kasirDescending.style.display == '') {
+                menuDescending.style.display = 'none';
+                menuAscending.style.display = 'none';
+                topingDescending.style.display = 'none';
+                topingAscending.style.display = 'none';
+                kasirDescending.style.display = 'none';
+                kasirAscending.style.display = '';
+            }
         }
         else {
-            menuDescending.style.display = 'none';
-            menuAscending.style.display = '';
-            topingDescending.style.display = 'none';
-            topingAscending.style.display = '';
-            kasirDescending.style.display = 'none';
-            kasirAscending.style.display = '';
+            if ((menuAscending.style.display == '' || menuDescending.style.display == '') && (topingAscending.style.display == '' || topingDescending == '') && (kasirAscending.style.display == '' || kasirDescending.style.display == '')) {
+                menuDescending.style.display = '';
+                menuAscending.style.display = 'none';
+                topingDescending.style.display = '';
+                topingAscending.style.display = 'none';
+                kasirDescending.style.display = '';
+                kasirAscending.style.display = 'none';
+            } else if (menuAscending.style.display == '' || menuDescending.style.display == '') {
+                menuDescending.style.display = '';
+                menuAscending.style.display = 'none';
+                topingDescending.style.display = 'none';
+                topingAscending.style.display = 'none';
+                kasirDescending.style.display = 'none';
+                kasirAscending.style.display = 'none';
+            } else if (topingAscending.style.display == '' || topingDescending.style.display == '') {
+                menuDescending.style.display = 'none';
+                menuAscending.style.display = 'none';
+                topingDescending.style.display = '';
+                topingAscending.style.display = 'none';
+                kasirDescending.style.display = 'none';
+                kasirAscending.style.display = 'none';
+            } else if (kasirAscending.style.display == '' || kasirDescending.style.display == '') {
+                menuDescending.style.display = 'none';
+                menuAscending.style.display = 'none';
+                topingDescending.style.display = 'none';
+                topingAscending.style.display = 'none';
+                kasirDescending.style.display = '';
+                kasirAscending.style.display = 'none';
+            }
         }
+
+        // if(sortType == 'ascending') {
+        //     menuDescending.style.display = '';
+        //     menuAscending.style.display = 'none';
+        //     topingDescending.style.display = '';
+        //     topingAscending.style.display = 'none';
+        //     kasirDescending.style.display = '';
+        //     kasirAscending.style.display = 'none';
+        // }
+        // else {
+        //     menuDescending.style.display = 'none';
+        //     menuAscending.style.display = '';
+        //     topingDescending.style.display = 'none';
+        //     topingAscending.style.display = '';
+        //     kasirDescending.style.display = 'none';
+        //     kasirAscending.style.display = '';
+        // }
     }
 </script>

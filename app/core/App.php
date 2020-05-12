@@ -55,6 +55,10 @@ class App
             $this::call('manager')->index();
         });
 
+        Router::post('/manager', function () {
+            $this::call('manager')->index();
+        });
+
         // EXTRA PAGE
         Router::get('/sample', function () {
             $this::call('sample')->index();

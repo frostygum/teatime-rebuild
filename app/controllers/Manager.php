@@ -60,9 +60,10 @@ class Manager extends Controller
         require_once MODEL_PATH . 'QueryExtra.php';
         $extra = new QueryExtra();
         //total
-        $page->totalTransaksi = $extra->get_total_transaksi_harian($date);
-        $page->totalCup = $extra->get_total_cup_harian($date);
-        $page->totalPemasukan = $extra->get_total_pemasukan_harian($date);
+        $page->totalTransaksi = $extra->get_total_transaksi();
+        $page->totalCup = $extra->get_total_cup();
+        $page->totalPemasukan = $extra->get_total_pemasukan();
+
         //top
         $page->topMenu = $extra->get_top_menu($firstDay, $lastDay);
         $page->topToping = $extra->get_top_toping($firstDay, $lastDay);
@@ -76,11 +77,28 @@ class Manager extends Controller
     {
         $page = $this::create_page('manager', 'data');
         date_default_timezone_set('Asia/Jakarta');
-        $date = date('Ymd');
+
         require_once MODEL_PATH . 'Transaction.php';
         $transaction = new Transaction();
+        require_once MODEL_PATH . 'QueryExtra.php';
+        $extra = new QueryExtra();
 
-        $page->dataTransaksi = $transaction->get_all_transaksi_by_date($date);
+        if (isset($_POST['tgl'])) {
+            // bisa tuh, stylenya antep aja dl hmm yudh nnt cri dlu itu knpp 
+            $date = str_replace("-", "", $_POST['tgl']);
+        } else {
+            $date = date('Ymd');
+        }
+
+        //total
+        $page->totalTransaksi = $extra->get_total_transaksi_harian($date);
+        $page->totalCup = $extra->get_total_cup_harian($date);
+        $page->totalPemasukan = $extra->get_total_pemasukan_harian($date);
+
+        //data tabel
+        $page->dataDetailTransaksi = $transaction->get_all_transaksi_by_date($date);
+        $page->dataTransaksi = $transaction->get_transaksi_by_date($date);
+
 
         $page->user_information = $this::get_user();
         $page->render();

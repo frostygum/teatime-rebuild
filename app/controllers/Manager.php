@@ -62,16 +62,10 @@ class Manager extends Controller
         require_once MODEL_PATH . 'QueryExtra.php';
         $extra = new QueryExtra();
         //total
-<<<<<<< HEAD
         $page->totalTransaksi = $extra->get_total_transaksi();
         $page->totalCup = $extra->get_total_cup();
         $page->totalPemasukan = $extra->get_total_pemasukan();
 
-=======
-        $page->totalTransaksi = $extra->get_total_transaksi_harian($date);
-        $page->totalCup = $extra->get_total_cup_harian($date);
-        $page->totalPemasukan = $extra->get_total_pemasukan_harian($date);
->>>>>>> b4cdedde8e9d07102e5413554dea60224b5ca9e6
         //top
         $page->topMenu = $extra->get_top_menu($firstDay, $lastDay);
         $page->topToping = $extra->get_top_toping($firstDay, $lastDay);
@@ -85,11 +79,7 @@ class Manager extends Controller
     {
         $page = $this::create_page('manager', 'data');
         date_default_timezone_set('Asia/Jakarta');
-<<<<<<< HEAD
 
-=======
-        $date = date('Ymd');
->>>>>>> b4cdedde8e9d07102e5413554dea60224b5ca9e6
         require_once MODEL_PATH . 'Transaction.php';
         $transaction = new Transaction();
         require_once MODEL_PATH . 'QueryExtra.php';
@@ -111,31 +101,18 @@ class Manager extends Controller
         $page->dataDetailTransaksi = $transaction->get_all_transaksi_by_date($date);
         $page->dataTransaksi = $transaction->get_transaksi_by_date($date);
 
-<<<<<<< HEAD
-=======
-        $page->dataTransaksi = $transaction->get_all_transaksi_by_date($date);
->>>>>>> b4cdedde8e9d07102e5413554dea60224b5ca9e6
 
         $page->user_information = $this::get_user();
         $page->render();
     }
-<<<<<<< HEAD
 
     public function page_ranking()
     {
-=======
-    
-    public function page_ranking() {
->>>>>>> b4cdedde8e9d07102e5413554dea60224b5ca9e6
         $page = $this::create_page('manager', 'ranking');
         date_default_timezone_set('Asia/Jakarta');
         $date = date('Ymd');
         $firstDay = date('Ym01');
-<<<<<<< HEAD
         $lastDay = date('Ym31');
-=======
-        $lastDay = date('Ym31'); 
->>>>>>> b4cdedde8e9d07102e5413554dea60224b5ca9e6
         require_once MODEL_PATH . 'QueryExtra.php';
         $extra = new QueryExtra();
         $page->listMenu = $extra->get_menu_rank($firstDay, $lastDay, 'DESC');
@@ -145,10 +122,4 @@ class Manager extends Controller
         $page->user_information = $this::get_user();
         $page->render();
     }
-<<<<<<< HEAD
-=======
-    
-    
-
->>>>>>> b4cdedde8e9d07102e5413554dea60224b5ca9e6
 }

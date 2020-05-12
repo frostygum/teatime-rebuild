@@ -55,10 +55,7 @@ class Transaction extends Model
         WHERE TransaksiPemesanan.tanggal_transaksi = ' . $date . '
         ';
         $queryResult = $this->db->executeSelectQuery($query);
-<<<<<<< HEAD
-=======
-        var_dump($queryResult);
->>>>>>> b4cdedde8e9d07102e5413554dea60224b5ca9e6
+
         if (!$queryResult) {
             $this->error = $this->db->get_error();
             
@@ -76,7 +73,6 @@ class Transaction extends Model
                 "ukuran_gelas" => $value['ukuran_gelas'],
                 "banyak_es" => $value['banyak_es'],
                 "banyak_gula" => $value['banyak_gula'],
-<<<<<<< HEAD
                 "total" => $value['total']
             ];
         }
@@ -107,8 +103,6 @@ class Transaction extends Model
                 "waktu_transaksi" => $value['waktu_transaksi'],
                 "nama_pemesan" => $value['nama_pemesan'],
                 "jumlah" => $value['COUNT(detailtransaksi.idMenu)'],
-=======
->>>>>>> b4cdedde8e9d07102e5413554dea60224b5ca9e6
                 "total" => $value['total']
             ];
         }

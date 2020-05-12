@@ -69,7 +69,7 @@ class QueryExtra extends Model
             echo $this->error;
             return false;
         }*/
-<<<<<<< HEAD
+
         $result = $queryResult[0];
 
         return $result;
@@ -104,13 +104,10 @@ class QueryExtra extends Model
         FROM 
             transaksiPemesanan
         ';
-=======
->>>>>>> b4cdedde8e9d07102e5413554dea60224b5ca9e6
         $queryResult = $this->db->executeSelectQuery($query);
         $result = $queryResult[0];
 
         return $result;
-<<<<<<< HEAD
     }
 
     public function get_total_pemasukan()
@@ -128,10 +125,7 @@ class QueryExtra extends Model
             $result['sum(total)'] = 0;
         }
         return $result;
-=======
->>>>>>> b4cdedde8e9d07102e5413554dea60224b5ca9e6
     }
-
 
     public function get_popular_menu()
     {

@@ -36,8 +36,9 @@ class Kasir extends Controller
                     return $this->receive_json($data);
                 }           
                 else {
-                    echo 'wrong auth';
                     $auth->logout();
+                    $page = $this::create_page('error', 'ErrorWrongAuthUser');
+                    $page->render();
                 }
             }
             else {

@@ -129,14 +129,17 @@ class Kasir extends Controller
                     $ice = $menu['ice'];
                     $sugar = $menu['sugar'];
 
-                    if(isset($menu['topping']) && !empty($menu['topping'])) {
-                        foreach($menu['topping'] as $topping_key => $topping) {
-                            $topping_id = $topping['id'];
-                            $status = $transaction->insertDetailTransaction($transaction_id, $menu_id, $topping_id, $size, $ice, $sugar);
+                    $orderRes = $transaction->insertOrder($transaction_id, $menu_id, $size, $ice, $sugar);
+
+                    if($orderRes) {
+                        $order_id = $orderRes[0][0]['LAST_INSERT_ID()'];
+                        if(isset($menu['topping']) && !empty($menu['topping'])) {
+                            foreach($menu['topping'] as $topping_key => $topping) {
+                                $topping_id = $topping['id'];
+    
+                                $status = $transaction->insertOrderToping($order_id, $topping_id);
+                            }
                         }
-                    }
-                    else {
-                        $status = $transaction->insertDetailTransaction($transaction_id, $menu_id, null, $size, $ice, $sugar);
                     }
 
                     if(!$status) {

@@ -19,11 +19,18 @@ class Transaction extends Model
     {
         $query = '
         SELECT 
-            TransaksiPemesanan.id, TransaksiPemesanan.waktu_transaksi , TransaksiPemesanan.nama_pemesan, menu.nama_minuman, 
-		    toping.nama_toping, DetailTransaksi.ukuran_gelas, DetailTransaksi.banyak_es, DetailTransaksi.banyak_gula, TransaksiPemesanan.total
-        FROM detailtransaksi 
-            JOIN transaksipemesanan ON transaksipemesanan.id = detailtransaksi.idTransaksi 
-            JOIN menu ON menu.id = detailtransaksi.idMenu JOIN toping ON toping.id = detailtransaksi.idToping 
+            TransaksiPemesanan.id, 
+            TransaksiPemesanan.waktu_transaksi, 
+            TransaksiPemesanan.nama_pemesan, 
+            menu.nama_minuman, 
+            toping.nama_toping, 
+            pesanan.ukuran_gelas, 
+            pesanan.banyak_es, 
+            pesanan.banyak_gula, 
+            TransaksiPemesanan.total
+        FROM pesanan 
+            JOIN transaksipemesanan ON transaksipemesanan.id = pesanan.idTransaksi 
+            JOIN menu ON menu.id = pesanan.idMenu JOIN toping ON toping.id = pesanan.idToping 
         ';
         $queryResult = $this->db->executeSelectQuery($query);
         $result = [];
@@ -45,14 +52,24 @@ class Transaction extends Model
 
     public function get_all_transaksi_by_date($date)
     {
+        $date = $this->db->escapeString($date);
+
         $query = '
         SELECT 
-            TransaksiPemesanan.id, TransaksiPemesanan.waktu_transaksi , TransaksiPemesanan.nama_pemesan, menu.nama_minuman, 
-		    toping.nama_toping, DetailTransaksi.ukuran_gelas, DetailTransaksi.banyak_es, DetailTransaksi.banyak_gula, TransaksiPemesanan.total
-        FROM detailtransaksi 
-            JOIN transaksipemesanan ON transaksipemesanan.id = detailtransaksi.idTransaksi 
-            JOIN menu ON menu.id = detailtransaksi.idMenu JOIN toping ON toping.id = detailtransaksi.idToping 
-        WHERE TransaksiPemesanan.tanggal_transaksi = ' . $date . '
+            TransaksiPemesanan.id, 
+            TransaksiPemesanan.waktu_transaksi, 
+            TransaksiPemesanan.nama_pemesan, 
+            menu.nama_minuman, 
+            toping.nama_toping, 
+            pesanan.ukuran_gelas, 
+            pesanan.banyak_es, 
+            pesanan.banyak_gula, 
+            TransaksiPemesanan.total
+        FROM pesanan 
+            JOIN transaksipemesanan ON transaksipemesanan.id = pesanan.idTransaksi 
+            JOIN menu ON menu.id = pesanan.idMenu JOIN toping ON toping.id = pesanan.idToping 
+        WHERE 
+            TransaksiPemesanan.tanggal_transaksi = ' . $date . '
         ';
         $queryResult = $this->db->executeSelectQuery($query);
 
@@ -81,13 +98,24 @@ class Transaction extends Model
 
     public function get_transaksi_by_date($date)
     {
+        $date = $this->db->escapeString($date);
+
         $query = '
         SELECT 
-            TransaksiPemesanan.id, TransaksiPemesanan.waktu_transaksi , TransaksiPemesanan.nama_pemesan, COUNT(detailtransaksi.idMenu) , TransaksiPemesanan.total
-        FROM detailtransaksi 
-            JOIN transaksipemesanan ON transaksipemesanan.id = detailtransaksi.idTransaksi  
-        WHERE TransaksiPemesanan.tanggal_transaksi = ' . $date . '
-        GROUP BY TransaksiPemesanan.id,TransaksiPemesanan.waktu_transaksi , TransaksiPemesanan.nama_pemesan,TransaksiPemesanan.total
+            TransaksiPemesanan.id, 
+            TransaksiPemesanan.waktu_transaksi, 
+            TransaksiPemesanan.nama_pemesan, 
+            COUNT(pesanan.idMenu), 
+            TransaksiPemesanan.total
+        FROM pesanan 
+            JOIN transaksipemesanan ON transaksipemesanan.id = pesanan.idTransaksi  
+        WHERE 
+            TransaksiPemesanan.tanggal_transaksi = ' . $date . '
+        GROUP BY 
+            TransaksiPemesanan.id,
+            TransaksiPemesanan.waktu_transaksi, 
+            TransaksiPemesanan.nama_pemesan,
+            TransaksiPemesanan.total
         ';
         $queryResult = $this->db->executeSelectQuery($query);
         if (!$queryResult) {
@@ -102,7 +130,7 @@ class Transaction extends Model
                 "id" => $value['id'],
                 "waktu_transaksi" => $value['waktu_transaksi'],
                 "nama_pemesan" => $value['nama_pemesan'],
-                "jumlah" => $value['COUNT(detailtransaksi.idMenu)'],
+                "jumlah" => $value['COUNT(pesanan.idMenu)'],
                 "total" => $value['total']
             ];
         }
@@ -114,14 +142,20 @@ class Transaction extends Model
         $id = $this->db->escapeString($id);
 
         $query = '
-        SELECT 
-            TransaksiPemesanan.id, TransaksiPemesanan.waktu_transaksi , TransaksiPemesanan.nama_pemesan, menu.nama_minuman, 
-            toping.nama_toping, DetailTransaksi.ukuran_gelas, DetailTransaksi.banyak_es, DetailTransaksi.banyak_gula, TransaksiPemesanan.total
-        FROM detailtransaksi 
-            JOIN transaksipemesanan ON transaksipemesanan.id = detailtransaksi.idTransaksi 
-            JOIN menu ON menu.id = detailtransaksi.idMenu JOIN toping ON toping.id = detailtransaksi.idToping 
-        WHERE 
-            id = ' . $id . '
+            SELECT 
+                TransaksiPemesanan.id, 
+                TransaksiPemesanan.waktu_transaksi, 
+                TransaksiPemesanan.nama_pemesan, menu.nama_minuman, 
+                toping.nama_toping, 
+                pesanan.ukuran_gelas, 
+                pesanan.banyak_es, 
+                pesanan.banyak_gula, 
+                TransaksiPemesanan.total
+            FROM pesanan 
+                JOIN transaksipemesanan ON transaksipemesanan.id = pesanan.idTransaksi 
+                JOIN menu ON menu.id = pesanan.idMenu JOIN toping ON toping.id = pesanan.idToping 
+            WHERE 
+                id = ' . $id . '
         ';
 
         $queryResult = $this->db->executeSelectQuery($query);
@@ -160,6 +194,10 @@ class Transaction extends Model
 
     public function insertTransaction($id_cashier, $customer_name, $total)
     {
+        $id_cashier = $this->db->escapeString($id_cashier);
+        $customer_name = $this->db->escapeString($customer_name);
+        $total = $this->db->escapeString($total);
+
         date_default_timezone_set("Asia/Jakarta");
 
         $date = date("Y-m-d");
@@ -192,19 +230,19 @@ class Transaction extends Model
         return $query_result;
     }
 
-    public function insertDetailTransaction($transaction_id, $menu_id, $toping_id = null, $size, $ice, $sugar)
+    public function insertOrder($transaction_id, $menu_id, $size, $ice, $sugar)
     {
-        if($toping_id == null) {
-            $toping_id = 'NULL';
-        }
+        $transaction_id = $this->db->escapeString($transaction_id);
+        $menu_id = $this->db->escapeString($menu_id);
+        $size = $this->db->escapeString($size);
+        $sugar = $this->db->escapeString($sugar);
 
         $query = "
             INSERT INTO 
-                `detailtransaksi` 
+                `pesanan` 
                 (
                     `idTransaksi`, 
-                    `idMenu`, 
-                    `idToping`, 
+                    `idMenu`,
                     `banyak_es`, 
                     `banyak_gula`, 
                     `ukuran_gelas`
@@ -212,11 +250,38 @@ class Transaction extends Model
             VALUES
             (
                 $transaction_id, 
-                $menu_id, 
-                $toping_id, 
+                $menu_id,  
                 '$ice', 
                 '$sugar', 
                 '$size'
+            );
+            SELECT LAST_INSERT_ID();
+        ";
+
+        $query_result = $this->db->executeMultiQuery($query);
+
+        if (!$query_result) {
+            return false;
+        }
+
+        return $query_result;
+    }
+
+    public function insertOrderToping($orderId, $topingId) {
+        $orderId = $this->db->escapeString($orderId);
+        $topingId = $this->db->escapeString($topingId);
+
+        $query = "
+            INSERT INTO 
+                `memilikitoping` 
+                (
+                    `idPesanan`, 
+                    `idToping`
+                ) 
+            VALUES
+            (
+                $orderId,
+                $topingId
             )
         ";
 

@@ -15,12 +15,12 @@ class QueryExtra extends Model
     {
         $query = '
             SELECT 
-                count(detailtransaksi.idMenu)
+                count(Pesanan.idMenu)
             FROM 
                 transaksipemesanan
-                JOIN detailtransaksi ON transaksipemesanan.id = detailtransaksi.idTransaksi
+                JOIN Pesanan ON transaksipemesanan.id = Pesanan.idTransaksi
             WHERE
-                transaksipemesanan.tanggal_transaksi = ' . $hari . '
+                transaksipemesanan.tanggal_transaksi = ' . $hari . ' 
         ';
         $queryResult = $this->db->executeSelectQuery($query);
         if (!$queryResult) {
@@ -79,19 +79,19 @@ class QueryExtra extends Model
     public function get_total_cup()
     {
         $query = '
-            SELECT 
-                count(detailtransaksi.idMenu)
-            FROM 
-                transaksipemesanan
-                JOIN detailtransaksi ON transaksipemesanan.id = detailtransaksi.idTransaksi
+        SELECT 
+            count(Pesanan.idMenu)
+        FROM 
+            transaksipemesanan
+            JOIN Pesanan ON transaksipemesanan.id = Pesanan.idTransaksi
         ';
         $queryResult = $this->db->executeSelectQuery($query);
-        if (!$queryResult) {
+        /*if (!$queryResult) {
             $this->error = $this->db->get_error();
 
             echo $this->error;
             return false;
-        }
+        }*/
         $result = $queryResult[0];
         return $result;
     }
@@ -127,7 +127,7 @@ class QueryExtra extends Model
         return $result;
     }
 
-    public function get_popular_menu()
+    /*public function get_popular_menu()
     {
         $query = '
         SELECT 
@@ -149,9 +149,9 @@ class QueryExtra extends Model
             ];
         }
         return $result;
-    }
+    }*/
 
-    //list rank
+    //list rank belum dibenerin
     public function get_kasir_rank($bulanAwal, $bulanAkhir, $orderby = '')
     {
         $query = '

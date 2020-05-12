@@ -36,7 +36,7 @@
                         <h6 class="p-1 ket-panel">Total Order</h6>
                     </div>
                     <div class="card bg-red shadow p-2 text-center text-light panel">
-                        <h4>
+                        <h4 id="total-pemasukan">
                             <?= $totalPemasukan["sum(total)"]; ?>
                         </h4>
                         <h6 class="p-1 ket-panel">Total Income</h6>
@@ -46,7 +46,7 @@
                 <div class="display-grid grid-col-1 grid-g-2 justify-content-center">
                     <div class="card shadow" style="width: 40rem">
                         <div class="card-header">
-                            <h6 class="m-0">Penjualan Tahun ini</h6>
+                            <h6 class="m-0">Penjualan Bulan ini</h6>
                         </div>
                         <div class="card-content">
                             <canvas id="penjualan" class="chartjs-render-monitor"></canvas>
@@ -83,6 +83,12 @@
 </div>
 
 <script defer>
+    let formatter = new Intl.NumberFormat(['ban', 'id'], {
+        style: 'currency',
+        currency: 'IDR',
+        maximumSignificantDigits: 2
+    });
+
     var chart = document.getElementById('penjualan').getContext('2d');
 
     let salePerThisMonth = <?= $salePerThisMonth?>;
@@ -105,8 +111,8 @@
             labels: labels2,
             datasets: [{
                 label: 'Banyak penjualan ',
-                backgroundColor: 'rgb(255, 99, 132)',
-                borderColor: 'rgb(255, 99, 132)',
+                backgroundColor: '#3498db',
+                borderColor: '#2980b9',
                 data: dayData2
             }]
         },
@@ -137,8 +143,8 @@
             labels: labels,
             datasets: [{
                 label: 'Banyak pemasukan ',
-                backgroundColor: 'rgb(255, 99, 132)',
-                borderColor: 'rgb(255, 99, 132)',
+                backgroundColor: '#2ecc71',
+                borderColor: '#27ae60',
                 data: dayData
             }]
         },
@@ -146,4 +152,7 @@
         // Configuration options go here
         options: {}
     });
+
+    let totalPemasukan = document.getElementById('total-pemasukan')
+    totalPemasukan.textContent = formatter.format(parseInt(totalPemasukan.textContent));
 </script>

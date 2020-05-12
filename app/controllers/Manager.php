@@ -68,7 +68,7 @@ class Manager extends Controller
         $page->topMenu = $extra->get_top_menu($firstDay, $lastDay);
         $page->topToping = $extra->get_top_toping($firstDay, $lastDay);
         $page->topKasir = $extra->get_top_kasir($firstDay, $lastDay);
-
+        
         $page->user_information = $this::get_user();
         $page->render();
     }

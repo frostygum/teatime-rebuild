@@ -221,7 +221,7 @@
     let rendered_records = 10;
     let currentMenuPage = 1;
     let pagination = document.getElementById('pagination');
-    let formatter = new Intl.NumberFormat('en-IN', {
+    let formatter = new Intl.NumberFormat(['ban', 'id'], {
         style: 'currency',
         currency: 'IDR',
         maximumSignificantDigits: 3

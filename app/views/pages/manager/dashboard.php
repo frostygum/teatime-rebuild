@@ -49,7 +49,7 @@
                             <h6 class="m-0">Penjualan Tahun ini</h6>
                         </div>
                         <div class="card-content">
-                            <canvas id="" class="chartjs-render-monitor"></canvas>
+                            <canvas id="penjualan" class="chartjs-render-monitor"></canvas>
                         </div>
                     </div>
                     <div class="card shadow" style="width: 40rem">
@@ -83,6 +83,38 @@
 </div>
 
 <script defer>
+    var chart = document.getElementById('penjualan').getContext('2d');
+
+    let salePerThisMonth = <?= $salePerThisMonth?>;
+    let labels2 = [];
+    let dayData2 = [];
+
+    if(salePerThisMonth != '') {
+        salePerThisMonth.map((data, i) => {
+            labels2.push(data.day);
+            dayData2.push(data.total);
+        });
+    }
+
+    var chart = new Chart(chart, {
+        // The type of chart we want to create
+        type: 'line',
+
+        // The data for our dataset
+        data: {
+            labels: labels2,
+            datasets: [{
+                label: 'Banyak penjualan ',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: dayData2
+            }]
+        },
+
+        // Configuration options go here
+        options: {}
+    });
+
     var ctx = document.getElementById('pemasukan').getContext('2d');
 
     let dataPerThisMonth = <?= $dataPerThisMonth ?>;

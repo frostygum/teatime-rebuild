@@ -25,7 +25,7 @@
                 <div class="display-grid grid-col-3 grid-g-4 m-2 p-2">
                     <div class="card bg-red shadow p-2 text-center text-light panel">
                         <h4>
-                            <?= $totalCup["count(pesanan.idMenu)"]; ?>
+                            <?= $totalCup["count(Pesanan.idMenu)"]; ?>
                         </h4>
                         <h6 class="p-1 ket-panel">Total Cups</h6>
                     </div>

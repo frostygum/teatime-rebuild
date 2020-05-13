@@ -338,8 +338,20 @@ td {
     transition: All 0.1s linear;
 }
 
+.input[type=date] {
+    border: 2px solid var(--light-darker);
+    background-color: var(--light);
+    padding: 0 0.8rem;
+    border-radius: var(--border-radius);
+    min-width: 3rem;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: All 0.1s linear;
+}
+
 .input[type=text]:hover, .input[type=text]:focus, 
-.input[type=password]:hover, .input[type=password]:focus {
+.input[type=password]:hover, .input[type=password]:focus 
+.input[type=date]:hover, .input[type=date]:focus {
     border-color: var(--primary);
 }
 

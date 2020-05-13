@@ -93,6 +93,26 @@
                                 <a class="cursor-pointer" onclick="handle_change_sort('ascending')">Least</a>
                             </div>
                         </div>
+
+                        <div class="card mt-2" style="border: 1px solid var(--secondary)">
+                            <div class="card-header p-1 text-center">
+                                download data (.csv)
+                            </div>
+                           <div class="card-body display-grid justify-content-center grid-g-1 my-1">
+                                <form action="./manager?page=ranking" method="POST" class="d-block m-0">
+                                    <input type="hidden" name="download-rank" value="menu" />
+                                    <button type="submit" class="btn btn-primary block">Menu Rank</button>
+                                </form>
+                                <form action="./manager?page=ranking" method="POST" class="d-block m-0">
+                                    <input type="hidden" name="download-rank" value="topping" />
+                                    <button type="submit" class="btn btn-primary block">Topping Rank</button>
+                                </form>
+                                <form action="./manager?page=ranking" method="POST" class="d-block m-0">
+                                    <input type="hidden" name="download-rank" value="kasir" />
+                                    <button type="submit" class="btn btn-primary block">Kasir Rank</button>
+                                </form>
+                           </div>
+                        </div>
                     </div>
                 </div>
             </div>

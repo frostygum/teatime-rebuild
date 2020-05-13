@@ -16,12 +16,12 @@ class Manager extends Controller
         $user = $auth->get_auth();
 
         if ($user) {
-            if (true) {
-                // $this::set_user($user);
-                return $this->page_manager();
+            if (strtolower($user['tipe']) == 'manager') {
+                return $this->page_manager(); 
             } else {
-                echo 'wrong auth';
                 $auth->logout();
+                $page = $this::create_page('error', 'ErrorWrongAuthUser');
+                $page->render();
             }
         } else {
             $this->redirect('login');

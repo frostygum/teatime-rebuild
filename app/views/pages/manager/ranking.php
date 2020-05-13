@@ -203,17 +203,21 @@ function renderTable(tableId, data) {
     }
 }
 
+let sort = 'descending';
+
 renderTable('table-menu', listMenuDESC);
-renderTable('table-topping', listMenuDESC);
-renderTable('table-kasir', listMenuDESC);
+renderTable('table-topping', listToppingDESC);
+renderTable('table-kasir', listKasirDESC);
 
 function handle_change_sort(sortType) {
     if(sortType == "ascending") {
+        sort = 'ascending';
         renderTable('table-menu', listMenuASC);
         renderTable('table-topping', listToppingASC);
         renderTable('table-kasir', listKasirASC);
     }
     else {
+        sort = 'descending';
         renderTable('table-menu', listMenuDESC);
         renderTable('table-topping', listToppingDESC);
         renderTable('table-kasir', listKasirDESC);
@@ -229,18 +233,27 @@ function handle_change_type(type) {
             document.getElementById('table-kasir').style.display = 'block';
         break;
         case 'menu':
+            handle_change_sort(sort);
             document.getElementById('table-menu').style.display = 'block';
             document.getElementById('table-topping').style.display = 'none';
             document.getElementById('table-kasir').style.display = 'none';
         break;
         case 'toping':
+            handle_change_sort(sort);
             document.getElementById('table-menu').style.display = 'none';
             document.getElementById('table-topping').style.display = 'block';
             document.getElementById('table-kasir').style.display = 'none';
         break;
         case 'kasir':
+            handle_change_sort(sort);
             document.getElementById('table-menu').style.display = 'none';
             document.getElementById('table-topping').style.display = 'none';
+            document.getElementById('table-kasir').style.display = 'block';
+        break;
+        default: 
+            handle_change_sort(sort);
+            document.getElementById('table-menu').style.display = 'block';
+            document.getElementById('table-topping').style.display = 'block';
             document.getElementById('table-kasir').style.display = 'block';
         break;
     }

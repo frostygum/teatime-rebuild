@@ -133,7 +133,8 @@ class Manager extends Controller
         $page->totalPemasukan = $extra->get_total_pemasukan_harian($date);
 
         //data tabel
-        $page->dataDetailTransaksi = $transaction->get_all_transaksi_by_date($date);
+        $dataDetail = $transaction->get_all_transaksi_by_date($date);
+        $page->dataDetailTransaksi = $dataDetail;
         $page->dataTransaksi = $transaction->get_transaksi_by_date($date);
 
         if (isset($_POST['download-data'])) {

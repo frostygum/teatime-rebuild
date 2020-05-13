@@ -140,8 +140,14 @@
                             </div>
                             <div class="mt-2">
                                 <form method="post" action="./manager?page=data">
-                                    <input type="hidden" name="download-data"/>
+                                    <input type="hidden" name="download-data" value="" />
+                                    <input id="input-date" type="hidden" name="date" value="<?= isset($date) ? $date : '0000-00-00' ?>" />
                                     <button type="submit" class="btn btn-primary">Download Data (.csv)</button>
+                                </form>
+
+                                <form method="post" action="./manager?page=data">
+                                    <input type="hidden" name="download-data" value="all" />
+                                    <button type="submit" class="btn btn-primary">Download All Data (.csv)</button>
                                 </form>
                             </div>
                         </div>

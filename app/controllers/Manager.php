@@ -133,21 +133,38 @@ class Manager extends Controller
         $page->totalPemasukan = $extra->get_total_pemasukan_harian($date);
 
         //data tabel
-        $dataDetail = $transaction->get_all_transaksi_by_date($date);
-        $page->dataDetailTransaksi = $dataDetail;
+        $page->dataDetailTransaksi = $transaction->get_all_transaksi_by_date($date);
         $page->dataTransaksi = $transaction->get_transaksi_by_date($date);
 
         if (isset($_POST['download-data'])) {
-            $date = date('Y-m-d');
-
+            if(isset($_POST['date'])) {
+                $date = ($_POST['date']);
+            }
+            else {
+                $date = date('Y-m-d');
+            }
+            
+            $tableTitle =[];
             $currData = [];
-            foreach($dataDetail as $key => $value) {
+
+            switch($_POST['download-data']) {
+                case 'all' :
+                    $currData = $transaction->get_all_transaksi();
+                    $tableTitle = "Detail Data Transaksi Sampai Tanggal $date";
+                break;
+                default :
+                    $currData = $transaction->get_all_transaksi_by_date(str_replace("-", "", $date));
+                    $tableTitle = "Detail Data Transaksi Per-Tanggal: $date";
+                break;
+            }
+            
+            foreach($currData as $key => $value) {
                 array_shift($value);
-                $currData[] = $value;
+                $currData[$key] = $value;
             }
 
             return $this->array_to_csv_download(   
-                "Detail Data Transaksi Per-Tanggal: $date",  
+                $tableTitle,  
                 ["TIME", "CUSTOMER", "DRINK", "TOPPING", "SIZE", "ICE", "SUGAR", "TOTAL"],
                 $currData, 
                 'data-detail.csv'

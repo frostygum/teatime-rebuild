@@ -30,7 +30,9 @@ class Transaction extends Model
             TransaksiPemesanan.total
         FROM pesanan 
             JOIN transaksipemesanan ON transaksipemesanan.id = pesanan.idTransaksi 
-            JOIN menu ON menu.id = pesanan.idMenu JOIN toping ON toping.id = pesanan.idToping 
+            JOIN menu ON menu.id = pesanan.idMenu 
+            LEFT JOIN memilikitoping ON memilikitoping.idPesanan = pesanan.id
+            LEFT JOIN toping ON toping.id = memilikitoping.idToping 
         ';
         $queryResult = $this->db->executeSelectQuery($query);
         $result = [];

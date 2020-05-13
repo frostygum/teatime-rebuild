@@ -7,7 +7,7 @@ Repo ini merupakan project __tugas besar__ kolaborasi mata kuliah __Pemograman B
 download or clone here :
 
 ```bash
-git clone https://github.com/frostygum/teatime-tubes.git
+git clone https://github.com/frostygum/teatime-rebuild.git
 ```
 
 ## Contributor

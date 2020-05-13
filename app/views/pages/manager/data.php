@@ -27,9 +27,21 @@
                     <!--kanan kiri-->
                     <div class="display-grid grid-col-1 align-content-start" style="width: 45rem">
                         <!--button-->
-                        <div class="display-flex flex-align-center justify-content-end mb-2" style="height: 2rem">
+                        <div class="display-flex flex-align-center justify-content-space-between mb-2 align-items-center" style="height: 2rem">
                             <form method="POST" action="./manager?page=data" id="form-date" class="m-0">
-                                <input type="date" class="input" id="tgl" name="tgl" placeholder="Tanggal" style="height:2rem" oninput="handle_date_input()">
+                                <label>Current Date : </label>
+                                <input 
+                                    type="date" 
+                                    class="input" 
+                                    id="tgl" 
+                                    name="tgl" 
+                                    placeholder="Tanggal" 
+                                    style="
+                                        height: 2rem;
+                                    " 
+                                    value="<?= isset($date) ? $date : '0000-00-00' ?>"
+                                    oninput="handle_date_input()"
+                                >
                             </form>
 
                             <div class="dropdown ml-2">
@@ -63,7 +75,16 @@
                                                 <td >' . $value["waktu_transaksi"] . '</td>
                                                 <td >' . $value["nama_pemesan"] . '</td>
                                                 <td >' . $value["nama_minuman"] . '</td>
-                                                <td >' . $value["nama_toping"] . '</td>
+                                                ';
+
+                                                if($value["nama_toping"] != null) {
+                                                    echo '<td>' . $value["nama_toping"] . '</td>';
+                                                }
+                                                else {
+                                                    echo '<td class="text-center">-</td>';
+                                                }
+
+                                        echo '
                                                 <td >' . $value["ukuran_gelas"] . '</td>
                                                 <td >' . $value["banyak_es"] . '</td>
                                                 <td >' . $value["banyak_gula"] . '</td>
@@ -114,8 +135,14 @@
                                 <p class="p-1 ket-panel-data">Total Order</p>
                             </div>
                             <div class="card bg-red shadow p-1 text-center text-light panel-data">
-                                <h6><?= $totalPemasukan["sum(total)"]; ?></h6>
+                                <h6 id="text-total-income"><?= $totalPemasukan["sum(total)"]; ?></h6>
                                 <p class="p-1 ket-panel-data">Total Income</p>
+                            </div>
+                            <div class="mt-2">
+                                <form method="post" action="./manager?page=data">
+                                    <input type="hidden" name="download-data"/>
+                                    <button type="submit" class="btn btn-primary">Download Data (.csv)</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -127,6 +154,15 @@
 </div>
 
 <script type="text/javascript" defer>
+    let formatter = new Intl.NumberFormat(['ban', 'id'], {
+        style: 'currency',
+        currency: 'IDR',
+        maximumSignificantDigits: 2
+    });
+
+    let priceText = document.getElementById('text-total-income');
+    priceText.textContent = formatter.format(parseInt(priceText.textContent));
+
     function handle_date_input() {
         document.getElementById('form-date').submit();
     }

@@ -69,7 +69,7 @@ class Manager extends Controller
         $page->topToping = $extra->get_top_toping($firstDay, $lastDay);
         $page->topKasir = $extra->get_top_kasir($firstDay, $lastDay);
 
-        $salePerMonth = [];
+        $salePerThisMonth = [];
         //get data penjualan sebulan
         for($i = 1; $i < cal_days_in_month(CAL_GREGORIAN,2,date('Y')); $i++) {
             $day = $i;
@@ -120,10 +120,11 @@ class Manager extends Controller
         $extra = new QueryExtra();
 
         if (isset($_POST['tgl'])) {
-            // bisa tuh, stylenya antep aja dl hmm yudh nnt cri dlu itu knpp 
             $date = str_replace("-", "", $_POST['tgl']);
+            $returnDate = $_POST['tgl'];
         } else {
             $date = date('Ymd');
+            $returnDate = date('Y-m-d');
         }
 
         //total
@@ -132,10 +133,28 @@ class Manager extends Controller
         $page->totalPemasukan = $extra->get_total_pemasukan_harian($date);
 
         //data tabel
-        $page->dataDetailTransaksi = $transaction->get_all_transaksi_by_date($date);
+        $dataDetail = $transaction->get_all_transaksi_by_date($date);
+        $page->dataDetailTransaksi = $dataDetail;
         $page->dataTransaksi = $transaction->get_transaksi_by_date($date);
 
+        if (isset($_POST['download-data'])) {
+            $date = date('Y-m-d');
 
+            $currData = [];
+            foreach($dataDetail as $key => $value) {
+                array_shift($value);
+                $currData[] = $value;
+            }
+
+            return $this->array_to_csv_download(   
+                "Detail Data Transaksi Per-Tanggal: $date",  
+                ["TIME", "CUSTOMER", "DRINK", "TOPPING", "SIZE", "ICE", "SUGAR", "TOTAL"],
+                $currData, 
+                'data-detail.csv'
+            );
+        }
+
+        $page->date = $returnDate;
         $page->user_information = $this::get_user();
         $page->render();
     }
@@ -149,15 +168,88 @@ class Manager extends Controller
         $lastDay = date('Ym31');
         require_once MODEL_PATH . 'QueryExtra.php';
         $extra = new QueryExtra();
-        $page->listMenuDESC = $extra->get_menu_rank($firstDay, $lastDay, 'DESC');
-        $page->listTopingDESC = $extra->get_toping_rank($firstDay, $lastDay, 'DESC');
-        $page->listKasirDESC = $extra->get_kasir_rank($firstDay, $lastDay, 'DESC');
 
-        $page->listMenuASC = $extra->get_menu_rank($firstDay, $lastDay, 'ASC');
-        $page->listTopingASC = $extra->get_toping_rank($firstDay, $lastDay, 'ASC');
-        $page->listKasirASC = $extra->get_kasir_rank($firstDay, $lastDay, 'ASC');
+        $listMenuDESC = $extra->get_menu_rank($firstDay, $lastDay, 'DESC');
+        $listToppingDESC = $extra->get_toping_rank($firstDay, $lastDay, 'DESC');
+        $listKasirDESC = $extra->get_kasir_rank($firstDay, $lastDay, 'DESC');
+        $listMenuASC = $extra->get_menu_rank($firstDay, $lastDay, 'ASC');
+        $listToppingASC = $extra->get_toping_rank($firstDay, $lastDay, 'ASC');
+        $listKasirASC =  $extra->get_kasir_rank($firstDay, $lastDay, 'ASC');
+
+        $page->listMenuDESC = $listMenuDESC;
+        $page->listTopingDESC = $listToppingDESC;
+        $page->listKasirDESC = $listKasirDESC;
+
+        $page->listMenuASC = $listMenuASC;
+        $page->listTopingASC = $listToppingASC;
+        $page->listKasirASC = $listKasirASC;
+
+        if (isset($_POST['download-rank'])) {
+            $currData = [];
+            $currDataTitle = [];
+
+            switch($_POST['download-rank']) {
+                case 'menu':
+                    $currData = $listMenuDESC;
+                    $currDataTitle = ["RANK", "NAMA MENU", "TOTAL PENJUALAN"];
+                break;
+                case 'topping':
+                    $currData = $listToppingDESC;
+                    $currDataTitle = ["RANK", "NAMA TOPPING", "TOTAL PENJUALAN"];
+                break;
+                case 'kasir':
+                    $currData = $listKasirDESC;
+                    $currDataTitle = ["RANK", "NAMA KASIR", "TOTAL TRANSAKSI"];
+                break;
+            }
+
+            if($_POST['download-rank'] != 'kasir') {
+                foreach($currData as $key => $value) {
+                    $currData[$key] = [
+                        $key + 1,
+                        $value["nama"],
+                        $value["terjual"]
+                    ];
+                }
+            }
+            else {
+                foreach($currData as $key => $value) {
+                    $currData[$key] = [
+                        $key + 1,
+                        $value["nama"],
+                        $value["transaksi"]
+                    ];
+                }
+            }
+
+            return $this->array_to_csv_download(   
+                "Data Rank" . $_POST['download-rank'],  
+                $currDataTitle,
+                $currData, 
+                'data-rank-' . $_POST['download-rank'] . '.csv'
+            );
+        }
 
         $page->user_information = $this::get_user();
         $page->render();
+    }
+
+    function array_to_csv_download($title = null, $tableTitle = null, $array, $filename = "export.csv", $delimiter = ",") {
+        header('Content-Type: application/csv');
+        header('Content-Disposition: attachment; filename="'.$filename.'";');
+
+        $f = fopen('php://output', 'w');
+
+        if($title != null) {
+            fputcsv($f, [$title], $delimiter);
+        }
+
+        if($title != null) {
+            fputcsv($f, $tableTitle, $delimiter);
+        }
+
+        foreach ($array as $line) {
+            fputcsv($f, $line, $delimiter);
+        }
     }
 }

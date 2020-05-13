@@ -118,3 +118,15 @@
 .content-manager a:hover{
     background-color: var(--teal-darker); 
 }
+
+/* !INPUT DATE */
+
+.input[type=date] {
+    background-color: var(--warning);
+    border-color: transparent;
+}
+
+.input[type=date]:hover, .input[type=date]:focus {
+    background-color: var(--warning);
+    border-color: var(--danger);
+}

@@ -89,7 +89,7 @@ class Manager extends Controller
 
         $dataPerThisMonth = [];
         // get data transaksi sebulan
-        for($i = 1; $i < cal_days_in_month(CAL_GREGORIAN,2,date('Y')); $i++) {
+        for($i = 0; $i < cal_days_in_month(CAL_GREGORIAN,2,date('Y')); $i++) {
             $day = $i;
             if(strlen($i) < 2) {
                 $day = "0" . $i;
